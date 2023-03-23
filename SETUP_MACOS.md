@@ -50,9 +50,20 @@ npm i
 
 ## Development
 
+Install [Flipper](https://fbflipper.com/) as your debugger
+
 You should be able to run `npm start` without issues, which will start:
 
 - React Native Metro Server
 - React Native Developer Tools
 - Starts the Mobile Emulator
 - Builds and run the app
+
+
+# XCode 
+
+Run `npx pod install`
+
+> You cannot use `npm run ios` at the time of writing with XCode 13+
+
+Open `Phoenix.xcworkspace` in XCode and hit the Play button (and wait)
