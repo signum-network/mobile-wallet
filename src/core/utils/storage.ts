@@ -40,9 +40,7 @@ export async function updateUserSettings(
 
 export async function fetchUserSettings(): Promise<UserSettings> {
   try {
-    // do not inline!
-    const usersettings = await load(AsyncStorageKeys.userSettings);
-    return usersettings;
+    return (await load(AsyncStorageKeys.userSettings)) as UserSettings;
   } catch {
     return DefaultUserSettings;
   }

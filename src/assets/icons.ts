@@ -35,3 +35,6 @@ export const logos = {
   iconnode: require('./icons/signum-node.png'),
   signumjs: require('./icons/signumjs-badge.png'),
 };
+export const settingsIcons = {
+  check: require('./icons/check-circle.png'),
+};

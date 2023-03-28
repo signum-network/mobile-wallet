@@ -11,7 +11,8 @@ export const settings = {
       selectNode: 'settings.screens.settings.selectNode',
       copyright: 'settings.screens.settings.copyright',
       credits: 'settings.screens.settings.credits',
-      showTestnetNodes: 'settings.screens.settings.showTestnetNodes',
+      customNodeFound: 'settings.screens.settings.customNodeFound',
+      setCustomNode: 'settings.screens.settings.setCustomNode',
     },
   },
 };

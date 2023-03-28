@@ -1,7 +1,8 @@
-import {Sizes} from '../../../../core/theme/sizes';
-import {Colors} from '../../../../core/theme/colors';
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
+import {Sizes} from '../../../../core/theme/sizes';
+import {Colors} from '../../../../core/theme/colors';
+import {ChildrenProps} from '../../../../typings/children-props';
 
 const styles = StyleSheet.create({
   root: {
@@ -20,8 +21,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export const DangerBox: React.FC = ({children}) => (
+export const DangerBox: React.FC<ChildrenProps> = ({children}) => (
   <View style={styles.root}>
-    <View style={styles.content}>{children}</View>
+    <View>{children}</View>
   </View>
 );

@@ -1,6 +1,5 @@
 import {loadAccounts, loadPasscode} from '../../../modules/auth/store/actions';
 import {getSuggestedFees} from '../../../modules/network/store/actions';
-import {loadHistoricalPriceApiData} from '../../../modules/price-api/store/actions';
 import {AppSettings, UserSettings} from '../../interfaces';
 import {fetchAppSettings} from '../../utils/keychain';
 import {createAction, createActionFn} from '../../utils/store';
@@ -10,7 +9,6 @@ import {
   resetUserSettings,
   updateUserSettings,
 } from '../../utils/storage';
-import {selectChainApi} from './selectors';
 import {asyncTryRun} from '../../utils/asyncTryRun';
 
 const actions = {
@@ -46,9 +44,6 @@ export const loadUserSettings = createActionFn<void, Promise<void>>(
       const settings = await fetchUserSettings();
       console.log('Loaded user Settings', settings);
       dispatch(actions.setUserSettings(settings));
-      if (settings.isAutomaticNodeSelection) {
-        dispatch(autoSelectNode(true));
-      }
     }),
 );
 
@@ -60,27 +55,6 @@ export const resetAppState = createActionFn<void, Promise<void>>(
       dispatch(actions.setUserSettings(settings));
     }),
 );
-
-// export const setAppSettings = createActionFn<AppSettings, Promise<void>>(
-//     async (dispatch, _getState, settings) => {
-//         dispatch(actions.setAppSettings(settings));
-//         await saveAppSettings(settings);
-//     }
-// );
-
-// export const save
-//
-// export const loadCurrentNode = createActionFn<void, Promise<void>>(
-//     async (dispatch, getState) => {
-//         const userSettings = await fetchUserSettings();
-//         const state = getState();
-//         if (selectIsAutomaticNodeSelection(state)) {
-//             const api = selectChainApi(getState());
-//             node = await api.service.selectBestHost(true);
-//         }
-//         // dispatch(actions.setNode(node));
-//     }
-// );
 
 export const setNode = createActionFn<string, Promise<void>>(
   async (dispatch, _getState, node) => {
@@ -103,20 +77,3 @@ export const agreeToTerms = createActionFn<void, Promise<void>>(
   },
 );
 
-export const autoSelectNode = createActionFn<boolean, Promise<void>>(
-  async (dispatch, getState, isAutomatic) => {
-    await asyncTryRun('autoSelectNode', async () => {
-      const partialSettings = {isAutomaticNodeSelection: isAutomatic};
-      dispatch(actions.setUserSettings(partialSettings));
-      await updateUserSettings(partialSettings);
-      console.log('autoSelectNode:', isAutomatic);
-      if (!isAutomatic) {
-        return;
-      }
-      const state = getState();
-      const api = selectChainApi(state);
-      const bestNode = await api.service.selectBestHost(true);
-      dispatch(setNode(bestNode));
-    });
-  },
-);

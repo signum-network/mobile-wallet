@@ -59,13 +59,13 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: Colors.WHITE,
     borderWidth: 1,
-    borderRadius: BorderRadiusSizes.MEDIUM,
+    borderRadius: BorderRadiusSizes.LARGE,
     borderColor: Colors.BLUE,
     padding: Sizes.MEDIUM,
   },
   buttonSmall: {
     padding: Sizes.SMALL,
-    borderRadius: BorderRadiusSizes.SMALL,
+    borderRadius: BorderRadiusSizes.LARGE,
   },
   buttonLarge: {
     padding: Sizes.LARGER,

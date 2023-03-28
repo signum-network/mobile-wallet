@@ -1,23 +1,13 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
-import {tabbarIcons} from '../../../assets/icons';
-import {TabBarIcon} from '../../../core/components/tabbar/TabBarIcon';
 import {defaultStackOptions} from '../../../core/navigation/defaultStackOptions';
 import {routes} from '../../../core/navigation/routes';
 import {ReceiveScreen} from '../screens/ReceiveScreen';
 import {ViewQRCodeScreen} from '../screens/ViewQRCodeScreen';
 
-/*const stackConfig: StackNavigatorConfig = {
-  navigationOptions: {
-    tabBarIcon: (options) => (
-      <TabBarIcon source={tabbarIcons.receive} {...options} />
-    ),
-  },
-};*/
-
 const Stack = createStackNavigator();
 
-export const sendStack = () => (
+export const receiveStack = () => (
   <Stack.Navigator
     initialRouteName={routes.receive}
     screenOptions={defaultStackOptions}>

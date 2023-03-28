@@ -43,7 +43,11 @@ export const PasscodeProtection = ({children}: Props) => {
 
   const restartPasscodeTimer = () => {
     stopPasscodeTimer();
-    // FIXME: dont let me commmented out
+
+    if (defaultSettings.passcodeTime === 0) {
+      return;
+    }
+
     timeoutHandle.current = setTimeout(() => {
       console.log('Protection active...');
       dispatch(setPasscodeModalVisible(true));

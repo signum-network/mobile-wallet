@@ -83,7 +83,6 @@ export interface Reducers<State> {
 export interface AppSettings {
   passcodeTime: number; // Time, after then we should ask passcode again, msec.
   apiSettings: ApiSettings;
-  burstAlertsURL: string;
 }
 
 export interface UserSettings {

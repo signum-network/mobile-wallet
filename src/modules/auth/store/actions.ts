@@ -74,6 +74,7 @@ export const createActiveAccount = createActionFn<string, Account>(
 
     const pinHash = hashSHA256(pin + keys.publicKey);
     const account: Account = {
+      // @ts-ignore
       type: 'active',
       account: address.getNumericId(),
       accountRS: address.getReedSolomonAddress(),
@@ -104,6 +105,7 @@ export const createOfflineAccount = createActionFn<string, Account>(
       throw new Error(i18n.t(auth.errors.accountExist));
     }
     const account: Account = {
+      // @ts-ignore
       type: 'offline',
       account: address.getNumericId(),
       accountRS: address.getReedSolomonAddress(),
@@ -123,6 +125,7 @@ export const hydrateAccount = createActionFn<
   const state = getState();
   const api = selectChainApi(state);
   try {
+    console.log('Fetching Account from: ', api.service.settings.nodeHost);
     const accountDetails = await api.account.getAccount({
       accountId: account.account,
       includeCommittedAmount: true,
@@ -130,7 +133,7 @@ export const hydrateAccount = createActionFn<
     console.log('Got account', accountDetails);
     dispatch(actions.updateAccount(accountDetails));
     if (withTransactions) {
-      dispatch(updateAccountTransactions(accountDetails));
+      await dispatch(updateAccountTransactions(accountDetails));
     }
   } catch (e) {
     console.error('Something failed', e);
@@ -195,6 +198,7 @@ export const updateAccountTransactions = createActionFn<
         account.account,
         true,
       );
+    // @ts-ignore
     updatedAccount.transactions = unconfirmedTransactions.concat(transactions);
     dispatch(actions.updateAccount(updatedAccount));
   } catch (e) {}
@@ -212,8 +216,6 @@ export const addAccount = createActionFn<Account, Promise<Account>>(
 
 export const removeAccount = createActionFn<Account, Promise<void>>(
   async (dispatch, getState, account) => {
-    // tslint:disable-next-line: max-line-length
-    // fetch(`https://burstalerts.com/api/v1/unsubscribe/${removeAccountPayload.deviceId}/${removeAccountPayload.account.accountRS}`);
     dispatch(actions.removeAccount(account));
     await storeAccounts(getState().auth.accounts);
     return;

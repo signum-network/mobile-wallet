@@ -1,6 +1,6 @@
 {
-  "name": "phoenix-mobile-wallet",
-  "description": "The mobile wallet for Signum",
+  "name": "signum-mobile-wallet",
+  "description": "The mobile wallet for Signum Network Blockchain",
   "version": "1.0.0",
   "keywords": [
     "cryptocoin",
@@ -12,7 +12,8 @@
   "contributors": [
     "titanishu",
     "blankey1337",
-    "ohager"
+    "ohager",
+    "timewalker"
   ],
   "repository": {
     "type": "git",
@@ -66,8 +67,9 @@
     "react-native-svg": "^13.7.0",
     "react-native-svg-charts": "^5.4.0",
     "react-native-touch-id": "^4.4.1",
+    "react-native-url-polyfill": "^1.3.0",
     "react-native-version-number": "^0.3.6",
-    "react-native-vision-camera": "github:ChristophGr/react-native-vision-camera#react-native-0.71",
+    "react-native-vision-camera": "^2.15.4",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",

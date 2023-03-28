@@ -1,5 +1,5 @@
 import * as Keychain from 'react-native-keychain';
-import TouchID, {TouchIDError} from 'react-native-touch-id';
+import TouchID from 'react-native-touch-id';
 import {KeyChainKeys} from '../enums';
 import {
   AppSettings,
@@ -8,7 +8,7 @@ import {
 } from '../interfaces';
 import {getDefaultAppSettings} from '../store/app/reducer';
 
-export function isFallbackTouchIDError(e: TouchIDError): boolean {
+export function isFallbackTouchIDError(e: Error): boolean {
   const {name} = e;
   return (
     name === 'LAErrorUserFallback' ||
@@ -37,9 +37,8 @@ export function getCredentials(
 export function authWithTouchId(
   reason: string,
   optionalConfig?: TouchIDOptionalConfig,
-): Promise<boolean | TouchIDError> {
+) {
   const config: TouchIDOptionalConfig = {
-    fallbackTitle: '',
     passcodeFallback: false,
     ...optionalConfig,
   };

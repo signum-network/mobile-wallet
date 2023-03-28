@@ -11,11 +11,6 @@ export const getSuggestedFees = createActionFn<
   void,
   Promise<SuggestedFees | undefined>
 >(async (dispatch, getState) => {
-  // const state = getState();
-  //
-  // const { nodeHost, apiRootUrl } = state.app.chainService.settings;
-  //   composeApi(new ApiSettings(nodeHost, apiRootUrl));
-  // TODO: unify network request actions, add proper error handling and so on
   const chainApi = selectChainApi(getState());
   try {
     const suggestedFees = await chainApi.network.getSuggestedFees();

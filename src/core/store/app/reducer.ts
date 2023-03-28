@@ -14,12 +14,11 @@ export interface AppReduxState {
 // static app settings
 export function getDefaultAppSettings(): AppSettings {
   return {
-    passcodeTime: defaultSettings.passcodeTime, // 10 min,
+    passcodeTime: defaultSettings.passcodeTime,
     apiSettings: {
       nodeHost: defaultSettings.nodeHost,
       reliableNodeHosts: defaultSettings.reliableNodeHosts,
     } as ApiSettings,
-    burstAlertsURL: defaultSettings.burstAlertsURL,
   };
 }
 
@@ -33,7 +32,7 @@ export const getInitialAppState = (): AppReduxState => {
     userSettings: {
       agreedToTerms: false,
       currentNodeHost: defaultSettings.nodeHost,
-      isAutomaticNodeSelection: true,
+      isAutomaticNodeSelection: false,
     },
   };
 };
@@ -70,7 +69,9 @@ const setUserSettings: Reducer<AppReduxState, UserSettings> = (
     action.payload.currentNodeHost &&
     action.payload.currentNodeHost !== state.userSettings.currentNodeHost
   ) {
-    newState.chainApi = composeApi(state.appSettings.apiSettings);
+    newState.appSettings.apiSettings.nodeHost = action.payload.currentNodeHost;
+    console.log('Updating Chain API', state.appSettings.apiSettings);
+    newState.chainApi = composeApi(newState.appSettings.apiSettings);
   }
   return newState;
 };

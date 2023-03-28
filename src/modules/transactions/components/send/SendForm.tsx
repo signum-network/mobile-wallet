@@ -75,7 +75,7 @@ export interface SendFormState {
   messageIsText: boolean;
   encrypt: boolean;
   immutable: boolean;
-  recipient?: Recipient;
+  recipient: Recipient;
   recipientType?: string;
   showSubmitButton?: boolean;
   addMessage?: boolean;
@@ -190,18 +190,21 @@ function isUnstoppableDomain(recipient: string): boolean {
 export class SendForm extends React.Component<Props, SendFormState> {
   private scrollViewRef = createRef<ScrollView>();
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = this.getInitialState(props.deepLinkProps);
   }
 
   getAccounts = (): Array<SelectItem<string>> => {
-    return this.props.accounts
-      .filter(({type}) => type !== 'offline')
-      .map(({accountRS, name}) => ({
-        value: accountRS,
-        label: name || shortenRSAddress(accountRS),
-      }));
+    return (
+      this.props.accounts
+        // @ts-ignore
+        .filter(({type}) => type !== 'offline')
+        .map(({accountRS, name}) => ({
+          value: accountRS,
+          label: name || shortenRSAddress(accountRS),
+        }))
+    );
   };
 
   getAccount = (address: string): Account | null => {
@@ -243,6 +246,9 @@ export class SendForm extends React.Component<Props, SendFormState> {
 
   private async fetchAccountIdFromAlias(alias: string): Promise<string | null> {
     const {aliasURI} = await this.props.onGetAlias(alias);
+
+    // TODO: support for SRC44
+
     const matches = /^acct:(burst|s|ts)?-(.+)@(burst|signum)$/i.exec(aliasURI);
     if (!matches || matches.length < 2) {
       return null;
@@ -253,8 +259,11 @@ export class SendForm extends React.Component<Props, SendFormState> {
 
   UNSAFE_componentWillReceiveProps = ({deepLinkProps}: Props) => {
     if (deepLinkProps) {
-      this.setState(this.getInitialState(deepLinkProps), () =>
-        this.applyRecipientType(this.state.recipient.addressRaw),
+      this.setState(
+        this.getInitialState(deepLinkProps),
+        () =>
+          this.state.recipient &&
+          this.applyRecipientType(this.state.recipient.addressRaw),
       );
     }
   };
@@ -514,8 +523,8 @@ export class SendForm extends React.Component<Props, SendFormState> {
     this.handleReset();
     this.props.onSubmit({
       address,
-      amount,
-      fee,
+      amount: amount || '',
+      fee: fee || '',
       // @ts-ignore
       sender,
       message,
@@ -646,7 +655,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
               rightIcons={RecipientRightIcons}
             />
             <BInput
-              value={amount}
+              value={amount || '0'}
               onChange={this.handleAmountChange}
               keyboard={KeyboardTypes.NUMERIC}
               editable={!this.state.immutable}
@@ -655,7 +664,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
               rightIcons={AmountRightIcons}
             />
             <BInput
-              value={fee}
+              value={fee || '0'}
               onChange={this.handleFeeChange}
               keyboard={KeyboardTypes.NUMERIC}
               editable={!this.state.immutable}

@@ -7,7 +7,6 @@ import {PlusHeaderButton} from '../../../core/components/header/PlusHeaderButton
 import {i18n} from '../../../core/i18n';
 import {FullHeightView} from '../../../core/layout/FullHeightView';
 import {Screen} from '../../../core/layout/Screen';
-import {routes} from '../../../core/navigation/routes';
 import {ApplicationState} from '../../../core/store/initialState';
 import {core} from '../../../core/translations';
 import {HomeStackedAreaChart} from '../../home/components/HomeStackedAreaChart';

@@ -1,36 +1,40 @@
-import React, {useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {connect, useDispatch, useSelector} from 'react-redux';
-import {StyleSheet, View, Image} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import VersionNumber from 'react-native-version-number';
 import {BSelect, SelectItem} from '../../../core/components/base/BSelect';
-import {Button, ButtonThemes} from '../../../core/components/base/Button';
+import {
+  Button,
+  ButtonSizes,
+  ButtonThemes,
+} from '../../../core/components/base/Button';
 import {BCheckbox} from '../../../core/components/base/BCheckbox';
 import {Text} from '../../../core/components/base/Text';
 import {HeaderTitle} from '../../../core/components/header/HeaderTitle';
 import {i18n} from '../../../core/i18n';
-import {InjectedReduxProps} from '../../../core/interfaces';
 import {FullHeightView} from '../../../core/layout/FullHeightView';
 import {Screen} from '../../../core/layout/Screen';
-import {routes} from '../../../core/navigation/routes';
 import {AppReduxState} from '../../../core/store/app/reducer';
 import {Colors} from '../../../core/theme/colors';
 import {FontSizes, Sizes} from '../../../core/theme/sizes';
 import {resetAuthState} from '../../auth/store/actions';
 import {AuthReduxState} from '../../auth/store/reducer';
 import {settings} from '../translations';
-import {autoSelectNode, setNode} from '../../../core/store/app/actions';
+import {setNode} from '../../../core/store/app/actions';
 import {defaultSettings} from '../../../core/environment';
 import {useNavigation} from '@react-navigation/native';
 import {
   selectCurrentNode,
   selectIsAutomaticNodeSelection,
 } from '../../../core/store/app/selectors';
-import {SwitchItem} from '../../../core/components/base/SwitchItem';
-import {logos} from '../../../assets/icons';
+import {logos, settingsIcons} from '../../../assets/icons';
 import {ResetModal} from '../../../core/components/modals/ResetModal';
 import {RootStackParamList} from '../../auth/navigation/mainStack';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ApplicationState} from '../../../core/store/initialState';
+import {BInput} from '../../../core/components/base/BInput';
+import {LedgerClientFactory} from '@signumjs/core';
+import {LoadingIndicator} from '../../../core/components/base/LoadingIndicator';
 
 type SettingsScreenNavProp = StackNavigationProp<
   RootStackParamList,
@@ -50,7 +54,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   settingsZone: {
-    flex: 4,
+    marginVertical: Sizes.MEDIUM,
+    position: 'relative',
+    padding: Sizes.MEDIUM,
+    borderRadius: 4,
+    borderColor: Colors.WHITE,
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
+  fillZone: {
+    flex: 2,
   },
   hintView: {
     paddingTop: Sizes.SMALL,
@@ -59,9 +72,12 @@ const styles = StyleSheet.create({
   bodyText: {
     padding: 10,
   },
+  customNodeContainer: {
+    marginVertical: Sizes.MEDIUM,
+  },
   dangerZone: {
     position: 'relative',
-    flex: 1,
+    // flex: 1,
     padding: Sizes.MEDIUM,
     borderRadius: 4,
     borderColor: Colors.WHITE,
@@ -85,41 +101,106 @@ const styles = StyleSheet.create({
     width: 40,
     marginRight: 8,
   },
+  versionInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  checkIcon: {
+    marginRight: 2,
+    width: 20,
+    height: 20,
+    backgroundColor: Colors.TRANSPARENT,
+  },
+  acceptButton: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
+interface NodeInformation {
+  version: string;
+  networkName: string;
+}
+
 const Settings = ({}: Props) => {
+  const verifyTimeoutRef = useRef<number | undefined>();
   const dispatch = useDispatch();
   const navigation = useNavigation<SettingsScreenNavProp>();
   const [erasePromptVisible, setErasePromptVisible] = useState(false);
-  const [showTestnetNodes, setShowTestnetNodes] = useState(false);
+  const [nodeEditorEnabled, setNodeEditorEnabled] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [nodeInfo, setNodeInfo] = useState<NodeInformation | null>(null);
   const currentNode = useSelector(selectCurrentNode);
+  const [customNode, setCustomNode] = useState(currentNode);
   const isAutomatic = useSelector(selectIsAutomaticNodeSelection);
 
   const toggleConfirmDeletePrompt = () => {
     setErasePromptVisible(!erasePromptVisible);
   };
 
-  const confirmErase = () => {
-    dispatch(resetAuthState());
+  const confirmErase = async () => {
+    await dispatch(resetAuthState());
     navigation.navigate('Accounts');
     toggleConfirmDeletePrompt();
   };
 
   const handleNodeSelect = (node: string) => {
-    // setSelectedNode(node);
     if (node !== currentNode) {
       dispatch(setNode(node));
     }
   };
 
-  const setNodeAutoSelection = (automatic: boolean) => {
-    dispatch(autoSelectNode(automatic));
+  const verifyNode = async (nodeUrl: URL): Promise<NodeInformation> => {
+    const api = LedgerClientFactory.createClient({
+      nodeHost: nodeUrl.origin,
+    });
+
+    const [info, status] = await Promise.all([
+      api.network.getNetworkInfo(),
+      api.network.getBlockchainStatus(),
+    ]);
+    return {
+      networkName: info.networkName,
+      version: status.version,
+    };
   };
 
-  const getNodeList = () => {
-    const nodeHosts: String[] = defaultSettings.reliableNodeHosts.concat(
-      showTestnetNodes ? defaultSettings.testnetNodeHosts : [],
-    );
+  const handleSetCustomNode = async (url: string) => {
+    try {
+      setCustomNode(url);
+      const nodeUrl = new URL(url);
+      verifyTimeoutRef.current && clearTimeout(verifyTimeoutRef.current);
+      verifyTimeoutRef.current = setTimeout(() => {
+        setLoading(true);
+      }, 300);
+      const info = await verifyNode(nodeUrl);
+      console.log('Custom Node', info);
+      setNodeInfo(info);
+    } catch (e) {
+      setNodeInfo(null);
+    } finally {
+      verifyTimeoutRef.current && clearTimeout(verifyTimeoutRef.current);
+      setLoading(false);
+    }
+  };
+
+  const handleAcceptNode = () => {
+    dispatch(setNode(customNode));
+  };
+
+  const nodeListItems = useMemo(() => {
+    const nodeHosts: String[] = defaultSettings.reliableNodeHosts;
+    if (
+      currentNode &&
+      !nodeHosts.find(n => n.toLowerCase() === currentNode.toLowerCase())
+    ) {
+      nodeHosts.push(currentNode);
+    }
+
+    nodeHosts.sort();
     return nodeHosts.map(
       n =>
         ({
@@ -127,7 +208,8 @@ const Settings = ({}: Props) => {
           value: n,
         } as SelectItem<string>),
     );
-  };
+  }, [currentNode]);
+
   return (
     <Screen>
       <FullHeightView>
@@ -136,28 +218,48 @@ const Settings = ({}: Props) => {
           <View style={styles.settingsZone}>
             <BSelect
               value={currentNode}
-              items={getNodeList()}
+              items={nodeListItems}
               onChange={handleNodeSelect}
               title={i18n.t(settings.screens.settings.selectNode)}
               placeholder={i18n.t(settings.screens.settings.selectNode)}
               disabled={isAutomatic}
             />
-
-            <View>
-              <SwitchItem
-                onChange={setNodeAutoSelection}
-                text={i18n.t(settings.screens.settings.autoNodeSelection)}
-                labelColor={Colors.WHITE}
-                value={isAutomatic}
+            <View style={styles.customNodeContainer}>
+              <BCheckbox
+                onCheck={setNodeEditorEnabled}
+                label={i18n.t(settings.screens.settings.setCustomNode)}
+                value={nodeEditorEnabled}
               />
+              {nodeEditorEnabled && (
+                <View>
+                  <BInput value={customNode} onChange={handleSetCustomNode} />
+                </View>
+              )}
+              <LoadingIndicator show={loading} showDelay={0} />
+              {nodeInfo && !loading && (
+                <View style={styles.versionInfo}>
+                  <Text size={FontSizes.SMALLER} color={Colors.WHITE}>
+                    {nodeInfo.networkName} {nodeInfo.version}
+                  </Text>
+                  <Button
+                    theme={ButtonThemes.ACCENT}
+                    onPress={handleAcceptNode}
+                    size={ButtonSizes.SMALL}>
+                    <View style={styles.acceptButton}>
+                      <Image
+                        source={settingsIcons.check}
+                        style={styles.checkIcon}
+                      />
+                      <Text size={FontSizes.SMALL} color={Colors.WHITE}>
+                        Accept
+                      </Text>
+                    </View>
+                  </Button>
+                </View>
+              )}
             </View>
-
-            <BCheckbox
-              label={i18n.t(settings.screens.settings.showTestnetNodes)}
-              value={showTestnetNodes}
-              onCheck={checked => setShowTestnetNodes(checked)}
-            />
           </View>
+          <View style={styles.fillZone} />
           <View style={styles.dangerZone}>
             <View style={styles.dangerZoneLabel}>
               <Text color={Colors.WHITE} size={FontSizes.SMALLER}>

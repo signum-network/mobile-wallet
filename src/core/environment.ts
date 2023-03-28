@@ -3,7 +3,6 @@ import {toNumber, toString} from 'lodash';
 // @ts-ignore-next-line WARNING: typescript can't check what we have in .env
 // tslint:disable-next-line: max-line-length
 import {
-  BURSTALERTS_HOST_URL,
   CRYPTOCOMPARE_HOST_URL,
   DEFAULT_NODE_HOST,
   DEFAULT_PASSCODE_TIME,
@@ -18,7 +17,6 @@ if (
   !DEFAULT_NODE_HOST ||
   !DEFAULT_PASSCODE_TIME ||
   !CRYPTOCOMPARE_HOST_URL ||
-  !BURSTALERTS_HOST_URL ||
   !RELIABLE_NODE_HOSTS ||
   !BLACK_LISTED_ACCOUNT_IDS
 ) {
@@ -37,7 +35,6 @@ const defaultSettings = {
   testnetNodeHosts: fromCsvString(TESTNET_NODE_HOSTS),
   passcodeTime: toNumber(DEFAULT_PASSCODE_TIME),
   cryptoCompareURL: toString(CRYPTOCOMPARE_HOST_URL),
-  burstAlertsURL: toString(BURSTALERTS_HOST_URL),
   blackListedAccountIds: fromCsvString(BLACK_LISTED_ACCOUNT_IDS),
 };
 
