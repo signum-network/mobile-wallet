@@ -12,6 +12,7 @@ export enum BorderRadiusSizes {
 }
 
 export enum FontSizes {
+  SMALLEST = 10,
   SMALLER = 12,
   SMALL = 16,
   MEDIUM = 20,

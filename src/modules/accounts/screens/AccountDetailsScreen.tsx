@@ -18,6 +18,7 @@ import {RootStackParamList} from '../navigation/mainStack';
 import {updateAccountTransactions} from '../store/actions';
 import {selectAccount} from '../store/selectors';
 import {auth} from '../translations';
+import {defaultSettings} from "../../../core/environment";
 
 type AccountDetailsRouteProps = RouteProp<RootStackParamList, 'AccountDetails'>;
 type AccountDetailsNavProp = StackNavigationProp<
@@ -53,7 +54,10 @@ const AccountDetails = (props: Props) => {
       }
     };
     updateAccounts();
-    timeoutHandle.current = setInterval(updateAccounts, 30 * 1000);
+    timeoutHandle.current = setInterval(
+      updateAccounts,
+      defaultSettings.pollingTime,
+    );
     return () => {
       clearAccountInterval();
     };

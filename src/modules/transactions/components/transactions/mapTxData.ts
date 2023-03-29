@@ -2,6 +2,7 @@ import {Transaction} from '@signumjs/core';
 import {Amount, ChainTime} from '@signumjs/util';
 import {startCase, toNumber} from 'lodash';
 import {formatAttachmentData} from './formatAttachmentData';
+import {formatDistributionData} from './formatDistributionData';
 
 export interface TxKeyValue {
   key: string;
@@ -9,6 +10,7 @@ export interface TxKeyValue {
 }
 
 const ExcludeList: string[] = [
+    'attachmentBytes',
   'ecBlockHeight',
   'ecBlockId',
   'blockTimestamp',
@@ -36,6 +38,18 @@ const KeyValueMappers = {
     key: 'Payload',
     value: formatAttachmentData(value),
   }),
+  distribution: ({value}: TxKeyValue): TxKeyValue => ({
+    key: 'Distribution',
+    value: formatDistributionData(value),
+  }),
+  senderPublicKey: ({value}: TxKeyValue): TxKeyValue => ({
+    key: 'Sender Public Key',
+    value:
+      value ===
+      '0000000000000000000000000000000000000000000000000000000000000000'
+        ? 'Smart Contract'
+        : value,
+  }),
 };
 
 // @ts-ignore
@@ -43,10 +57,9 @@ const mapKeyValueTuple = (
   {key, value}: TxKeyValue,
   tx: Transaction,
 ): TxKeyValue => {
-  const tuple = KeyValueMappers[key]
-    ? // @ts-ignore
-      KeyValueMappers[key]({key, value}, tx)
-    : {key, value};
+  // @ts-ignore
+  const mapperFn = KeyValueMappers[key];
+  const tuple = mapperFn ? mapperFn({key, value}, tx) : {key, value};
   tuple.key = startCase(tuple.key);
   return tuple;
 };
@@ -74,7 +87,7 @@ export function mapTxData(transaction: Transaction): TxKeyValue[] {
             key,
             value:
               typeof value === 'object'
-                ? JSON.stringify(value, null, '  ')
+                ? JSON.stringify(value, null, '\t')
                 : value.toString(),
           },
           transaction,

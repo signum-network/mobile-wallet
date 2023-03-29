@@ -1,4 +1,4 @@
-import {Transaction} from '@signumjs/core';
+import {Transaction, TransactionArbitrarySubtype, TransactionType} from '@signumjs/core';
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -7,16 +7,22 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  Image,
 } from 'react-native';
-import {Text, TextAlign} from '../../../../../core/components/base/Text';
-import {Colors} from '../../../../../core/theme/colors';
-import {LabeledTextField} from '../../../../../core/components/base/LabeledTextField';
+import {Text, TextAlign} from '../../../../core/components/base/Text';
+import {Colors} from '../../../../core/theme/colors';
+import {LabeledTextField} from '../../../../core/components/base/LabeledTextField';
 import {mapTxData, TxKeyValue} from './mapTxData';
-import {mountTxTypeString} from './mountTxTypeString';
-import {FontSizes} from '../../../../../core/theme/sizes';
-import {i18n} from '../../../../../core/i18n';
-import {auth} from '../../../translations';
+import {mountTxTypeString} from '../../../../core/utils/mountTxTypeString';
+import {FontSizes, Sizes} from '../../../../core/theme/sizes';
+import {i18n} from '../../../../core/i18n';
+import {auth} from '../../../accounts/translations';
 import Clipboard from '@react-native-clipboard/clipboard';
+import {useSelector} from 'react-redux';
+import {selectAccount} from '../../../accounts/store/selectors';
+import {actionIcons} from '../../../../assets/icons';
+import {tryParseNativeCameraError} from "react-native-vision-camera";
+import {TransactionMessageView} from "./TransactionMessageView";
 
 interface Props {
   transaction: Transaction;
@@ -28,21 +34,34 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   header: {},
+  transactionId: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   data: {
     height: '84%',
     backgroundColor: Colors.TRANSPARENT,
     color: Colors.WHITE,
   },
+  copyIcon: {
+    marginLeft: 2,
+    width: 16,
+    height: 16,
+  },
+  message: {
+    marginTop: Sizes.MEDIUM,
+    padding: Sizes.MEDIUM,
+    borderRadius: 4,
+    borderColor: Colors.WHITE,
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
 });
 
 export const TransactionDetails: React.FC<Props> = ({transaction}) => {
-  const [data, setData] = useState<TxKeyValue[]>([]);
-
-  useEffect(() => {
-    const txData = mapTxData(transaction);
-    setData(txData);
-  }, [transaction]);
-
+  const data = mapTxData(transaction);
   const touchedItem = (v: string = '') => {
     const value = v.trim();
     if (!value) {
@@ -52,8 +71,6 @@ export const TransactionDetails: React.FC<Props> = ({transaction}) => {
     Clipboard.setString(value);
     Alert.alert(i18n.t(auth.transactionDetails.copiedSuccessfully, {value}));
   };
-
-  // TODO: show messages here also
   const TouchableLineItem: ListRenderItem<TxKeyValue> = ({item}) => (
     <TouchableOpacity onPress={() => touchedItem(item.value)}>
       <LabeledTextField
@@ -67,20 +84,23 @@ export const TransactionDetails: React.FC<Props> = ({transaction}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => touchedItem(transaction.transaction)}>
+        <TouchableOpacity style={styles.transactionId}
+            onPress={() => touchedItem(transaction.transaction)}>
           <Text
             color={Colors.WHITE}
             textAlign={
               TextAlign.CENTER
             }>{`Id: ${transaction.transaction}`}</Text>
+          <Image style={styles.copyIcon} source={actionIcons.copy} />
         </TouchableOpacity>
         <Text
           size={FontSizes.SMALL}
           color={Colors.GREY}
           textAlign={TextAlign.CENTER}>
-          {mountTxTypeString(transaction)}
+          {mountTxTypeString(transaction.type, transaction.subtype)}
         </Text>
       </View>
+      <TransactionMessageView transaction={transaction} />
       <View style={styles.data}>
         <FlatList data={data} renderItem={TouchableLineItem} />
       </View>

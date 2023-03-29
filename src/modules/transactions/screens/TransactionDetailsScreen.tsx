@@ -1,4 +1,3 @@
-import {Account} from '@signumjs/core';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
@@ -10,11 +9,9 @@ import {FullHeightView} from '../../../core/layout/FullHeightView';
 import {Screen} from '../../../core/layout/Screen';
 import {Colors} from '../../../core/theme/colors';
 import {PriceInfoReduxState} from '../../price-api/store/reducer';
-import {RootStackParamList} from '../navigation/mainStack';
-import {auth} from '../translations';
-import {TransactionDetails} from '../components/details/transactions/TransactionDetails';
-import {ApplicationState} from '../../../core/store/initialState';
-import {connect} from 'react-redux';
+import {RootStackParamList} from '../../accounts/navigation/mainStack';
+import {auth} from '../../accounts/translations';
+import {TransactionDetails} from '../components/transactions/TransactionDetails';
 
 type TransactionDetailsRouteProps = RouteProp<
   RootStackParamList,

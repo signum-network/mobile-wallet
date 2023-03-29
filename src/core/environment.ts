@@ -9,6 +9,7 @@ import {
   RELIABLE_NODE_HOSTS,
   BLACK_LISTED_ACCOUNT_IDS,
   TESTNET_NODE_HOSTS,
+  UPDATE_POLLING_SECONDS,
 } from '@env';
 
 // So we check it like this
@@ -18,7 +19,8 @@ if (
   !DEFAULT_PASSCODE_TIME ||
   !CRYPTOCOMPARE_HOST_URL ||
   !RELIABLE_NODE_HOSTS ||
-  !BLACK_LISTED_ACCOUNT_IDS
+  !BLACK_LISTED_ACCOUNT_IDS ||
+    !UPDATE_POLLING_SECONDS
 ) {
   throw new Error('Incorrect .env config!');
 }
@@ -34,6 +36,7 @@ const defaultSettings = {
   reliableNodeHosts: fromCsvString(RELIABLE_NODE_HOSTS),
   testnetNodeHosts: fromCsvString(TESTNET_NODE_HOSTS),
   passcodeTime: toNumber(DEFAULT_PASSCODE_TIME),
+  pollingTime: toNumber(UPDATE_POLLING_SECONDS) * 1000,
   cryptoCompareURL: toString(CRYPTOCOMPARE_HOST_URL),
   blackListedAccountIds: fromCsvString(BLACK_LISTED_ACCOUNT_IDS),
 };

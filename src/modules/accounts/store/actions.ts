@@ -190,8 +190,9 @@ export const updateAccountTransactions = createActionFn<
     const {transactions} = await api.account.getAccountTransactions({
       accountId: account.account,
       firstIndex: 0,
-      lastIndex: 200,
+      lastIndex: 100,
       includeIndirect: true,
+        resolveDistributions: true,
     });
     const {unconfirmedTransactions} =
       await api.account.getUnconfirmedAccountTransactions(

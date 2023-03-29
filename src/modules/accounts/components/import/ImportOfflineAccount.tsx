@@ -6,6 +6,42 @@ import {i18n} from '../../../../core/i18n';
 import {flexGrowStyle} from '../../../../core/utils/styles';
 import {auth} from '../../translations';
 import {AccountTypeHint} from './AccountTypeHint';
+import {formatWithMask} from 'react-native-mask-input';
+
+const AddressMask = [
+  'S',
+  '-',
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  '-',
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  '-',
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  '-',
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+  /[a-zA-Z0-9]/,
+];
+function formatAddress(text: string): string {
+  // S-ABCD-ABCD-ABCD-ABCDE
+  if (text.length < 2) {
+    return 'S-';
+  }
+  return formatWithMask({
+    mask: AddressMask,
+    text,
+  }).masked.toUpperCase();
+}
 
 interface Props {
   onFinish: (address: string) => void;
@@ -21,7 +57,7 @@ export class ImportOfflineAccount extends React.PureComponent<Props, State> {
   };
 
   handleChangeAddress = (address: string) => {
-    this.setState({address});
+    this.setState({address: formatAddress(address)});
   };
 
   handleFinish = () => {

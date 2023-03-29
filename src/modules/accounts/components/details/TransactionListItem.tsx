@@ -5,7 +5,7 @@ import {
   Transaction,
 } from '@signumjs/core';
 import {Amount, ChainTime} from '@signumjs/util';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {transactionIcons} from '../../../../assets/icons';
 import {Text, TextAlign} from '../../../../core/components/base/Text';
@@ -17,6 +17,7 @@ import {
 } from '../../../../core/theme/sizes';
 import {trimAddressPrefix} from '../../../../core/utils/account';
 import {AmountText} from '../../../../core/components/base/Amount';
+import {mountTxTypeString} from "../../../../core/utils/mountTxTypeString";
 
 interface Props {
   transaction: Transaction;
@@ -77,116 +78,99 @@ const styles: any = {
   },
 };
 
-export class TransactionListItem extends React.PureComponent<Props> {
-  isMultiOutPayment(transaction: Transaction): boolean {
-    return (
-      isMultiOutSameTransaction(transaction) ||
-      isMultiOutTransaction(transaction)
-    );
-  }
+function isMultiOutPayment(transaction: Transaction): boolean {
+  return (
+    isMultiOutSameTransaction(transaction) || isMultiOutTransaction(transaction)
+  );
+}
 
-  isOwnAccount(accountId: string | undefined): boolean {
-    return !!(accountId && accountId === this.props.account);
-  }
+export const TransactionListItem = ({account, transaction, onPress}: Props) => {
+  const isOwnAccount = (accountId: string | undefined): boolean =>
+    !!(accountId && accountId === account);
+  const isAmountNegative = isOwnAccount(transaction.sender);
 
-  getAmount = (transaction: Transaction): Amount => {
+  const amount = useMemo(() => {
     let result: Amount;
-    if (this.isAmountNegative(transaction)) {
+    if (isAmountNegative) {
       result = Amount.fromPlanck(transaction.amountNQT || '0').multiply(-1);
     } else {
-      result = this.isMultiOutPayment(transaction)
+      result = isMultiOutPayment(transaction)
         ? // here is an inconsistency in the signumjs lib
-          Amount.fromSigna(getRecipientsAmount(this.props.account, transaction))
+          Amount.fromSigna(getRecipientsAmount(account, transaction))
         : Amount.fromPlanck(transaction.amountNQT || '0');
     }
     return result;
-  };
+  }, [account, isAmountNegative, transaction]);
 
-  isAmountNegative = (transaction: Transaction): boolean => {
-    return this.isOwnAccount(transaction.sender);
-  };
+  const txTypeString = useMemo(() => {
+    return mountTxTypeString(transaction.type, transaction.subtype)
+  }, [transaction.type, transaction.subtype]);
 
-  handlePress = () => {
-    const {onPress, transaction} = this.props;
+  const handlePress = () => {
     onPress(transaction);
   };
 
-  renderIcon = () => {
-    const {confirmations = 0} = this.props.transaction;
+  const {
+    transaction: transactionId = '',
+    timestamp = 0,
+    recipientRS = '',
+    senderRS = '',
+    confirmations,
+  } = transaction;
+  const isPending = confirmations === undefined;
+  let accountRS = trimAddressPrefix(isAmountNegative ? recipientRS : senderRS);
 
-    const icon =
-      confirmations > 0 ? transactionIcons.done : transactionIcons.waiting;
-
-    return <Image source={icon} style={styles.icon} />;
-  };
-
-  render() {
-    const {
-      transaction = '',
-      timestamp = 0,
-      recipientRS = '',
-      senderRS = '',
-      confirmations,
-    } = this.props.transaction;
-    const isPending = confirmations === undefined;
-    const isNegative = this.isAmountNegative(this.props.transaction);
-    const amount = this.getAmount(this.props.transaction);
-    let accountRS = trimAddressPrefix(isNegative ? recipientRS : senderRS);
-
-    if (
-      this.isMultiOutPayment(this.props.transaction) &&
-      this.isOwnAccount(this.props.transaction.sender)
-    ) {
-      accountRS = 'Multi-out Payment';
-    }
-
-    const date = ChainTime.fromChainTimestamp(timestamp)
-      .getDate()
-      .toLocaleString();
-    return (
-      <TouchableOpacity
-        style={[styles.view, {opacity: isPending ? 0.75 : 1}]}
-        onPress={this.handlePress}>
-        <View style={styles.iconView}>
-          <Image
-            source={
-              isPending ? transactionIcons.waiting : transactionIcons.done
-            }
-            style={styles.icon}
-          />
-        </View>
-        <View style={styles.mainView}>
-          <View style={styles.hintView}>
-            <View>
-              <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
-                {transaction}
-              </Text>
-            </View>
-            <View>
-              <Text
-                color={Colors.WHITE}
-                size={FontSizes.SMALLER}
-                textAlign={TextAlign.RIGHT}>
-                {date}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.dataView}>
-            <View style={styles.view}>
-              <AmountText
-                color={isNegative ? Colors.RED : Colors.GREEN}
-                size={FontSizes.MEDIUM}
-                amount={amount}
-              />
-            </View>
-            <View style={styles.account}>
-              <Text color={Colors.WHITE} bebasFont size={FontSizes.SMALL}>
-                {accountRS}
-              </Text>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
+  if (isOwnAccount(transaction.sender) && isMultiOutPayment(transaction)) {
+    accountRS = 'Multi-out Payment';
   }
-}
+
+  const date = ChainTime.fromChainTimestamp(timestamp)
+    .getDate()
+    .toLocaleString();
+  return (
+    <TouchableOpacity
+      style={[styles.view, {opacity: isPending ? 0.75 : 1}]}
+      onPress={handlePress}>
+      <View style={styles.iconView}>
+        <Image
+          source={isPending ? transactionIcons.waiting : transactionIcons.done}
+          style={styles.icon}
+        />
+      </View>
+      <View style={styles.mainView}>
+        <View style={styles.hintView}>
+          <View>
+            <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
+              {transactionId}
+            </Text>
+            <Text color={Colors.GREY} size={FontSizes.SMALLEST}>
+              {txTypeString}
+            </Text>
+          </View>
+          <View>
+            <Text
+              color={Colors.WHITE}
+              size={FontSizes.SMALLER}
+              textAlign={TextAlign.RIGHT}>
+              {date}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.dataView}>
+          <View style={styles.view}>
+            <AmountText
+              color={isAmountNegative ? Colors.RED : Colors.GREEN}
+              size={FontSizes.MEDIUM}
+              amount={amount}
+            />
+          </View>
+          <View style={styles.account}>
+            <Text color={Colors.WHITE} bebasFont size={FontSizes.SMALL}>
+              {accountRS}
+            </Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+};

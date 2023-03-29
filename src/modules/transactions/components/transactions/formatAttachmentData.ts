@@ -32,11 +32,6 @@ export function formatAttachmentData(jsonString: string): string {
       return '[Multiple Recipient List]';
     }
 
-    if (json['version.EncryptedMessage']) {
-      // TODO: add decryption feature
-      return '[Encrypted Message]';
-    }
-
     // TODO add more here, i.e. assets
 
     return jsonString;

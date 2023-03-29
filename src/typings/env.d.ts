@@ -1,4 +1,5 @@
 declare module '@env' {
+  export const UPDATE_POLLING_SECONDS: string;
   export const CRYPTOCOMPARE_HOST_URL: string;
   export const DEFAULT_NODE_HOST: string;
   export const DEFAULT_PASSCODE_TIME: string;

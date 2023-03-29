@@ -27,7 +27,7 @@ import {AddAccountScreen} from './src/modules/accounts/screens/AddAccountScreen'
 import {CreateAccountScreen} from './src/modules/accounts/screens/CreateAccountScreen';
 import {HomeScreen} from './src/modules/accounts/screens/HomeScreen';
 import {ImportAccountScreen} from './src/modules/accounts/screens/ImportAccountScreen';
-import {TransactionDetailsScreen} from './src/modules/accounts/screens/TransactionDetailsScreen';
+import {TransactionDetailsScreen} from './src/modules/transactions/screens/TransactionDetailsScreen';
 import {SettingsScreen} from './src/modules/settings/screens/SettingsScreen';
 import {settings} from './src/modules/settings/translations';
 import {ReceiveScreen} from './src/modules/transactions/screens/ReceiveScreen';

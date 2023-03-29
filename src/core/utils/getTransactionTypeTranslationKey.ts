@@ -40,6 +40,8 @@ function getKeyForArbitrarySubtype(subtype: number): string {
       return 'alias_sale_or_transfer';
     case TransactionArbitrarySubtype.AliasBuy:
       return 'alias_buy';
+    case TransactionArbitrarySubtype.TopLevelDomainAssignment:
+      return 'top_level_domain_assignment';
   }
   return 'unknown';
 }
@@ -47,9 +49,9 @@ function getKeyForArbitrarySubtype(subtype: number): string {
 function getKeyForAssetSubtype(subtype: number): string {
   switch (subtype) {
     case TransactionAssetSubtype.AssetIssuance:
-      return 'asset_issuance';
+      return 'token_issuance';
     case TransactionAssetSubtype.AssetTransfer:
-      return 'asset_transfer';
+      return 'token_transfer';
     case TransactionAssetSubtype.AskOrderPlacement:
       return 'ask_order_placement';
     case TransactionAssetSubtype.BidOrderPlacement:
@@ -58,6 +60,16 @@ function getKeyForAssetSubtype(subtype: number): string {
       return 'ask_order_cancellation';
     case TransactionAssetSubtype.BidOrderCancellation:
       return 'bid_order_cancellation';
+    case TransactionAssetSubtype.AssetMint:
+      return 'token_minting';
+    case TransactionAssetSubtype.AssetAddTreasureyAccount:
+      return 'add_treasury_account';
+    case TransactionAssetSubtype.AssetDistributeToHolders:
+      return 'dividend_distribution';
+    case TransactionAssetSubtype.AssetMultiTransfer:
+      return 'token_multi_transfer';
+    case TransactionAssetSubtype.AssetTransferOwnership:
+      return 'token_transfer_ownership';
   }
   return 'unknown';
 }
