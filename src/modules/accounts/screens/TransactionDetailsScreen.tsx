@@ -31,7 +31,7 @@ interface Props {
   navigation: TransactionDetailsNavProp;
 }
 
-export const TransactionDetailsPage = ({}: Props) => {
+export const TransactionDetailsScreen = ({}: Props) => {
   const navigation = useNavigation();
   const route = useRoute<TransactionDetailsRouteProps>();
 
@@ -70,13 +70,3 @@ export const TransactionDetailsPage = ({}: Props) => {
     </Screen>
   );
 };
-
-function mapStateToProps(state: ApplicationState) {
-  return {
-    priceApi: state.priceApi,
-  };
-}
-
-export const TransactionDetailsScreen = connect(mapStateToProps)(
-  TransactionDetailsPage,
-);

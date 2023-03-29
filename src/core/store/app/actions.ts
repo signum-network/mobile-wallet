@@ -1,4 +1,4 @@
-import {loadAccounts, loadPasscode} from '../../../modules/auth/store/actions';
+import {loadAccounts, loadPasscode} from '../../../modules/accounts/store/actions';
 import {getSuggestedFees} from '../../../modules/network/store/actions';
 import {AppSettings, UserSettings} from '../../interfaces';
 import {fetchAppSettings} from '../../utils/keychain';

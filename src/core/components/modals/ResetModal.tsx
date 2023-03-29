@@ -3,7 +3,7 @@ import {Modal, SafeAreaView, View, StyleSheet} from 'react-native';
 import {Text} from '../base/Text';
 import {FontSizes, Sizes} from '../../theme/sizes';
 import {i18n} from '../../i18n';
-import {auth} from '../../../modules/auth/translations';
+import {auth} from '../../../modules/accounts/translations';
 import {Button, ButtonThemes} from '../base/Button';
 import {settings} from '../../../modules/settings/translations';
 

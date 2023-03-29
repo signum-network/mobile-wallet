@@ -22,12 +22,12 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {tabbarIcons} from './src/assets/icons';
 import {Colors} from './src/core/theme/colors';
 import {core} from './src/core/translations';
-import {AccountDetailsScreen} from './src/modules/auth/screens/AccountDetailsScreen';
-import {AddAccountScreen} from './src/modules/auth/screens/AddAccountScreen';
-import {CreateAccountScreen} from './src/modules/auth/screens/CreateAccountScreen';
-import {HomeScreen} from './src/modules/auth/screens/HomeScreen';
-import {ImportAccountScreen} from './src/modules/auth/screens/ImportAccountScreen';
-import {TransactionDetailsScreen} from './src/modules/auth/screens/TransactionDetailsScreen';
+import {AccountDetailsScreen} from './src/modules/accounts/screens/AccountDetailsScreen';
+import {AddAccountScreen} from './src/modules/accounts/screens/AddAccountScreen';
+import {CreateAccountScreen} from './src/modules/accounts/screens/CreateAccountScreen';
+import {HomeScreen} from './src/modules/accounts/screens/HomeScreen';
+import {ImportAccountScreen} from './src/modules/accounts/screens/ImportAccountScreen';
+import {TransactionDetailsScreen} from './src/modules/accounts/screens/TransactionDetailsScreen';
 import {SettingsScreen} from './src/modules/settings/screens/SettingsScreen';
 import {settings} from './src/modules/settings/translations';
 import {ReceiveScreen} from './src/modules/transactions/screens/ReceiveScreen';
@@ -44,7 +44,7 @@ import {
   ReceiveStackParamList,
   RootStackParamList,
   SendStackParamList,
-} from './src/modules/auth/navigation/mainStack';
+} from './src/modules/accounts/navigation/mainStack';
 
 const store: Store = getStore();
 

@@ -13,7 +13,7 @@ import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {
   BottomTabNavigatorParamList,
   SendStackParamList,
-} from '../../../auth/navigation/mainStack';
+} from '../../../accounts/navigation/mainStack';
 
 const styles = StyleSheet.create({
   view: {

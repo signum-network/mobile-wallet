@@ -9,14 +9,14 @@ import {defaultSideOffset} from '../../../core/theme/sizes';
 import {ReceiveAmountPayload} from '../store/actions';
 import {transactions} from '../translations';
 import {RouteProp, useRoute} from '@react-navigation/native';
-import {RootStackParamList} from '../../auth/navigation/mainStack';
+import {RootStackParamList} from '../../accounts/navigation/mainStack';
 import {Amount, createDeeplink, EncoderFormat} from '@signumjs/util';
 import {AddressPrefix, Address} from '@signumjs/core';
 import QRCode from 'react-native-qrcode-svg';
 import {LabeledTextField} from '../../../core/components/base/LabeledTextField';
 import {isIOS} from '../../../core/utils/platform';
 import {HeaderWithBackButton} from '../../../core/layout/HeaderWithBackButton';
-import {auth} from '../../auth/translations';
+import {auth} from '../../accounts/translations';
 import Clipboard from '@react-native-clipboard/clipboard';
 
 type ScanRouteProps = RouteProp<RootStackParamList, 'Scan'>;

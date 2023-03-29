@@ -20,7 +20,7 @@ import {
   getAccount,
   getAlias,
   getUnstoppableAddress,
-} from '../../auth/store/actions';
+} from '../../accounts/store/actions';
 import {SendForm, SendFormState} from '../components/send/SendForm';
 import {
   sendMoney as sendMoneyAction,
@@ -33,7 +33,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {
   BottomTabNavigatorParamList,
   SendStackParamList,
-} from '../../auth/navigation/mainStack';
+} from '../../accounts/navigation/mainStack';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
 type SendScreenNavProp = CompositeNavigationProp<

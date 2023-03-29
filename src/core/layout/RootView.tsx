@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {loadApp} from '../store/app/actions';
 import {ApplicationState} from '../store/initialState';
 import {LoadingView} from './LoadingView';
-import {PasscodeProtection} from '../../modules/auth/components/passcode/PasscodeProtection';
+import {PasscodeProtection} from '../../modules/accounts/components/passcode/PasscodeProtection';
 
 interface Props {
   children: React.ReactNode;

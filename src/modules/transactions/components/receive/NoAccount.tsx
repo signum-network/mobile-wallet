@@ -11,7 +11,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {
   BottomTabNavigatorParamList,
   ReceiveStackParamList,
-} from '../../../auth/navigation/mainStack';
+} from '../../../accounts/navigation/mainStack';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
 const styles = StyleSheet.create({

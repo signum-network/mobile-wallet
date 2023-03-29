@@ -17,7 +17,7 @@ import {convertHexStringToByteArray, Amount} from '@signumjs/util';
 import {Alert} from 'react-native';
 import {i18n} from '../../../core/i18n';
 import {createAction, createActionFn} from '../../../core/utils/store';
-import {getAccount} from '../../auth/store/actions';
+import {getAccount} from '../../accounts/store/actions';
 import {transactions} from '../translations';
 import {actionTypes} from './actionTypes';
 import {selectChainApi} from '../../../core/store/app/selectors';

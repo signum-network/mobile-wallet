@@ -10,11 +10,11 @@ import {ReceiveAmountForm} from '../components/receive/ReceiveAmountForm';
 import {ReceiveAmountPayload} from '../store/actions';
 import {transactions} from '../translations';
 import {useNavigation} from '@react-navigation/native';
-import {selectAccounts} from '../../auth/store/selectors';
+import {selectAccounts} from '../../accounts/store/selectors';
 import {selectSuggestedFees} from '../../network/store/selectors';
 import {NoAccount} from '../components/receive/NoAccount';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {ReceiveStackParamList} from '../../auth/navigation/mainStack';
+import {ReceiveStackParamList} from '../../accounts/navigation/mainStack';
 
 type ReceiveScreenNavProp = StackNavigationProp<
   ReceiveStackParamList,

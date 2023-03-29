@@ -1,5 +1,5 @@
 {
-  "auth": {
+  "accounts": {
     "errors": {
       "accountExist": "Аккаунт уже импортирован",
       "incorrectAddress": "Неправильный адрес",

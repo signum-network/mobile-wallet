@@ -1,4 +1,4 @@
-import {AuthReduxState, authState} from '../../modules/auth/store/reducer';
+import {AuthReduxState, authState} from '../../modules/accounts/store/reducer';
 import {
   NetworkReduxState,
   networkState,

@@ -18,7 +18,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {BarcodeFormat, useScanBarcodes} from 'vision-camera-code-scanner';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {SendStackParamList} from '../../auth/navigation/mainStack';
+import {SendStackParamList} from '../../accounts/navigation/mainStack';
 
 type ScanQRCodeScreenNavProp = StackNavigationProp<SendStackParamList, 'Scan'>;
 

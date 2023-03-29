@@ -2,7 +2,7 @@ import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import {mainStack} from '../../modules/auth/navigation/mainStack';
+import {mainStack} from '../../modules/accounts/navigation/mainStack';
 import {settingsStack} from '../../modules/settings/navigation/settingsStack';
 import {receiveStack} from '../../modules/transactions/navigation/receiveStack';
 import {sendStack} from '../../modules/transactions/navigation/sendStack';
