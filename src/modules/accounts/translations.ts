@@ -59,6 +59,7 @@ export const auth = {
     passiveAccountHint: 'accounts.screens.importAccount.passiveAccountHint',
     title: 'accounts.screens.importAccount.title',
     showPassphrase: 'accounts.screens.importAccount.showPassphrase',
+    accountPreviewLabel: 'accounts.screens.importAccount.accountPreviewLabel',
   },
   errors: {
     accountExist: 'accounts.errors.accountExist',

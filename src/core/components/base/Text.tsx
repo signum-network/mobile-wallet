@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// TODO: Create new universal text component according to mockups
 export const Text: React.FunctionComponent<Props> = props => {
   const {
     theme = defaultTheme,

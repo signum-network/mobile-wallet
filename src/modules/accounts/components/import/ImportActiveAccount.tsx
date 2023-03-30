@@ -6,6 +6,13 @@ import {SwitchItem} from '../../../../core/components/base/SwitchItem';
 import {i18n} from '../../../../core/i18n';
 import {auth} from '../../translations';
 import {AccountTypeHint} from './AccountTypeHint';
+import {generateMasterKeys} from '@signumjs/crypto';
+import {Address} from '@signumjs/core';
+import {useSelector} from 'react-redux';
+import {selectChainInfo} from '../../../network/store/selectors';
+import {Text, TextAlign} from '../../../../core/components/base/Text';
+import {BorderRadiusSizes, FontSizes} from '../../../../core/theme/sizes';
+import {Colors} from '../../../../core/theme/colors';
 
 interface Props {
   onFinish: (passphrase: string) => void;
@@ -18,6 +25,14 @@ const styles = StyleSheet.create({
   passphraseSwitch: {
     paddingTop: 10,
   },
+  addressPreview: {
+    padding: 10,
+    marginTop: '10%',
+    textAlign: 'center',
+    borderRadius: BorderRadiusSizes.MEDIUM,
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
   button: {
     paddingTop: '10%',
   },
@@ -25,10 +40,22 @@ const styles = StyleSheet.create({
 
 export const ImportActiveAccount: React.FC<Props> = ({onFinish}) => {
   const [passphrase, setPassphrase] = useState('');
+  const [address, setAddress] = useState('');
   const [showPassphrase, setShowPassphrase] = useState(false);
-
+  const chainInfo = useSelector(selectChainInfo);
   const handleChangePassphrase = (phrase: string) => {
     setPassphrase(phrase);
+    if (phrase.length) {
+      const {publicKey} = generateMasterKeys(phrase);
+      setAddress(
+        Address.fromPublicKey(
+          publicKey,
+          chainInfo ? chainInfo.addressPrefix : 'S',
+        ).getReedSolomonAddress(),
+      );
+    } else {
+      setAddress('');
+    }
   };
 
   const handleShowPassphrase = (show: boolean) => {
@@ -58,6 +85,17 @@ export const ImportActiveAccount: React.FC<Props> = ({onFinish}) => {
             value={showPassphrase}
           />
         </View>
+      </View>
+      <View style={styles.addressPreview}>
+        {address ? (
+          <Text size={FontSizes.MEDIUM} textAlign={TextAlign.CENTER}>
+            {address}
+          </Text>
+        ) : (
+          <Text size={FontSizes.MEDIUM} color={Colors.GREY_T}>
+            {i18n.t(auth.importAccount.accountPreviewLabel)}
+          </Text>
+        )}
       </View>
       <View style={styles.button}>
         <Button

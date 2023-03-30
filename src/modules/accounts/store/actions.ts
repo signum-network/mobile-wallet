@@ -118,10 +118,10 @@ export const createOfflineAccount = createActionFn<string, Account>(
 );
 
 export const hydrateAccount = createActionFn<
-  {account: Account; withTransactions?: boolean},
+  {account: Account; withTransactions?: boolean; pendingOnly?: boolean},
   Promise<Account>
 >(async (dispatch, getState, payload) => {
-  const {account, withTransactions = true} = payload;
+  const {account, withTransactions = true, pendingOnly = false} = payload;
   const state = getState();
   const api = selectChainApi(state);
   try {
@@ -133,7 +133,9 @@ export const hydrateAccount = createActionFn<
     console.log('Got account', accountDetails);
     dispatch(actions.updateAccount(accountDetails));
     if (withTransactions) {
-      await dispatch(updateAccountTransactions(accountDetails));
+      await dispatch(
+        updateAccountTransactions({account: accountDetails, pendingOnly}),
+      );
     }
   } catch (e) {
     console.error('Something failed', e);
@@ -143,21 +145,18 @@ export const hydrateAccount = createActionFn<
   return account;
 });
 
-export const getAccount = createActionFn<string, Promise<Account | undefined>>(
+export const getAccount = createActionFn<string, Promise<Account>>(
   async (_dispatch, getState, account) => {
     const state = getState();
     const api = selectChainApi(state);
-    try {
-      return await api.account.getAccount({
-        accountId: account,
-        includeCommittedAmount: true,
-      });
-      // tslint:disable-next-line: no-empty
-    } catch (e) {}
+    return api.account.getAccount({
+      accountId: account,
+      includeCommittedAmount: true,
+    });
   },
 );
 
-export const getAlias = createActionFn<string, Promise<Alias | undefined>>(
+export const getAlias = createActionFn<string, Promise<Alias>>(
   async (_dispatch, getState, account) => {
     const state = getState();
     const api = selectChainApi(state);
@@ -176,31 +175,40 @@ export const getUnstoppableAddress = createActionFn<
     });
 });
 
+interface UpdateAccountArgs {
+  account: Account;
+  pendingOnly: boolean;
+}
 export const updateAccountTransactions = createActionFn<
-  Account,
+  UpdateAccountArgs,
   Promise<Account>
->(async (dispatch, getState, account) => {
+>(async (dispatch, getState, {account, pendingOnly}) => {
   const state = getState();
   const api = selectChainApi(state);
   const updatedAccount: Account = {
     ...account,
   };
   try {
-    console.log('updating transactions...', account.accountRS);
-    const {transactions} = await api.account.getAccountTransactions({
-      accountId: account.account,
-      firstIndex: 0,
-      lastIndex: 100,
-      includeIndirect: true,
+    console.log(`updating ${pendingOnly ? 'unconfirmed' : ''} transactions` , account.accountRS);
+    // @ts-ignore
+    let transactions = account.transactions;
+    if (!pendingOnly) {
+      const result = await api.account.getAccountTransactions({
+        accountId: account.account,
+        firstIndex: 0,
+        lastIndex: 100,
+        includeIndirect: true,
         resolveDistributions: true,
-    });
+      });
+      transactions = result.transactions;
+    }
     const {unconfirmedTransactions} =
       await api.account.getUnconfirmedAccountTransactions(
         account.account,
         true,
       );
     // @ts-ignore
-    updatedAccount.transactions = unconfirmedTransactions.concat(transactions);
+    updatedAccount.transactions = [...unconfirmedTransactions, ...transactions];
     dispatch(actions.updateAccount(updatedAccount));
   } catch (e) {}
 

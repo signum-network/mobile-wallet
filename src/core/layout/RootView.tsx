@@ -17,7 +17,8 @@ export const RootView = ({children, onReady}: Props) => {
   );
 
   useEffect(() => {
-    dispatch(loadApp());
+    // what about error handling
+    dispatch(loadApp()); // async
   }, []);
 
   useEffect(() => {

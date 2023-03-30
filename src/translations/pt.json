@@ -69,7 +69,8 @@
         "import": "Importar",
         "passiveAccountHint": "As contas passivas são úteis se você souber um endereço, mas não pretende fazer nenhuma transação. Adiciona maior segurança. Pode ser convertido em uma conta ativa a qualquer momento.",
         "title": "Importar Conta",
-        "showPassphrase": "Mostrar frase secreta"
+        "showPassphrase": "Mostrar frase secreta",
+        "accountPreviewLabel": "Visualização de endereço"
       }
     }
   },
@@ -136,7 +137,8 @@
         "accountsList": "Lista de Contas",
         "recentTransactions": "Transações recentes",
         "title": "Suas contas",
-        "allAccounts": "Suas contas"
+        "allAccounts": "Suas contas",
+        "deleteHint": "Deslize o item para a esquerda para removê-lo"
       },
       "loading": {
         "loadingText": "Carregando..."
@@ -196,7 +198,12 @@
         "addMessage": "Adiciona uma mensagem?",
         "message": "Mensagem",
         "confirmRisk": "O endereço '{{address}}' é desconhecido! Enviar para este endereço pode causar perda irreversível! - Você assume o risco?",
-        "reset": "Zerar formulário"
+        "reset": "Zerar formulário",
+        "fee": {
+          "cheap": "barato",
+          "priority": "prioridade",
+          "standard": "padrão"
+        }
       },
       "scan": {
         "title": "Leia o código QR"
@@ -215,7 +222,8 @@
         "autoNodeSelection": "Seleção Automática de Nó",
         "copyright": "Copyright © Signum Network",
         "credits": "Kudos para blankey1337 e titanishu",
-        "showTestnetNodes": "Mostrar nós Testnet"
+        "customNodeFound": "Nó personalizado encontrado",
+        "setCustomNode": "Definir nó personalizado"
       }
     }
   }

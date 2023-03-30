@@ -14,13 +14,15 @@ import {i18n} from '../../../../core/i18n';
 import {Colors} from '../../../../core/theme/colors';
 import {ReceiveAmountPayload} from '../../store/actions';
 import {transactions} from '../../translations';
-import {FeeSlider} from '../fee-slider/FeeSlider';
 import {core} from '../../../../core/translations';
 import {AmountText} from '../../../../core/components/base/Amount';
 import {
   stableAmountFormat,
   stableParseSignaAmount,
 } from '../../../../core/utils/amount';
+import {FeeSelector} from '../FeeSelector';
+import {shortenString} from '../../../../core/utils/string';
+import {shortenRSAddress} from '../../../../core/utils/account';
 
 interface Props {
   onSubmit: (form: ReceiveAmountPayload) => void;
@@ -57,6 +59,9 @@ const styles: any = {
     display: 'flex',
     flexDirection: 'row',
   },
+  feeSection: {
+    marginBottom: 10,
+  },
 };
 
 export const ReceiveAmountForm: React.FC<Props> = props => {
@@ -88,11 +93,8 @@ export const ReceiveAmountForm: React.FC<Props> = props => {
         data = data && data.trim();
         break;
       case 'amount':
-        data = stableAmountFormat(data);
-        break;
       case 'fee':
-        const feeAmount = stableAmountFormat(data);
-        data = Math.max(parseFloat(feeAmount), 0.00735).toString(10);
+        data = stableAmountFormat(data);
         break;
     }
 
@@ -106,9 +108,11 @@ export const ReceiveAmountForm: React.FC<Props> = props => {
   };
 
   const getAccounts = (): Array<SelectItem<string>> => {
-    return props.accounts.map(account => ({
-      value: account.accountRS,
-      label: account.name || account.accountRS,
+    return props.accounts.map(({accountRS, name, account}) => ({
+      value: account,
+      label: name
+        ? `${shortenString(name)} - ${shortenRSAddress(accountRS)}`
+        : accountRS,
     }));
   };
 
@@ -123,8 +127,12 @@ export const ReceiveAmountForm: React.FC<Props> = props => {
     setFormChanged(false);
   };
 
-  const handleFeeChangeFromSlider = (fee: number) => {
-    handleFormChange('fee')(fee.toString(10));
+  const handleFeeChangeFromSlider = (feePlanck: number) => {
+    const feeSigna = Amount.fromPlanck(feePlanck || 0).getSigna();
+    // breaking a loop :rolleyes
+    if (formData.fee !== feeSigna) {
+      handleFormChange('fee')(feeSigna);
+    }
   };
 
   const {immutable, recipient, amount, fee, message = ''} = formData;
@@ -156,11 +164,12 @@ export const ReceiveAmountForm: React.FC<Props> = props => {
           placeholder={'0'}
         />
         {suggestedFees && (
-          <FeeSlider
-            fee={parseFloat(fee) || 0}
-            onSlidingComplete={handleFeeChangeFromSlider}
-            suggestedFees={suggestedFees}
-          />
+          <View style={styles.feeSection}>
+            <FeeSelector
+              payloadLength={message.length}
+              onFeeSelected={handleFeeChangeFromSlider}
+            />
+          </View>
         )}
         <BInput
           value={message}

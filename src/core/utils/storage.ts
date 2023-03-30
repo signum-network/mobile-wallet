@@ -8,7 +8,6 @@ export enum AsyncStorageKeys {
 
 const DefaultUserSettings: UserSettings = {
   currentNodeHost: defaultSettings.nodeHost,
-  isAutomaticNodeSelection: true,
   agreedToTerms: false,
 };
 

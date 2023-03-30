@@ -1,5 +1,6 @@
-export const PATH = 'AUTH_';
+export const PATH = 'NETWORK_';
 
 export const actionTypes = {
-  getSuggestedFees: `${PATH}_SUGGEST_FEES`,
+  setSuggestedFees: `${PATH}_SUGGESTEDFEES_GET`,
+  setChainInfo: `${PATH}_CHAININFO_GET`,
 };

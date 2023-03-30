@@ -1,6 +1,6 @@
 import {Api, composeApi, ApiSettings} from '@signumjs/core';
 import {defaultSettings} from '../../environment';
-import {AppSettings, Reducer, UserSettings} from '../../interfaces';
+import {AppSettings, ChainInfo, Reducer, UserSettings} from '../../interfaces';
 import {createReducers} from '../../utils/store';
 import {actionTypes} from './actionTypes';
 
@@ -32,7 +32,6 @@ export const getInitialAppState = (): AppReduxState => {
     userSettings: {
       agreedToTerms: false,
       currentNodeHost: defaultSettings.nodeHost,
-      isAutomaticNodeSelection: false,
     },
   };
 };

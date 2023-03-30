@@ -21,7 +21,6 @@ import {
 } from '../../../../core/components/base/Text';
 import {i18n} from '../../../../core/i18n';
 import {Colors} from '../../../../core/theme/colors';
-import {amountToString} from '../../../../core/utils/numbers';
 import {SendAmountPayload} from '../../store/actions';
 import {
   Recipient,
@@ -29,7 +28,6 @@ import {
   RecipientValidationStatus,
 } from '../../store/utils';
 import {transactions} from '../../translations';
-import {FeeSlider} from '../fee-slider/FeeSlider';
 import {AccountStatusPill} from './AccountStatusPill';
 import {
   isValidReedSolomonAddress,
@@ -50,6 +48,13 @@ import {
   stableParseSignaAmount,
 } from '../../../../core/utils/amount';
 import {core} from '../../../../core/translations';
+import {
+  MinimumTransactionFeeSigna,
+  SmartContractPublicKey,
+} from '../../../../core/utils/constants';
+import {shortenString} from '../../../../core/utils/string';
+import {FeeSelector} from '../FeeSelector';
+import {DescriptorData} from '@signumjs/standards';
 
 const AddressPrefix = 'S-';
 
@@ -89,6 +94,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     height: '95%',
+  },
+  feeSection: {
+    marginBottom: 10,
   },
   headerSection: {},
   formSection: {
@@ -200,9 +208,11 @@ export class SendForm extends React.Component<Props, SendFormState> {
       this.props.accounts
         // @ts-ignore
         .filter(({type}) => type !== 'offline')
-        .map(({accountRS, name}) => ({
-          value: accountRS,
-          label: name || shortenRSAddress(accountRS),
+        .map(({accountRS, name, account}) => ({
+          value: account,
+          label: name
+            ? `${shortenString(name)} - ${shortenRSAddress(accountRS)}`
+            : accountRS,
         }))
     );
   };
@@ -244,11 +254,25 @@ export class SendForm extends React.Component<Props, SendFormState> {
     };
   };
 
-  private async fetchAccountIdFromAlias(alias: string): Promise<string | null> {
-    const {aliasURI} = await this.props.onGetAlias(alias);
+  private async fetchAccountIdFromAlias(
+    aliasName: string,
+  ): Promise<string | null> {
+    const alias = await this.props.onGetAlias(aliasName);
+    if (!alias) {
+      return null;
+    }
 
-    // TODO: support for SRC44
+    const {aliasURI} = alias;
 
+    // SRC44
+    try {
+      const descriptor = DescriptorData.parse(aliasURI);
+      return descriptor.account || null;
+    } catch (e: any) {
+      // ignore
+    }
+
+    // Try Legacy Alias
     const matches = /^acct:(burst|s|ts)?-(.+)@(burst|signum)$/i.exec(aliasURI);
     if (!matches || matches.length < 2) {
       return null;
@@ -361,12 +385,13 @@ export class SendForm extends React.Component<Props, SendFormState> {
     }
 
     try {
+      // this method throws if nothing comes back
       const {accountRS, publicKey} = await this.props.onGetAccount(
         formattedAddress || '',
       );
 
       let type = this.state.recipient.type;
-      if (publicKey.startsWith('0000000000000')) {
+      if (publicKey === SmartContractPublicKey) {
         type = RecipientType.CONTRACT;
       }
 
@@ -453,10 +478,9 @@ export class SendForm extends React.Component<Props, SendFormState> {
     this.markAsDirty();
   };
 
-  handleFeeChange = (fee: string) => {
-    const feeAmount = stableAmountFormat(fee);
+  handleFeeChange = (feeSigna: string) => {
     this.setState({
-      fee: Math.max(parseFloat(feeAmount), 0.00735).toString(10),
+      fee: stableAmountFormat(feeSigna),
     });
     this.markAsDirty();
   };
@@ -481,8 +505,8 @@ export class SendForm extends React.Component<Props, SendFormState> {
     this.markAsDirty();
   }
 
-  handleFeeChangeFromSlider = (fee: number) => {
-    this.setState({fee: amountToString(fee)});
+  handleFeeSelectorChange = (fee: number) => {
+    this.setState({fee: Amount.fromPlanck(fee).getSigna()});
     this.markAsDirty();
   };
 
@@ -672,12 +696,12 @@ export class SendForm extends React.Component<Props, SendFormState> {
               placeholder={'0'}
             />
             {suggestedFees && (
-              <FeeSlider
-                disabled={this.state.immutable}
-                fee={parseFloat(fee || '0')}
-                onSlidingComplete={this.handleFeeChangeFromSlider}
-                suggestedFees={suggestedFees}
-              />
+              <View style={styles.feeSection}>
+                <FeeSelector
+                  payloadLength={message?.length || 0}
+                  onFeeSelected={this.handleFeeSelectorChange}
+                />
+              </View>
             )}
 
             <BCheckbox

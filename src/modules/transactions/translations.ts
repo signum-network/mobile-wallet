@@ -47,5 +47,10 @@ export const transactions = {
     scan: {
       title: 'transactions.screens.scan.title',
     },
+    fee: {
+      cheap: 'transactions.screens.send.fee.cheap',
+      standard: 'transactions.screens.send.fee.standard',
+      priority: 'transactions.screens.send.fee.priority',
+    }
   },
 };

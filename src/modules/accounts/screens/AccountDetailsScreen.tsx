@@ -1,7 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {Account, Address, Transaction} from '@signumjs/core';
+import {Address, Transaction} from '@signumjs/core';
 import React, {useEffect, useRef} from 'react';
 import {Alert, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {connect, useDispatch, useSelector} from 'react-redux';
@@ -10,7 +10,6 @@ import {HeaderTitle} from '../../../core/components/header/HeaderTitle';
 import {i18n} from '../../../core/i18n';
 import {FullHeightView} from '../../../core/layout/FullHeightView';
 import {Screen} from '../../../core/layout/Screen';
-import {routes} from '../../../core/navigation/routes';
 import {ApplicationState} from '../../../core/store/initialState';
 import {PriceInfoReduxState} from '../../price-api/store/reducer';
 import {AccountDetailsList} from '../components/details/AccountDetailsList';
@@ -18,7 +17,8 @@ import {RootStackParamList} from '../navigation/mainStack';
 import {updateAccountTransactions} from '../store/actions';
 import {selectAccount} from '../store/selectors';
 import {auth} from '../translations';
-import {defaultSettings} from "../../../core/environment";
+import {defaultSettings} from '../../../core/environment';
+import useSWRNative from 'swr-react-native';
 
 type AccountDetailsRouteProps = RouteProp<RootStackParamList, 'AccountDetails'>;
 type AccountDetailsNavProp = StackNavigationProp<
@@ -47,27 +47,35 @@ const AccountDetails = (props: Props) => {
   const account = useSelector(selectAccount(route.params.account || ''));
   const {priceApi, navigation} = props;
 
-  useEffect(() => {
-    const updateAccounts = () => {
+  useSWRNative(
+    account ? `fetchTransactions/${account.account}` : null,
+    () => {
       if (account) {
-        dispatch(updateAccountTransactions(account));
+        return dispatch(
+          updateAccountTransactions({account, pendingOnly: false}),
+        );
       }
-    };
-    updateAccounts();
-    timeoutHandle.current = setInterval(
-      updateAccounts,
-      defaultSettings.pollingTime,
-    );
-    return () => {
-      clearAccountInterval();
-    };
-  }, []);
+      return Promise.resolve(null);
+    },
+    {
+      refreshInterval: defaultSettings.pollingTime,
+    },
+  );
 
-  const clearAccountInterval = () => {
-    if (timeoutHandle.current) {
-      clearInterval(timeoutHandle.current);
-    }
-  };
+  useSWRNative(
+    account ? `fetchPendingTransactions/${account.account}` : null,
+    () => {
+      if (account) {
+        return dispatch(
+          updateAccountTransactions({account, pendingOnly: true}),
+        );
+      }
+      return Promise.resolve(null);
+    },
+    {
+      refreshInterval: 10 * 1000,
+    },
+  );
 
   const handleTransactionPress = (transaction: Transaction) => {
     // @ts-ignore

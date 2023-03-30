@@ -1,5 +1,5 @@
 import {Account} from '@signumjs/core';
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {HeaderTitle} from '../../../core/components/header/HeaderTitle';
@@ -10,24 +10,20 @@ import {Screen} from '../../../core/layout/Screen';
 import {ApplicationState} from '../../../core/store/initialState';
 import {core} from '../../../core/translations';
 import {HomeStackedAreaChart} from '../../home/components/HomeStackedAreaChart';
-import {
-  loadHistoricalPriceApiData,
-  selectCurrency,
-} from '../../price-api/store/actions';
+import {loadHistoricalPriceApiData, selectCurrency,} from '../../price-api/store/actions';
 import {PriceInfoReduxState, PriceType} from '../../price-api/store/reducer';
 import {AccountsList} from '../components/AccountsList';
 import {AccountsListHeader} from '../components/AccountsListHeader';
 import {TermsScreen} from '../components/terms/TermsScreen';
 import {hydrateAccount, removeAccount} from '../store/actions';
 import {agreeToTerms} from '../../../core/store/app/actions';
-import {
-  useNavigation,
-  useFocusEffect,
-  NavigationProp,
-} from '@react-navigation/native';
+import {NavigationProp, useFocusEffect, useNavigation,} from '@react-navigation/native';
 import {selectAccounts} from '../store/selectors';
 import {selectAgreedToTerms} from '../../../core/store/app/selectors';
 import {RootStackParamList} from '../navigation/mainStack';
+import {Colors} from "../../../core/theme/colors";
+import {Text, TextAlign} from '../../../core/components/base/Text'
+import {FontSizes} from "../../../core/theme/sizes";
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -46,6 +42,10 @@ const styles = StyleSheet.create({
   addAccountText: {
     marginBottom: 20,
   },
+  deleteHint : {
+    marginTop: 10,
+    marginRight: 10
+  }
 });
 
 type HomeScreenNavigationProp = NavigationProp<RootStackParamList, 'Accounts'>;
@@ -120,7 +120,7 @@ export const HomeScreen = () => {
   };
 
   const handleAccountsListRefresh = () => {
-    dispatch(loadHistoricalPriceApiData());
+    // dispatch(loadHistoricalPriceApiData());
     return updateAllAccounts();
   };
 
@@ -159,7 +159,10 @@ export const HomeScreen = () => {
             />
           )) ||
             null}
+          <View style={styles.deleteHint}>
+          <Text color={Colors.GREY} size={FontSizes.SMALLEST} textAlign={TextAlign.RIGHT} >{i18n.t(core.screens.home.deleteHint)}</Text>
 
+          </View>
           <AccountsList
             accounts={accounts}
             onAccountPress={handleAccountPress}

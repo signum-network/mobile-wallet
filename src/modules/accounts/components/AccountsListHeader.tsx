@@ -15,6 +15,7 @@ import {
   AccountBalances,
   getBalancesFromAccount,
 } from '../../../core/utils/balance/getBalancesFromAccount';
+import QRCode from "react-native-qrcode-svg";
 
 interface Props {
   accounts: Account[];
@@ -61,6 +62,7 @@ const SubBalance: React.FC<{amount: Amount; text: string}> = ({
         size={FontSizes.SMALL}
         amount={amount}
         style={{marginLeft: Sizes.MEDIUM}}
+        showSymbol={false}
       />
     </View>
   </View>

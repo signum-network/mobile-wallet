@@ -1,5 +1,11 @@
-import {loadAccounts, loadPasscode} from '../../../modules/accounts/store/actions';
-import {getSuggestedFees} from '../../../modules/network/store/actions';
+import {
+  loadAccounts,
+  loadPasscode,
+} from '../../../modules/accounts/store/actions';
+import {
+  getChainInfo,
+  getSuggestedFees,
+} from '../../../modules/network/store/actions';
 import {AppSettings, UserSettings} from '../../interfaces';
 import {fetchAppSettings} from '../../utils/keychain';
 import {createAction, createActionFn} from '../../utils/store';
@@ -25,7 +31,7 @@ export const loadApp = createActionFn<void, Promise<void>>(async dispatch => {
     dispatch(loadUserSettings()),
   ]);
   // dispatch(loadHistoricalPriceApiData());
-  dispatch(getSuggestedFees());
+  await Promise.all([dispatch(getChainInfo()), dispatch(getSuggestedFees())]);
   dispatch(actions.appLoaded());
 });
 
@@ -62,6 +68,7 @@ export const setNode = createActionFn<string, Promise<void>>(
       const partialSettings = {currentNodeHost: node};
       await updateUserSettings(partialSettings);
       dispatch(actions.setUserSettings(partialSettings));
+      dispatch(getChainInfo()); // can run async
       console.log('setNode:', node);
     });
   },
@@ -76,4 +83,3 @@ export const agreeToTerms = createActionFn<void, Promise<void>>(
     });
   },
 );
-

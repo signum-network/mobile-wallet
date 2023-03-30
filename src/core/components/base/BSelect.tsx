@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {View} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-// import { actionIcons } from "../../../assets/icons";
 import {Colors} from '../../theme/colors';
 import {fonts} from '../../theme/fonts';
 import {FontSizes, Sizes} from '../../theme/sizes';

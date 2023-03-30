@@ -78,32 +78,32 @@ export const sendMoney = createActionFn<
     deadline: 1440,
   };
 
-  if (message && encrypt) {
-    const encryptedMessage: EncryptedMessage | EncryptedData =
-      await getEncryptedMessage(
-        dispatch,
-        address,
-        sender,
-        messageIsText,
-        message,
-        state.auth.passcode,
-      );
-
-    sendMoneyPayload.attachment = new AttachmentEncryptedMessage(
-      encryptedMessage,
-    );
-  } else if (message) {
-    sendMoneyPayload.attachment = new AttachmentMessage({
-      message,
-      messageIsText,
-    });
-  }
-
   try {
+    if (message && encrypt) {
+      const encryptedMessage: EncryptedMessage | EncryptedData =
+        await getEncryptedMessage(
+          dispatch,
+          address,
+          sender,
+          messageIsText,
+          message,
+          state.auth.passcode,
+        );
+
+      sendMoneyPayload.attachment = new AttachmentEncryptedMessage(
+        encryptedMessage,
+      );
+    } else if (message) {
+      sendMoneyPayload.attachment = new AttachmentMessage({
+        message,
+        messageIsText,
+      });
+    }
+
     const api = selectChainApi(state);
-    const result = await api.transaction.sendAmountToSingleRecipient(
+    const result = (await api.transaction.sendAmountToSingleRecipient(
       sendMoneyPayload,
-    );
+    )) as TransactionId;
     Alert.alert(
       i18n.t(transactions.screens.send.success, {
         amount: Amount.fromPlanck(sendMoneyPayload.amountPlanck).getSigna(),
@@ -112,7 +112,7 @@ export const sendMoney = createActionFn<
     );
     dispatch(actions.sendMoneySuccess(result));
     return result;
-  } catch (e) {
+  } catch (e: any) {
     Alert.alert(i18n.t(transactions.screens.send.failure));
     dispatch(actions.sendMoneyFailed(e));
     throw e;

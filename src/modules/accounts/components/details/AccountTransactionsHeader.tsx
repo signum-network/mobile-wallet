@@ -16,6 +16,7 @@ import {amountToString} from '../../../../core/utils/numbers';
 import {PriceInfoReduxState} from '../../../price-api/store/reducer';
 import {AmountText} from '../../../../core/components/base/Amount';
 import {getBalancesFromAccount} from '../../../../core/utils/balance/getBalancesFromAccount';
+import QRCode from 'react-native-qrcode-svg';
 
 interface Props {
   account: Account;
@@ -26,23 +27,24 @@ const styles = StyleSheet.create({
   view: {
     paddingHorizontal: defaultSideOffset,
     marginBottom: Sizes.MEDIUM,
-  },
-  centered: {
+    display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'center',
   },
+  qrCode: {
+    paddingHorizontal: 8,
+  }
 });
 
 const subBalanceStyles = StyleSheet.create({
   root: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: 'column',
   },
   content: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '50%',
   },
 });
 
@@ -55,7 +57,12 @@ const SubBalance: React.FC<{amount: Amount; text: string}> = ({
       <Text color={Colors.GREY} size={FontSizes.SMALL}>
         {text}:
       </Text>
-      <AmountText color={Colors.GREY} size={FontSizes.SMALL} amount={amount} />
+      <AmountText
+        color={Colors.GREY}
+        size={FontSizes.SMALL}
+        amount={amount}
+        showSymbol={false}
+      />
     </View>
   </View>
 );
@@ -77,30 +84,35 @@ export const AccountTransactionsHeader: React.FC<Props> = props => {
 
   return (
     <View style={styles.view}>
-      <AmountText
-        amount={balances.totalBalance}
-        size={FontSizes.LARGE}
-        style={styles.centered}
-      />
+      <View style={styles.qrCode}>
+        <QRCode
+          size={100}
+          value={account.accountRS}
+          backgroundColor={Colors.WHITE}
+          color={Colors.BLUE_DARKER}
+          quietZone={8}
+        />
+      </View>
       <View>
-        {(hasLockedAmount || hasCommittedAmount) && (
-          <SubBalance
-            text={i18n.t(core.balances.available)}
-            amount={balances.availableBalance}
-          />
-        )}
-        {hasLockedAmount && (
-          <SubBalance
-            text={i18n.t(core.balances.locked)}
-            amount={balances.lockedBalance}
-          />
-        )}
-        {hasCommittedAmount && (
-          <SubBalance
-            text={i18n.t(core.balances.committed)}
-            amount={balances.committedBalance}
-          />
-        )}
+          <AmountText amount={balances.totalBalance} size={FontSizes.LARGE} />
+          {(hasLockedAmount || hasCommittedAmount) && (
+            <SubBalance
+              text={i18n.t(core.balances.available)}
+              amount={balances.availableBalance}
+            />
+          )}
+          {hasLockedAmount && (
+            <SubBalance
+              text={i18n.t(core.balances.locked)}
+              amount={balances.lockedBalance}
+            />
+          )}
+          {hasCommittedAmount && (
+            <SubBalance
+              text={i18n.t(core.balances.committed)}
+              amount={balances.committedBalance}
+            />
+          )}
       </View>
       {priceInBTC ? (
         <Text textAlign={TextAlign.CENTER} color={Colors.WHITE} bebasFont>

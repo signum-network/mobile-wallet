@@ -86,9 +86,15 @@ export interface AppSettings {
 }
 
 export interface UserSettings {
-  isAutomaticNodeSelection?: boolean;
   currentNodeHost?: string;
   agreedToTerms?: boolean;
+}
+
+export interface ChainInfo {
+  version: string;
+  networkName: string;
+  addressPrefix: string;
+  symbol: string;
 }
 
 export type StorageKey = AuthStorageKeys;

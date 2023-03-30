@@ -1,11 +1,3 @@
-import {convertNQTStringToNumber} from '@signumjs/util';
-
-export const AmountPrefix = 'Ꞩ';
-
-export const NQTAmountToString = (amount: string): string => {
-  return amountToString(convertNQTStringToNumber(amount));
-};
-
 /**
  * Replace scientific notation (if exists) to decimal and removes trailing zeros.
  * @param {number} amount

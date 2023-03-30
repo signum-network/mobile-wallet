@@ -59,6 +59,8 @@ export const core: any = {
       recentTransactions: 'core.screens.home.recentTransactions',
       accountsList: 'core.screens.home.accountsList',
       allAccounts: 'core.screens.home.allAccounts',
+      deleteHint: 'core.screens.home.deleteHint',
+
     },
   },
 };

@@ -69,7 +69,8 @@
         "import": "Importieren",
         "passiveAccountHint": "Passive Konten sind nützlich, wenn Du eine Adresse kennst, aber nicht vorhast, irgendwelche Transaktionen durchzuführen. Dies bietet erhöhte Sicherheit. Mit der Passphrase kannst Du es in aktives Konto umwandeln.",
         "title": "Konto importieren",
-        "showPassphrase": "Passphrase anzeigen"
+        "showPassphrase": "Passphrase anzeigen",
+        "accountPreviewLabel": "Adressvorschau"
       }
     }
   },
@@ -136,7 +137,8 @@
         "accountsList": "Kontoliste",
         "recentTransactions": "Letzte Transaktionen",
         "title": "Deine Konten",
-        "allAccounts": "Deine Konten"
+        "allAccounts": "Deine Konten",
+        "deleteHint": "Element zum Entfernen nach links wischen"
       },
       "loading": {
         "loadingText": "Laden..."
@@ -196,7 +198,12 @@
         "addMessage": "Textnachricht hinzufügen?",
         "message": "Textnachricht",
         "confirmRisk": "Die Adresse '{{address}}' ist unbekannt! Das Senden an diese Adresse kann zu einem unwiderruflichen Verlust führen! - Übernimmst Du das Risiko?",
-        "reset": "Formular Zurücksetzen"
+        "reset": "Formular Zurücksetzen",
+        "fee": {
+          "cheap": "billig",
+          "priority": "Priorität",
+          "standard": "Standard"
+        }
       },
       "scan": {
         "title": "QR Code Scannen"
@@ -215,7 +222,8 @@
         "autoNodeSelection": "Automatische Peerauswahl",
         "copyright": "Copyright © Signum Network",
         "credits": "Danke an blankey1337 und titanishu",
-        "showTestnetNodes": "Testnet-Peers anzeigen"
+        "customNodeFound": "Benutzerdefinierten Knoten gefunden",
+        "setCustomNode": "Benutzerdefinierten Knoten festlegen"
       }
     }
   }

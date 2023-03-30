@@ -4,7 +4,6 @@ import {toNumber} from 'lodash';
 import React from 'react';
 import {
   Animated,
-  I18nManager,
   Image,
   TouchableOpacity,
   View,
@@ -21,6 +20,7 @@ import {shortenRSAddress} from '../../../core/utils/account';
 import {AmountText} from '../../../core/components/base/Amount';
 import {RectButton, Swipeable} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
+import {shortenString} from "../../../core/utils/string";
 
 interface Props {
   onPress: (account: Account) => void;
@@ -85,16 +85,6 @@ export const AccountListItem = ({
     onDelete(account);
   };
 
-  const getSwipeButtons = () => [
-    {
-      component: <Image source={actionIcons.del} style={styles.del} />,
-      backgroundColor: Colors.RED,
-      underlayColor: Colors.GREY,
-      style: styles.buttonStyles,
-      onPress: handleDelete,
-    },
-  ];
-
   const renderRightActions = (
     progress: Animated.AnimatedInterpolation<number>,
     dragX: Animated.AnimatedInterpolation<number>,
@@ -105,7 +95,7 @@ export const AccountListItem = ({
     });
 
     return (
-      <RectButton style={styles.leftAction} onPress={handleDelete}>
+      <RectButton onPress={handleDelete}>
         <Animated.View
           style={[
             styles.del,
@@ -119,6 +109,7 @@ export const AccountListItem = ({
     );
   };
 
+  // @ts-ignore
   const {type, accountRS = '', balanceNQT = '0', name = ''} = account;
 
   const address = shortenRSAddress(accountRS);
@@ -163,8 +154,8 @@ export const AccountListItem = ({
               <Image source={accountIcons.active} style={styles.accountIcon} />
             )}
             {
-              <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
-                {name || ' '}
+              <Text color={Colors.WHITE} size={FontSizes.SMALLEST}>
+                {shortenString(name || ' ', 24)}
               </Text>
             }
           </View>
@@ -175,7 +166,8 @@ export const AccountListItem = ({
               <AmountText
                 amount={balanceAmount}
                 color={Colors.WHITE}
-                size={FontSizes.SMALL}
+                size={FontSizes.MEDIUM}
+                showSymbol={false}
               />
             </View>
           </View>

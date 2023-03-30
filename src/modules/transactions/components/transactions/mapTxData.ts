@@ -3,6 +3,7 @@ import {Amount, ChainTime} from '@signumjs/util';
 import {startCase, toNumber} from 'lodash';
 import {formatAttachmentData} from './formatAttachmentData';
 import {formatDistributionData} from './formatDistributionData';
+import {SmartContractPublicKey} from "../../../../core/utils/constants";
 
 export interface TxKeyValue {
   key: string;
@@ -45,8 +46,7 @@ const KeyValueMappers = {
   senderPublicKey: ({value}: TxKeyValue): TxKeyValue => ({
     key: 'Sender Public Key',
     value:
-      value ===
-      '0000000000000000000000000000000000000000000000000000000000000000'
+      value === SmartContractPublicKey
         ? 'Smart Contract'
         : value,
   }),

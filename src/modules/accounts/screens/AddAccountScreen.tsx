@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  buttons: {
+    paddingHorizontal: 8
+  }
 });
 
 class AddAccount extends React.PureComponent<IProps> {
@@ -58,7 +61,7 @@ class AddAccount extends React.PureComponent<IProps> {
                 {i18n.t(auth.addAccount.hint)}
               </Text>
             </View>
-            <View>
+            <View style={styles.buttons}>
               <Button
                 theme={ButtonThemes.ACCENT}
                 onPress={this.handleCreateAccount}>

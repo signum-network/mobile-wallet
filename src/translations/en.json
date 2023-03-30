@@ -69,7 +69,8 @@
         "import": "Import",
         "passiveAccountHint": "Passive accounts are useful if you know an address, but don't intend on making any transactions. Adds increased security. Can be converted to an active account at any time.",
         "title": "Import account",
-        "showPassphrase": "Show passphrase"
+        "showPassphrase": "Show passphrase",
+        "accountPreviewLabel": "Address Preview"
       }
     }
   },
@@ -136,7 +137,8 @@
         "accountsList": "Accounts List",
         "recentTransactions": "Recent Transactions",
         "title": "Your Accounts",
-        "allAccounts": "Your Accounts"
+        "allAccounts": "Your Accounts",
+        "deleteHint": "Swipe item to the left for removal"
       },
       "loading": {
         "loadingText": "Loading..."
@@ -196,7 +198,12 @@
         "addMessage": "Add a Message?",
         "message": "Message",
         "confirmRisk": "Address '{{address}}' is unknown! Sending to this address may cause irreversible loss! - Do you assume the risk?",
-        "reset": "Reset Form"
+        "reset": "Reset Form",
+        "fee": {
+          "cheap": "cheap",
+          "standard": "standard",
+          "priority": "priority"
+        }
       },
       "scan": {
         "title": "Scan QR Code"
