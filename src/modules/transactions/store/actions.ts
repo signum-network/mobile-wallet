@@ -3,7 +3,7 @@ import {
   AttachmentEncryptedMessage,
   AttachmentMessage,
   TransactionId,
-  SendAmountArgs,
+  SendAmountArgs, Address,
 } from '@signumjs/core';
 import {
   decryptAES,
@@ -72,7 +72,7 @@ export const sendMoney = createActionFn<
   const sendMoneyPayload: SendAmountArgs = {
     amountPlanck: Amount.fromSigna(amount).getPlanck(),
     feePlanck: Amount.fromSigna(fee).getPlanck(),
-    recipientId: address,
+    recipientId: Address.create(address).getNumericId(),
     senderPublicKey,
     senderPrivateKey,
     deadline: 1440,

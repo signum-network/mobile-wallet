@@ -207,7 +207,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
     return (
       this.props.accounts
         // @ts-ignore
-        .filter(({type}) => type !== 'offline')
+        .filter(({type}) => type === 'active')
         .map(({accountRS, name, account}) => ({
           value: account,
           label: name
@@ -217,16 +217,16 @@ export class SendForm extends React.Component<Props, SendFormState> {
     );
   };
 
-  getAccount = (address: string): Account | null => {
+  getAccount = (accountId: string): Account | null => {
     return (
-      this.props.accounts.find(({accountRS}) => accountRS === address) || null
+      this.props.accounts.find(({account}) => account === accountId) || null
     );
   };
 
   getInitialState = (deeplinkProps?: SendFormState) => {
     const accounts = this.getAccounts();
     const sender =
-      accounts.length === 1 ? this.getAccount(accounts[0].value) : null;
+      accounts.length >= 1 ? this.getAccount(accounts[0].value) : null;
     const balances = getBalancesFromAccount(sender);
     return {
       sender,
@@ -453,8 +453,9 @@ export class SendForm extends React.Component<Props, SendFormState> {
 
   handleChangeFromAccount = (sender: string) => {
     const account = this.getAccount(sender);
+    console.log('changeAccount', account, sender);
     const balances = getBalancesFromAccount(account);
-    this.setState({sender: account, balances});
+    this.setState({sender: account?.account, balances});
   };
 
   handleChangeAddress = (address: string) => {
@@ -604,7 +605,6 @@ export class SendForm extends React.Component<Props, SendFormState> {
     } = this.state;
     const {suggestedFees} = this.props;
     const total = this.getTotal();
-    const senderRS = (sender && sender.accountRS) || null;
     const isResetEnabled = this.isResetEnabled();
     const isSubmitEnabled = this.isSubmitEnabled();
     const swipeButtonTitle = isSubmitEnabled
@@ -657,7 +657,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
       <View style={styles.root}>
         <View style={styles.headerSection}>
           <BSelect
-            value={senderRS}
+            value={sender}
             items={this.getAccounts()}
             onChange={this.handleChangeFromAccount}
             title={i18n.t(transactions.screens.send.from)}
