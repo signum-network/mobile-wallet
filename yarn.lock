@@ -8610,18 +8610,6 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-swr-react-native@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/swr-react-native/-/swr-react-native-0.1.2.tgz#645856df0342e0639fbd4337cdb73c47fcd43cf8"
-  integrity sha512-Y5rnAPEXTS1z8lt+WexCCvHekl1XiXihSXujJ9nj1v5/F90REugATK/FDWTOCeVKwwWb16bf+y2TxSpw97ygFg==
-
-swr@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-2.1.1.tgz#9b9fd7f96236c9c0db8c96183b26661f857a64b8"
-  integrity sha512-OgwqZmpjOgxNbaez6qzTVqiRWn+Ti5Uzmktk2c01Afqwc50q6z15DeNC8m9G1aY+w2BwEAsKvk59iq6aHlhgyw==
-  dependencies:
-    use-sync-external-store "^1.2.0"
-
 temp@0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/temp/-/temp-0.8.3.tgz#e0c6bc4d26b903124410e4fed81103014dfc1f59"
@@ -8954,7 +8942,7 @@ use-latest-callback@^0.1.5:
   resolved "https://registry.yarnpkg.com/use-latest-callback/-/use-latest-callback-0.1.5.tgz#a4a836c08fa72f6608730b5b8f4bbd9c57c04f51"
   integrity sha512-HtHatS2U4/h32NlkhupDsPlrbiD27gSH5swBdtXbCAlc6pfOFzaj0FehW/FO12rx8j2Vy4/lJScCiJyM01E+bQ==
 
-use-sync-external-store@^1.0.0, use-sync-external-store@^1.2.0:
+use-sync-external-store@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==

@@ -455,7 +455,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
     const account = this.getAccount(sender);
     console.log('changeAccount', account, sender);
     const balances = getBalancesFromAccount(account);
-    this.setState({sender: account?.account, balances});
+    this.setState({sender: account, balances});
   };
 
   handleChangeAddress = (address: string) => {
@@ -657,7 +657,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
       <View style={styles.root}>
         <View style={styles.headerSection}>
           <BSelect
-            value={sender}
+            value={sender?.account}
             items={this.getAccounts()}
             onChange={this.handleChangeFromAccount}
             title={i18n.t(transactions.screens.send.from)}

@@ -1,4 +1,4 @@
-import {Account, Address, Alias} from '@signumjs/core';
+import {Account, Address, Alias, Transaction} from '@signumjs/core';
 import {encryptAES, generateMasterKeys, hashSHA256} from '@signumjs/crypto';
 import {some} from 'lodash';
 import {i18n} from '../../../core/i18n';
@@ -14,6 +14,7 @@ import {
   storeAccounts,
 } from './utils';
 import {selectChainApi} from '../../../core/store/app/selectors';
+import {selectAccount} from './selectors';
 
 interface UnstoppableDomainResponse {
   addresses: {
@@ -125,7 +126,10 @@ export const hydrateAccount = createActionFn<
   const state = getState();
   const api = selectChainApi(state);
   try {
-    console.log('Fetching Account from: ', api.service.settings.nodeHost);
+    console.log(
+      `Fetching ${account.accountRS} from: `,
+      api.service.settings.nodeHost,
+    );
     const accountDetails = await api.account.getAccount({
       accountId: account.account,
       includeCommittedAmount: true,
@@ -185,13 +189,19 @@ export const updateAccountTransactions = createActionFn<
 >(async (dispatch, getState, {account, pendingOnly}) => {
   const state = getState();
   const api = selectChainApi(state);
-  const updatedAccount: Account = {
-    ...account,
+  const storedAccount = selectAccount(account.account)(state);
+  if (!storedAccount) {
+    return account;
+  }
+  const updatedAccount = {
+    // need to have a new reference
+    ...storedAccount,
   };
   try {
-    console.log(`updating ${pendingOnly ? 'unconfirmed' : ''} transactions` , account.accountRS);
-    // @ts-ignore
-    let transactions = account.transactions;
+    console.log(
+      `updating ${pendingOnly ? 'unconfirmed' : ''} transactions`,
+      account.accountRS,
+    );
     if (!pendingOnly) {
       const result = await api.account.getAccountTransactions({
         accountId: account.account,
@@ -200,16 +210,30 @@ export const updateAccountTransactions = createActionFn<
         includeIndirect: true,
         resolveDistributions: true,
       });
-      transactions = result.transactions;
+      // @ts-ignore
+      updatedAccount.transactions = result.transactions;
     }
     const {unconfirmedTransactions} =
       await api.account.getUnconfirmedAccountTransactions(
         account.account,
         true,
       );
-    // @ts-ignore
-    updatedAccount.transactions = [...unconfirmedTransactions, ...transactions];
+
+    // add new tx only, avoid duplicates
+    if (unconfirmedTransactions.length) {
+      const txSet = new Set<string>(
+        // @ts-ignore
+        updatedAccount.transactions.map(tx => tx.transaction),
+      );
+      for (let utx of unconfirmedTransactions) {
+        if (!txSet.has(utx.transaction)) {
+          // @ts-ignore
+          updatedAccount.transactions.unshift(utx);
+        }
+      }
+    }
     dispatch(actions.updateAccount(updatedAccount));
+    return updatedAccount;
   } catch (e) {}
 
   return updatedAccount;

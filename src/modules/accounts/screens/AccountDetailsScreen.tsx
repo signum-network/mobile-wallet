@@ -18,7 +18,7 @@ import {updateAccountTransactions} from '../store/actions';
 import {selectAccount} from '../store/selectors';
 import {auth} from '../translations';
 import {defaultSettings} from '../../../core/environment';
-import useSWRNative from 'swr-react-native';
+import useSWRNative from '@nandorojo/swr-react-native';
 
 type AccountDetailsRouteProps = RouteProp<RootStackParamList, 'AccountDetails'>;
 type AccountDetailsNavProp = StackNavigationProp<
@@ -47,35 +47,32 @@ const AccountDetails = (props: Props) => {
   const account = useSelector(selectAccount(route.params.account || ''));
   const {priceApi, navigation} = props;
 
-  useSWRNative(
-    account ? `fetchTransactions/${account.account}` : null,
-    () => {
+  useEffect(() => {
+    const updateAccounts = (pendingOnly: boolean) => {
       if (account) {
-        return dispatch(
-          updateAccountTransactions({account, pendingOnly: false}),
-        );
+        dispatch(updateAccountTransactions({account, pendingOnly}));
       }
-      return Promise.resolve(null);
-    },
-    {
-      refreshInterval: defaultSettings.pollingTime,
-    },
-  );
+    };
+    updateAccounts(false);
+    let elapsedSeconds = 0;
+    timeoutHandle.current = setInterval(() => {
+      ++elapsedSeconds;
+      if (elapsedSeconds % defaultSettings.pollingTime === 0) {
+        updateAccounts(false);
+      } else if (elapsedSeconds % defaultSettings.pollingTimePending === 0) {
+        updateAccounts(true);
+      }
+    }, 1000);
+    return () => {
+      clearAccountInterval();
+    };
+  }, []);
 
-  useSWRNative(
-    account ? `fetchPendingTransactions/${account.account}` : null,
-    () => {
-      if (account) {
-        return dispatch(
-          updateAccountTransactions({account, pendingOnly: true}),
-        );
-      }
-      return Promise.resolve(null);
-    },
-    {
-      refreshInterval: 10 * 1000,
-    },
-  );
+  const clearAccountInterval = () => {
+    if (timeoutHandle.current) {
+      clearInterval(timeoutHandle.current);
+    }
+  };
 
   const handleTransactionPress = (transaction: Transaction) => {
     // @ts-ignore

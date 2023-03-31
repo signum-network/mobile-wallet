@@ -56,19 +56,15 @@ export const SendScreen = () => {
   const navigation = useNavigation<SendScreenNavProp>();
   const dispatch = useDispatch();
   const [deeplinkData, setDeeplinkData] = useState<SendFormState>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
   const accounts = useSelector<ApplicationState, Account[]>(
     state => state.auth.accounts || [],
   );
-  const [, setShouldUpdate] = useState(true);
-
-  // TODO: refactoring is king here! - this is pretty uncommon pattern!
-  const sendMoneyFn = useSelector<
-    ApplicationState,
-    AsyncParticle<TransactionId>
-  >(state => state.transactions.sendMoney);
   const suggestedFees = useSelector<ApplicationState, SuggestedFees | null>(
     state => state.network.suggestedFees,
   );
+  const [, setShouldUpdate] = useState(true);
 
   useEffect(() => {
     if (!route.params) {
@@ -104,10 +100,18 @@ export const SendScreen = () => {
     };
   });
 
-  const handleSubmit = (form: SendAmountPayload) => {
-    dispatch(sendMoneyAction(form));
-    setDeeplinkData(undefined);
-    navigation.navigate('Home', {screen: 'Accounts'});
+  const handleSubmit = async (form: SendAmountPayload) => {
+    try {
+      setIsSubmitting(true);
+      console.log('handleSubmit', form);
+      await dispatch(sendMoneyAction(form));
+      setDeeplinkData(undefined);
+      navigation.navigate('Home', {screen: 'Accounts'});
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -130,8 +134,7 @@ export const SendScreen = () => {
     navigation.navigate('Scan');
   };
 
-  const {error} = sendMoneyFn;
-  const isLoading = isAsyncLoading(sendMoneyFn);
+  // @ts-ignore
   const hasActiveAccounts = accounts.some(({type}) => type !== 'offline');
 
   return (
@@ -142,7 +145,7 @@ export const SendScreen = () => {
           {hasActiveAccounts ? (
             <SendForm
               accounts={accounts}
-              loading={isLoading}
+              loading={isSubmitting}
               onReset={handleReset}
               onSubmit={handleSubmit}
               onGetAccount={handleGetAccount}

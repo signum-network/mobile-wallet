@@ -77,8 +77,6 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "rn-swipe-button": "^1.3.8",
-    "swr": "^2.1.1",
-    "swr-react-native": "^0.1.2",
     "vision-camera-code-scanner": "^0.2.0"
   },
   "rnpm": {
