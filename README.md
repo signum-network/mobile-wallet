@@ -1,6 +1,7 @@
 ### This is Work in Progress
 
 - [x] Upgraded to newest RN Version 0.71 (iOS and Android)
+- [x] Support for new transaction types, especially Distribution
 - [x] Fix reported bugs (see Phoenix repository)
 - [x] Minor UX improvements (translations, input fields, layout etc)
 - [x] Add QR Code Scanner for Account Imports (support will come to Phoenix Desktop/Web very soon)
