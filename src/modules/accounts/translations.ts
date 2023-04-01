@@ -61,6 +61,10 @@ export const auth = {
     showPassphrase: 'accounts.screens.importAccount.showPassphrase',
     accountPreviewLabel: 'accounts.screens.importAccount.accountPreviewLabel',
   },
+  scanAccount: {
+    scanAddress: 'accounts.screens.scanAccount.scanAddress',
+    scanRecoveryPhrase: 'accounts.screens.scanAccount.scanRecoveryPhrase',
+  },
   errors: {
     accountExist: 'accounts.errors.accountExist',
     incorrectAddress: 'accounts.errors.incorrectAddress',

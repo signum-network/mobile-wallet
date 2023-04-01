@@ -64,13 +64,17 @@
         "title": "Create account"
       },
       "importAccount": {
-        "activeAccount": "Active account",
-        "activeAccountHint": "Active accounts are used for making transactions. Requires user generate a passphrase or provide one. Requires a user create a PIN for transactions. The passphrase is only used once locally to encrypt your private key; it is not stored anywhere.",
+        "activeAccount": "Use Recovery Phrase",
+        "activeAccountHint": "Use the Recovery Phrase if you intend to make transaction with the imported account. The recovery phrase is only used once locally to derive your private key; it is not stored anywhere. The PIN is used to protect the private key.",
         "import": "Import",
-        "passiveAccountHint": "Passive accounts are useful if you know an address, but don't intend on making any transactions. Adds increased security. Can be converted to an active account at any time.",
+        "passiveAccountHint": "If you want to watch only an account you don't need to use the Recovery Phrase. Use the Recovery Phrase only if you intend to execute transactions.",
         "title": "Import account",
-        "showPassphrase": "Show passphrase",
+        "showPassphrase": "Show Recovery Phrase",
         "accountPreviewLabel": "Address Preview"
+      },
+      "scanAccount": {
+        "scanAddress": "Scan Account Address",
+        "scanRecoveryPhrase": "Scan Recovery Phrase"
       }
     }
   },
@@ -142,6 +146,12 @@
       },
       "loading": {
         "loadingText": "Loading..."
+      }
+    },
+    "components": {
+      "qrCodeScanner": {
+        "errorNoPermission": "No Permission granted",
+        "errorNoDevice": "No Camera found"
       }
     }
   },

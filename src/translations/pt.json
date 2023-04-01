@@ -64,13 +64,17 @@
         "title": "Criar Conta"
       },
       "importAccount": {
-        "activeAccount": "Conta ativa",
-        "activeAccountHint": "Contas ativas são usadas para fazer transações. Requer que o usuário gere ou forneça uma frase secreta. Requer que um usuário crie um PIN para transações. O PIN é usada apenas uma vez para criptografar sua chave privada; e não é armazenado em nenhum lugar.",
+        "activeAccount": "Usar Frase de Recuperação",
+        "activeAccountHint": "Use a Frase de Recuperação caso pretenda fazer transações com a conta importada. A Frase de Recuperação é usada apenas uma vez localmente para criptografar sua chave privada; não é armazenado em qualquer lugar. O PIN é usado para descriptografar a chave privada.",
         "import": "Importar",
-        "passiveAccountHint": "As contas passivas são úteis se você souber um endereço, mas não pretende fazer nenhuma transação. Adiciona maior segurança. Pode ser convertido em uma conta ativa a qualquer momento.",
+        "passiveAccountHint": "Se você quiser observar apenas uma conta, não precisa usar a Frase de Recuperação. Use a Frase de Recuperação somente se você pretende executar transações.",
         "title": "Importar Conta",
-        "showPassphrase": "Mostrar frase secreta",
+        "showPassphrase": "Mostrar frase de recuperação",
         "accountPreviewLabel": "Visualização de endereço"
+      },
+      "scanAccount": {
+        "scanAddress": "Escanear Endereço da Conta",
+        "scanRecoveryPhrase": "Escanear Frase de Recuperação"
       }
     }
   },
@@ -142,6 +146,12 @@
       },
       "loading": {
         "loadingText": "Carregando..."
+      }
+    },
+    "components": {
+      "qrCodeScanner": {
+        "errorNoPermission": "Nenhuma permissão concedida",
+        "errorNoDevice": "Nenhuma câmera encontrada"
       }
     }
   },

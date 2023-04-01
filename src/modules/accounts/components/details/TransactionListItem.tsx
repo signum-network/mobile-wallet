@@ -17,7 +17,7 @@ import {
 } from '../../../../core/theme/sizes';
 import {trimAddressPrefix} from '../../../../core/utils/account';
 import {AmountText} from '../../../../core/components/base/Amount';
-import {mountTxTypeString} from "../../../../core/utils/mountTxTypeString";
+import {mountTxTypeString} from '../../../../core/utils/mountTxTypeString';
 
 interface Props {
   transaction: Transaction;
@@ -95,15 +95,14 @@ export const TransactionListItem = ({account, transaction, onPress}: Props) => {
       result = Amount.fromPlanck(transaction.amountNQT || '0').multiply(-1);
     } else {
       result = isMultiOutPayment(transaction)
-        ? // here is an inconsistency in the signumjs lib
-          Amount.fromSigna(getRecipientsAmount(account, transaction))
+        ? getRecipientsAmount(account, transaction)
         : Amount.fromPlanck(transaction.amountNQT || '0');
     }
     return result;
   }, [account, isAmountNegative, transaction]);
 
   const txTypeString = useMemo(() => {
-    return mountTxTypeString(transaction.type, transaction.subtype)
+    return mountTxTypeString(transaction.type, transaction.subtype);
   }, [transaction.type, transaction.subtype]);
 
   const handlePress = () => {

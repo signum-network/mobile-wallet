@@ -64,13 +64,17 @@
         "title": "Konto erstellen"
       },
       "importAccount": {
-        "activeAccount": "Aktives Konto",
-        "activeAccountHint": "Aktive Konten werden für die Durchführung von Transaktionen verwendet. Dies erfordert, dass der Benutzer eine Passphrase generiert oder bereitstellt und es ist notwendig, dass der Benutzer eine PIN für Transaktionen erstellt. Die Passphrase wird nur einmal lokal verwendet, um Deine kryptografischen Schlüssel zu erstellen; sie wird nirgendwo gespeichert.",
+        "activeAccount": "Recovery Phrase Verwenden ",
+        "activeAccountHint": "Verwende die Recovery Phrase, wenn Du beabsichtigst, eine Transaktion mit dem importierten Konto durchzuführen. Die Recovery Phrase wird nur einmal lokal verwendet, um deinen privaten Schlüssel zu verschlüsseln; es wird nirgendwo gespeichert. Die PIN wird verwendet, um den privaten Schlüssel zu entschlüsseln.",
         "import": "Importieren",
-        "passiveAccountHint": "Passive Konten sind nützlich, wenn Du eine Adresse kennst, aber nicht vorhast, irgendwelche Transaktionen durchzuführen. Dies bietet erhöhte Sicherheit. Mit der Passphrase kannst Du es in aktives Konto umwandeln.",
+        "passiveAccountHint": "Wenn du nur ein Konto ansehen bzw. beobachten möchtest, brauchst Du die Recovery Phrase nicht verwenden. Verwende die Recovery Phrase nur, wenn Du beabsichtigst, Transaktionen auszuführen.",
         "title": "Konto importieren",
-        "showPassphrase": "Passphrase anzeigen",
+        "showPassphrase": "Recovery Phrase anzeigen",
         "accountPreviewLabel": "Adressvorschau"
+      },
+      "scanAccount": {
+        "scanAddress": "Kontoadresse Scannen",
+        "scanRecoveryPhrase": "Recovery Phrase Scannen"
       }
     }
   },
@@ -142,6 +146,12 @@
       },
       "loading": {
         "loadingText": "Laden..."
+      }
+    },
+    "components": {
+      "qrCodeScanner": {
+        "errorNoPermission": "Keine Berechtigung erteilt",
+        "errorNoDevice": "Keine Kamera gefunden"
       }
     }
   },

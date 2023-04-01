@@ -2,20 +2,25 @@ import {NavigatorScreenParams} from '@react-navigation/native';
 import {Transaction} from '@signumjs/core';
 import {DeeplinkParts} from '@signumjs/util';
 import {AppReduxState} from '../../../core/store/app/reducer';
-import {ReceiveAmountPayload} from '../../transactions/store/actions';
 import {AuthReduxState} from '../store/reducer';
 
 export type RootStackParamList = {
   Accounts: undefined;
   AddAccount: undefined;
   CreateAccount: undefined;
-  ImportAccount: undefined;
+  ImportAccount: {
+    address?: string;
+    seed?: string;
+  };
   Settings: undefined;
   TransactionDetails: {
     transaction: Transaction;
   };
   AccountDetails: {
     account?: string;
+  };
+  ScanAccount: {
+    scanType: 'address' | 'seed';
   };
 };
 
@@ -24,9 +29,7 @@ export type SendStackParamList = {
     accountRS?: string;
     payload?: DeeplinkParts;
   };
-  Scan: {
-    form: ReceiveAmountPayload;
-  };
+  ScanDeeplink: undefined;
 };
 
 export type ReceiveStackParamList = {

@@ -60,7 +60,12 @@ export const core: any = {
       accountsList: 'core.screens.home.accountsList',
       allAccounts: 'core.screens.home.allAccounts',
       deleteHint: 'core.screens.home.deleteHint',
-
     },
   },
+  components: {
+    qrCodeScanner: {
+      errorNoPermission: 'core.components.qrCodeScanner.errorNoPermission',
+      errorNoDevice: 'core.components.qrCodeScanner.errorNoDevice',
+    },
+  }
 };

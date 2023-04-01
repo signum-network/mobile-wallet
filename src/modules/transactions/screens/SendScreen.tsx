@@ -7,15 +7,13 @@ import {
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {Account, SuggestedFees, TransactionId} from '@signumjs/core';
+import {Account, SuggestedFees} from '@signumjs/core';
 import {Text, TextThemes} from '../../../core/components/base/Text';
 import {HeaderTitle} from '../../../core/components/header/HeaderTitle';
 import {i18n} from '../../../core/i18n';
-import {AsyncParticle} from '../../../core/interfaces';
 import {FullHeightView} from '../../../core/layout/FullHeightView';
 import {Screen} from '../../../core/layout/Screen';
 import {ApplicationState} from '../../../core/store/initialState';
-import {isAsyncLoading} from '../../../core/utils/async';
 import {
   getAccount,
   getAlias,
@@ -131,7 +129,7 @@ export const SendScreen = () => {
   };
 
   const handleCameraIconPress = () => {
-    navigation.navigate('Scan');
+    navigation.navigate('ScanDeeplink');
   };
 
   // @ts-ignore
@@ -158,7 +156,7 @@ export const SendScreen = () => {
           ) : (
             <NoActiveAccount />
           )}
-          {error && <Text theme={TextThemes.DANGER}>{error.message}</Text>}
+          {error && <Text theme={TextThemes.DANGER}>{error}</Text>}
         </View>
       </FullHeightView>
     </Screen>

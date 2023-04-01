@@ -13,7 +13,6 @@ import {Store} from 'redux';
 import {i18n} from './src/core/i18n';
 import {ChangeLanguageEvent} from './src/core/interfaces';
 import {RootView} from './src/core/layout/RootView';
-import {routes} from './src/core/navigation/routes';
 import {getStore} from './src/core/store/store';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -31,7 +30,7 @@ import {TransactionDetailsScreen} from './src/modules/transactions/screens/Trans
 import {SettingsScreen} from './src/modules/settings/screens/SettingsScreen';
 import {settings} from './src/modules/settings/translations';
 import {ReceiveScreen} from './src/modules/transactions/screens/ReceiveScreen';
-import {ScanQRCodeScreen} from './src/modules/transactions/screens/ScanQRCodeScreen';
+import {ScanDeeplinkQRCodeScreen} from './src/modules/transactions/screens/ScanDeeplinkQRCodeScreen';
 import {SendScreen} from './src/modules/transactions/screens/SendScreen';
 import {ViewQRCodeScreen} from './src/modules/transactions/screens/ViewQRCodeScreen';
 import {transactions} from './src/modules/transactions/translations';
@@ -45,6 +44,7 @@ import {
   RootStackParamList,
   SendStackParamList,
 } from './src/modules/accounts/navigation/mainStack';
+import {ScanAccountQRCodeScreen} from "./src/modules/accounts/screens/ScanAccountQRCodeScreen";
 
 const store: Store = getStore();
 
@@ -205,6 +205,7 @@ export const MainStack = () => {
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
       <Stack.Screen name="ImportAccount" component={ImportAccountScreen} />
       <Stack.Screen name="AccountDetails" component={AccountDetailsScreen} />
+      <Stack.Screen name="ScanAccount" component={ScanAccountQRCodeScreen} />
       <Stack.Screen
         name="TransactionDetails"
         component={TransactionDetailsScreen}
@@ -219,7 +220,7 @@ export const SendStack = () => {
   return (
     <SendNavStack.Navigator screenOptions={{headerShown: false}}>
       <SendNavStack.Screen name="Send" component={SendScreen} />
-      <SendNavStack.Screen name="Scan" component={ScanQRCodeScreen} />
+      <SendNavStack.Screen name="ScanDeeplink" component={ScanDeeplinkQRCodeScreen} />
     </SendNavStack.Navigator>
   );
 };

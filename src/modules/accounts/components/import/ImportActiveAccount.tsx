@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Button} from '../../../../core/components/base/Button';
-import {Input} from '../../../../core/components/base/Input';
 import {SwitchItem} from '../../../../core/components/base/SwitchItem';
 import {i18n} from '../../../../core/i18n';
 import {auth} from '../../translations';
@@ -13,14 +12,25 @@ import {selectChainInfo} from '../../../network/store/selectors';
 import {Text, TextAlign} from '../../../../core/components/base/Text';
 import {BorderRadiusSizes, FontSizes} from '../../../../core/theme/sizes';
 import {Colors} from '../../../../core/theme/colors';
+import {BInput} from '../../../../core/components/base/BInput';
+import {transactionIcons} from '../../../../assets/icons';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../navigation/mainStack';
 
 interface Props {
   onFinish: (passphrase: string) => void;
+  seed?: string;
 }
+
+type ScanNavigationProps = StackNavigationProp<
+  RootStackParamList,
+  'ScanAccount'
+>;
 
 const styles = StyleSheet.create({
   mainBlock: {
-    flexGrow: 1,
+    marginTop: '10%'
   },
   passphraseSwitch: {
     paddingTop: 10,
@@ -36,10 +46,18 @@ const styles = StyleSheet.create({
   button: {
     paddingTop: '10%',
   },
+  cameraIcon: {
+    marginTop: 3,
+    marginRight: 2,
+    width: 20,
+    height: 20,
+    backgroundColor: Colors.TRANSPARENT,
+  },
 });
 
-export const ImportActiveAccount: React.FC<Props> = ({onFinish}) => {
-  const [passphrase, setPassphrase] = useState('');
+export const ImportActiveAccount: React.FC<Props> = ({onFinish, seed = ''}) => {
+  const navigation = useNavigation<ScanNavigationProps>();
+  const [passphrase, setPassphrase] = useState(seed);
   const [address, setAddress] = useState('');
   const [showPassphrase, setShowPassphrase] = useState(false);
   const chainInfo = useSelector(selectChainInfo);
@@ -66,14 +84,27 @@ export const ImportActiveAccount: React.FC<Props> = ({onFinish}) => {
     onFinish(passphrase);
   };
 
+  const handleCameraIconPress = () => {
+    navigation.navigate('ScanAccount', {scanType: 'seed'});
+  };
+
+  const InputRightIcons = (
+    <View style={{flexDirection: 'row'}}>
+      <TouchableOpacity onPress={handleCameraIconPress}>
+        <Image source={transactionIcons.camera} style={styles.cameraIcon} />
+      </TouchableOpacity>
+    </View>
+  );
   return (
     <React.Fragment>
       <View style={styles.mainBlock}>
-        <Input
-          secure={!showPassphrase}
-          hint={i18n.t(auth.models.account.passphrase)}
-          value={passphrase}
-          onChangeText={handleChangePassphrase}
+        <BInput
+          title={i18n.t(auth.models.account.passphrase)}
+          value={seed}
+          autoCapitalize={'characters'}
+          onChange={handleChangePassphrase}
+          rightIcons={InputRightIcons}
+          theme="light"
         />
         <AccountTypeHint>
           {i18n.t(auth.importAccount.activeAccountHint)}

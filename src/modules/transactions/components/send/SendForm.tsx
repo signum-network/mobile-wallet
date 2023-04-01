@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
-  inputIcon: {
+  cameraIcon: {
     marginTop: 3,
     marginRight: 2,
     width: 20,
@@ -635,7 +635,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
           />
         )}
         <TouchableOpacity onPress={this.props.onCameraIconPress}>
-          <Image source={transactionIcons.camera} style={styles.inputIcon} />
+          <Image source={transactionIcons.camera} style={styles.cameraIcon} />
         </TouchableOpacity>
       </View>
     );
@@ -643,7 +643,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
     const AmountRightIcons = (
       <View style={{flexDirection: 'row'}}>
         <TouchableOpacity onPress={this.onSpendAll}>
-          <Image source={transactionIcons.sendAll} style={styles.inputIcon} />
+          <Image source={transactionIcons.sendAll} style={styles.cameraIcon} />
         </TouchableOpacity>
       </View>
     );
