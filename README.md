@@ -1,4 +1,4 @@
-# Phoenix Mobile Wallet
+# Signum Mobile Wallet
 
 The Signum Mobile wallet is a React Native application.
 
