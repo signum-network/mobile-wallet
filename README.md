@@ -1,3 +1,20 @@
+### This is Work in Progress
+
+- [x] Upgraded to newest RN Version 0.71 (iOS and Android)
+- [x] Fix reported bugs (see Phoenix repository)
+- [x] Minor UX improvements (translations, input fields, layout etc)
+- [x] Add QR Code Scanner for Account Imports (support will come to Phoenix Desktop/Web very soon)
+- [ ] Add Spanish
+- [ ] Add Account Protection aka "activation"
+
+Estimated Deployment:
+Android: 1st week April, 2023
+iOS: 2nd week April, 2023
+
+> This is the first step before major layout changes, and token support is coming. ETA: End of Q2/Beginning Q3
+
+------------
+
 # Signum Mobile Wallet
 
 The Signum Mobile wallet is a React Native application.
