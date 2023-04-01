@@ -216,7 +216,7 @@
         }
       },
       "scan": {
-        "title": "Leia o código QR"
+        "title": "Escanea o código QR do pagamento"
       }
     }
   },

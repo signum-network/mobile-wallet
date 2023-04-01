@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Button} from '../../../../core/components/base/Button';
 import {i18n} from '../../../../core/i18n';
-import {flexGrowStyle} from '../../../../core/utils/styles';
 import {auth} from '../../translations';
 import {AccountTypeHint} from './AccountTypeHint';
 import {maskSignumAddress} from '../../../../core/utils/maskSignumAddress';
@@ -73,7 +72,7 @@ export const ImportOfflineAccount = ({onFinish, address}: Props) => {
         setIsValidAddress(true);
       }
     } catch (e: any) {
-      console.warn('Invalid RS Address')
+      console.warn('Invalid RS Address');
       setIsValidAddress(false);
     }
   };

@@ -216,7 +216,7 @@
         }
       },
       "scan": {
-        "title": "QR Code Scannen"
+        "title": "Scanne Zahlungs-QR-Code"
       }
     }
   },
