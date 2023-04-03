@@ -1,6 +1,13 @@
 # Change log
 
-## 1.0.7 (Build 8) TBD
+
+## 1.1.0 (Build 8) TBD
+- Updated to RN0.71
+- Added more languages
+- Import Accounts using QR Code
+- Supports all new Transaction Types
+- Show Distributed Amounts now (SIGNA only)
+- Fixed some Account Bugs
 
 ### Features
 - Updated to RN0.66
