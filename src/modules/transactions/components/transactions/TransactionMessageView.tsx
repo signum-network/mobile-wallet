@@ -45,23 +45,23 @@ function getPlainText(
   try {
     let account = accounts.find(
       // @ts-ignore
-      a => a.publicKey === transaction.senderPublicKey && a.type === 'active',
+      a => a.account === transaction.sender && a.type === 'active',
     );
 
-    const {encryptedMessage, recipientPublicKey} = attachment;
     if (account) {
+      const {encryptedMessage, recipientPublicKey} = attachment;
       // sender
-      const senderPrivateKey = decryptAES(
+      const decryptionKey = decryptAES(
         // @ts-ignore
         account.keys.agreementPrivateKey,
         hashSHA256(passCode),
       );
-      console.log('sender', senderPrivateKey, attachment);
+      console.log('sender', decryptionKey, attachment);
       if (encryptedMessage.isText) {
         return decryptMessage(
           encryptedMessage,
           recipientPublicKey,
-          senderPrivateKey,
+          decryptionKey,
         );
       } else {
         return '[Encrypted Binary Message]';
@@ -70,21 +70,23 @@ function getPlainText(
     // recipient
     account = accounts.find(
       // @ts-ignore
-      a => a.publicKey === recipientPublicKey && a.type === 'active',
+      a => a.account === transaction.recipient && a.type === 'active',
     );
+    console.log('second round', account)
 
     if (account) {
-      const senderPrivateKey = decryptAES(
+      const {encryptedMessage} = transaction.attachment
+      const decryptionKey = decryptAES(
         // @ts-ignore
         account.keys.agreementPrivateKey,
         hashSHA256(passCode),
       );
-      console.log('receiver', senderPrivateKey, attachment);
+      console.log('receiver', decryptionKey, attachment);
       if (encryptedMessage.isText) {
         return decryptMessage(
           encryptedMessage,
           transaction.senderPublicKey,
-          senderPrivateKey,
+          decryptionKey,
         );
       } else {
         return '[Encrypted Binary Message]';

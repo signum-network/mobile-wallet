@@ -1,5 +1,5 @@
-import {Transaction, TransactionArbitrarySubtype, TransactionType} from '@signumjs/core';
-import React, {useState, useEffect} from 'react';
+import {Transaction} from '@signumjs/core';
+import React from 'react';
 import {
   View,
   FlatList,
@@ -18,10 +18,7 @@ import {FontSizes, Sizes} from '../../../../core/theme/sizes';
 import {i18n} from '../../../../core/i18n';
 import {auth} from '../../../accounts/translations';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {useSelector} from 'react-redux';
-import {selectAccount} from '../../../accounts/store/selectors';
 import {actionIcons} from '../../../../assets/icons';
-import {tryParseNativeCameraError} from "react-native-vision-camera";
 import {TransactionMessageView} from "./TransactionMessageView";
 
 interface Props {

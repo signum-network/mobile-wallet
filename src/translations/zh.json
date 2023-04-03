@@ -1,0 +1,240 @@
+{
+  "accounts": {
+    "errors": {
+      "accountExist": "帐号已导入",
+      "incorrectAddress": "地址不正确",
+      "incorrectPasscode": "密码错误",
+      "incorrectPassphrase": "密码不正确",
+      "insecurePin": "不安全的 PIN，建议最少 {{length}} 个字符"
+    },
+    "modals": {
+      "enterPasscode": {
+        "confirmReset": "删除所有帐户并重置 PIN 码？",
+        "forgotPin": "忘记密码？",
+        "passcodeHint": "输入密码"
+      },
+      "setPasscode": {
+        "enterAgain": "再次输入密码",
+        "passcodeHint": "请设置密码以保护您的设备"
+      }
+    },
+    "passcode": {
+      "passcode": "密码"
+    },
+    "screens": {
+      "accountDetails": {
+        "copiedSuccessfully": "地址复制成功：{{value}}",
+        "copy": "复制",
+        "noTransactions": {
+          "title": "无交易"
+        }
+      },
+      "accounts": {
+        "addAccount": "新增帐户",
+        "createAccount": "创建账户",
+        "noAccounts": {
+          "hint": "请添加一个帐户以开始使用。",
+          "title": "欢迎来到 Signum"
+        },
+        "title": "帐户"
+      },
+      "addAccount": {
+        "createAccount": "创建账户",
+        "hint": "你有没有账号？",
+        "importAccount": "导入账户",
+        "title": "新增帐户"
+      },
+      "createAccount": {
+        "createAccount": "创建账户",
+        "enterPin": "输入密码",
+        "enterPinHint": "输入 PIN 以保护此帐户。 PIN 用于验证使用您的帐户进行的操作。",
+        "generateSeed": "生成种子",
+        "generatedPercent": "生成：{{percent}}%",
+        "howToGenerate": "在该区域移动手指以创建随机种子。",
+        "notePassphrase": "注意密码",
+        "notePassphraseHint": "记下您的密码。密码是您帐户的主密钥。因此，请始终保持您的密码安全和私密！",
+        "notePassphraseHint2": "我们甚至不会在您的设备上存储密码，因此我们无法恢复对帐户的访问权限。注意！",
+        "pinPlaceholder": "别针",
+        "step": "步骤{{步骤}}/4",
+        "title": "创建账户"
+      },
+      "importAccount": {
+        "accountPreviewLabel": "地址预览",
+        "activeAccount": "使用助记词",
+        "activeAccountHint": "如果您打算与导入的帐户进行交易，请使用助记词。恢复短语仅在本地使用一次来派生您的私钥；它没有存储在任何地方。 PIN 用于保护私钥。",
+        "import": "进口",
+        "passiveAccountHint": "如果您只想观看一个帐户，则无需使用助记词。仅当您打算执行交易时才使用助记词。",
+        "showPassphrase": "显示助记词",
+        "title": "导入账户"
+      },
+      "scanAccount": {
+        "scanAddress": "扫描账户地址",
+        "scanRecoveryPhrase": "扫描助记词"
+      },
+      "transactionDetails": {
+        "copiedSuccessfully": "值复制成功：{{value}}",
+        "copy": "复制",
+        "headerTitle": "交易明细"
+      }
+    }
+  },
+  "core": {
+    "actions": {
+      "add": "添加",
+      "back": "后退",
+      "cancel": "取消",
+      "create": "创造",
+      "next": "下一个",
+      "ok": "好的",
+      "save": "节省",
+      "submit": "提交"
+    },
+    "balances": {
+      "available": "可用的",
+      "committed": "坚定的",
+      "locked": "锁定",
+      "total": "全部的"
+    },
+    "components": {
+      "qrCodeScanner": {
+        "errorNoDevice": "找不到相机",
+        "errorNoPermission": "未授予许可"
+      }
+    },
+    "currency": {
+      "BTC": {
+        "name": "比特币",
+        "value": "₿ {{值}}"
+      },
+      "SIGNA": {
+        "name": "西格纳",
+        "value": "Ꞩ {{值}}"
+      },
+      "USD": {
+        "name": "美元",
+        "value": "${{价值}}"
+      }
+    },
+    "dates": {
+      "months": {
+        "short": {
+          "APR": "4月",
+          "AUG": "八月",
+          "DEC": "十二月",
+          "FEB": "二月",
+          "JAN": "简",
+          "JUL": "七月",
+          "JUN": "君",
+          "MAR": "三月",
+          "MAY": "可能",
+          "NOV": "十一月",
+          "OCT": "十月",
+          "SEP": "九月"
+        }
+      }
+    },
+    "layout": {
+      "preventBackButton": {
+        "alertMessage": "信息会丢失",
+        "alertTitle": "你确定吗？"
+      }
+    },
+    "placeholders": {
+      "message": "输入消息"
+    },
+    "screens": {
+      "home": {
+        "accountsList": "账户列表",
+        "allAccounts": "您的帐户",
+        "deleteHint": "向左滑动项目以删除",
+        "recentTransactions": "最近的交易",
+        "title": "您的帐户"
+      },
+      "loading": {
+        "loadingText": "加载中..."
+      }
+    }
+  },
+  "models": {
+    "account": {
+      "address": "地址",
+      "id": "ID",
+      "passphrase": "密码",
+      "pin": "别针",
+      "title": "帐户"
+    }
+  },
+  "settings": {
+    "screens": {
+      "settings": {
+        "autoNodeSelection": "自动节点选择",
+        "changeLanguage": "选择语言",
+        "confirmErase": "确认 - 擦除和重置",
+        "confirmReset": "你确定吗？您无法撤消此操作。",
+        "copyright": "版权所有 © Signum Network",
+        "credits": "感谢 blankey1337、titanishu 和 timewalker",
+        "customNodeFound": "找到自定义节点",
+        "erase": "擦除所有帐户并重置 PIN",
+        "selectNode": "选择节点",
+        "setCustomNode": "设置自定义节点",
+        "title": "设置"
+      }
+    }
+  },
+  "transactions": {
+    "screens": {
+      "receive": {
+        "generate": "生成二维码",
+        "immutable": "不变的",
+        "message": "信息",
+        "noAccount": {
+          "button": "新增帐户",
+          "hint": "您至少需要一个账户作为收款人",
+          "title": "没有账号"
+        },
+        "recipient": "接受者",
+        "reset": "重置表格",
+        "title": "收到"
+      },
+      "scan": {
+        "title": "扫描支付二维码"
+      },
+      "send": {
+        "addMessage": "添加消息？",
+        "amountNQT": "数量",
+        "button": {
+          "disabled": "填写表格以发送",
+          "enabled": "滑动发送"
+        },
+        "confirmRisk": "地址“{{address}}”未知！寄往该地址可能造成不可挽回的损失！ - 你承担风险吗？",
+        "encrypt": "加密消息？",
+        "failure": "发送 Signa 失败。请检查您的输入并重试。",
+        "fee": {
+          "cheap": "便宜的",
+          "priority": "优先事项",
+          "standard": "标准"
+        },
+        "feeNQT": "费用",
+        "from": "从",
+        "insufficientFunds": "没有足够的资金。",
+        "invalidAddress": "该地址无效。",
+        "invalidAlias": "别名不存在！不允许发送。",
+        "message": "信息",
+        "noActiveAccount": {
+          "button": "新增帐户",
+          "hint": "您需要创建/导入一个活动帐户才能发送",
+          "title": "没有活动帐户"
+        },
+        "noPublicKey": "发送前请确认地址。",
+        "reset": "重置表格",
+        "selectAccount": "选择一个帐户",
+        "sent": "发送！",
+        "success": "已成功发送 {{amount}} SIGNA 至 {{address}}。",
+        "title": "发送",
+        "to": "到",
+        "total": "全部的：",
+        "zilOutage": "无法从 ZIL API 获取。"
+      }
+    }
+  }
+}

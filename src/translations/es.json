@@ -1,0 +1,240 @@
+{
+  "accounts": {
+    "errors": {
+      "accountExist": "Cuenta ya importada",
+      "incorrectAddress": "Direccion incorrecta",
+      "incorrectPasscode": "Contraseña incorrecta",
+      "incorrectPassphrase": "Frase de contraseña incorrecta",
+      "insecurePin": "PIN no seguro, mínimo de {{length}} caracteres recomendados"
+    },
+    "modals": {
+      "enterPasscode": {
+        "confirmReset": "¿Eliminar todas las cuentas y restablecer el PIN?",
+        "forgotPin": "¿Olvidó el PIN?",
+        "passcodeHint": "Introduce un código de acceso"
+      },
+      "setPasscode": {
+        "enterAgain": "Introduce el código de acceso de nuevo",
+        "passcodeHint": "Establezca un código de acceso para asegurar su dispositivo"
+      }
+    },
+    "passcode": {
+      "passcode": "contraseña"
+    },
+    "screens": {
+      "accountDetails": {
+        "copiedSuccessfully": "Dirección copiada correctamente: {{value}}",
+        "copy": "Copiar",
+        "noTransactions": {
+          "title": "Sin transacciones"
+        }
+      },
+      "accounts": {
+        "addAccount": "Añadir cuenta",
+        "createAccount": "Crear una cuenta",
+        "noAccounts": {
+          "hint": "Agregue una cuenta para comenzar.",
+          "title": "Bienvenido a Signum"
+        },
+        "title": "cuentas"
+      },
+      "addAccount": {
+        "createAccount": "Crear una cuenta",
+        "hint": "¿Tiene usted una cuenta?",
+        "importAccount": "Importar cuenta",
+        "title": "Añadir cuenta"
+      },
+      "createAccount": {
+        "createAccount": "Crear una cuenta",
+        "enterPin": "Introduce un PIN",
+        "enterPinHint": "Introduzca un PIN para proteger esta cuenta. El PIN se utiliza para verificar las acciones realizadas con su cuenta.",
+        "generateSeed": "Generar semilla",
+        "generatedPercent": "Generado: {{percent}}%",
+        "howToGenerate": "Mueva su dedo por el área para crear una semilla aleatoria.",
+        "notePassphrase": "Frase de contraseña de la nota",
+        "notePassphraseHint": "Anote su frase de contraseña. La frase de contraseña es la clave maestra de su cuenta. ¡Por lo tanto, mantenga su contraseña siempre segura y privada!",
+        "notePassphraseHint2": "No almacenamos la frase de contraseña ni siquiera en su dispositivo, por lo que no podemos recuperar el acceso a la cuenta. ¡Apúntalo!",
+        "pinPlaceholder": "ALFILER",
+        "step": "Paso {{paso}}/4",
+        "title": "Crear una cuenta"
+      },
+      "importAccount": {
+        "accountPreviewLabel": "Vista previa de la dirección",
+        "activeAccount": "Usar frase de recuperación",
+        "activeAccountHint": "Utilice la frase de recuperación si tiene la intención de realizar una transacción con la cuenta importada. La frase de recuperación solo se usa una vez localmente para derivar su clave privada; no se almacena en ningún lado. El PIN se utiliza para proteger la clave privada.",
+        "import": "Importar",
+        "passiveAccountHint": "Si desea ver solo una cuenta, no necesita usar la frase de recuperación. Use la frase de recuperación solo si tiene la intención de ejecutar transacciones.",
+        "showPassphrase": "Mostrar frase de recuperación",
+        "title": "Importar cuenta"
+      },
+      "scanAccount": {
+        "scanAddress": "Escanear dirección de cuenta",
+        "scanRecoveryPhrase": "Frase de recuperación de escaneo"
+      },
+      "transactionDetails": {
+        "copiedSuccessfully": "Valor copiado correctamente: {{value}}",
+        "copy": "Copiar",
+        "headerTitle": "Detalles de la transacción"
+      }
+    }
+  },
+  "core": {
+    "actions": {
+      "add": "Agregar",
+      "back": "Atrás",
+      "cancel": "Cancelar",
+      "create": "Crear",
+      "next": "Próximo",
+      "ok": "DE ACUERDO",
+      "save": "Ahorrar",
+      "submit": "Entregar"
+    },
+    "balances": {
+      "available": "Disponible",
+      "committed": "Comprometido",
+      "locked": "Bloqueado",
+      "total": "Total"
+    },
+    "components": {
+      "qrCodeScanner": {
+        "errorNoDevice": "No se encontró ninguna cámara",
+        "errorNoPermission": "Sin permiso concedido"
+      }
+    },
+    "currency": {
+      "BTC": {
+        "name": "BTC",
+        "value": "₿ {{valor}}"
+      },
+      "SIGNA": {
+        "name": "FIRMA",
+        "value": "Ꞩ {{valor}}"
+      },
+      "USD": {
+        "name": "Dólar estadounidense",
+        "value": "${{valor}}"
+      }
+    },
+    "dates": {
+      "months": {
+        "short": {
+          "APR": "Abr",
+          "AUG": "Ago",
+          "DEC": "Dic",
+          "FEB": "Feb",
+          "JAN": "Ene",
+          "JUL": "Jul",
+          "JUN": "Jun",
+          "MAR": "Mar",
+          "MAY": "Puede",
+          "NOV": "Nov",
+          "OCT": "Oct",
+          "SEP": "Sep"
+        }
+      }
+    },
+    "layout": {
+      "preventBackButton": {
+        "alertMessage": "La información se perderá",
+        "alertTitle": "¿Está seguro?"
+      }
+    },
+    "placeholders": {
+      "message": "Ingresar mensaje"
+    },
+    "screens": {
+      "home": {
+        "accountsList": "Lista de cuentas",
+        "allAccounts": "Tus cuentas",
+        "deleteHint": "Deslice el elemento a la izquierda para eliminarlo",
+        "recentTransactions": "Transacciones Recientes",
+        "title": "Tus cuentas"
+      },
+      "loading": {
+        "loadingText": "Cargando..."
+      }
+    }
+  },
+  "models": {
+    "account": {
+      "address": "DIRECCIÓN",
+      "id": "IDENTIFICACIÓN",
+      "passphrase": "Frase de contraseña",
+      "pin": "ALFILER",
+      "title": "Cuenta"
+    }
+  },
+  "settings": {
+    "screens": {
+      "settings": {
+        "autoNodeSelection": "Selección automática de nodos",
+        "changeLanguage": "Seleccione el idioma",
+        "confirmErase": "Confirmar - Borrar y Restablecer",
+        "confirmReset": "¿Está seguro? No puede deshacer esta acción.",
+        "copyright": "Derechos de autor © Red Signum",
+        "credits": "Créditos a Blankey1337, Titanishu y Timewalker.",
+        "customNodeFound": "Nodo personalizado encontrado",
+        "erase": "Borrar todas las cuentas y restablecer el PIN",
+        "selectNode": "Seleccionar nodo",
+        "setCustomNode": "Establecer nodo personalizado",
+        "title": "Ajustes"
+      }
+    }
+  },
+  "transactions": {
+    "screens": {
+      "receive": {
+        "generate": "Generar código QR",
+        "immutable": "Inmutable",
+        "message": "Mensaje",
+        "noAccount": {
+          "button": "Añadir cuenta",
+          "hint": "Necesitas al menos una cuenta como receptor",
+          "title": "sin cuenta"
+        },
+        "recipient": "Recipiente",
+        "reset": "Restablecer formulario",
+        "title": "Recibir"
+      },
+      "scan": {
+        "title": "Escanear código QR de pago"
+      },
+      "send": {
+        "addMessage": "¿Añade un mensaje?",
+        "amountNQT": "Cantidad",
+        "button": {
+          "disabled": "Formulario completo para enviar",
+          "enabled": "Deslizar para enviar"
+        },
+        "confirmRisk": "¡La dirección '{{address}}' es desconocida! ¡Enviar a esta dirección puede causar una pérdida irreversible! - ¿Asumes el riesgo?",
+        "encrypt": "¿Cifrar mensaje?",
+        "failure": "No se pudo enviar Signa. Por favor, compruebe sus entradas y vuelva a intentarlo.",
+        "fee": {
+          "cheap": "barato",
+          "priority": "prioridad",
+          "standard": "estándar"
+        },
+        "feeNQT": "Tarifa",
+        "from": "De",
+        "insufficientFunds": "Fondos insuficientes.",
+        "invalidAddress": "Esta dirección no es válida.",
+        "invalidAlias": "Alias no existe! Envío no permitido.",
+        "message": "Mensaje",
+        "noActiveAccount": {
+          "button": "Añadir cuenta",
+          "hint": "Necesitas crear/importar una cuenta activa para enviar",
+          "title": "Sin cuenta activa"
+        },
+        "noPublicKey": "Por favor, confirme la dirección antes de enviar.",
+        "reset": "Restablecer formulario",
+        "selectAccount": "Seleccione una cuenta",
+        "sent": "¡Enviado!",
+        "success": "Envió con éxito {{cantidad}} SIGNA a {{dirección}}.",
+        "title": "Enviar",
+        "to": "A",
+        "total": "Total:",
+        "zilOutage": "No se puede obtener de la API de ZIL."
+      }
+    }
+  }
+}
