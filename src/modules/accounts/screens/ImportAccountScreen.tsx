@@ -10,6 +10,7 @@ import {Sizes} from '../../../core/theme/sizes';
 import {ImportActiveAccount} from '../components/import/ImportActiveAccount';
 import {ImportOfflineAccount} from '../components/import/ImportOfflineAccount';
 import {
+  addAccount,
   createActiveAccount,
   createOfflineAccount,
   hydrateAccount,
@@ -19,6 +20,7 @@ import {HeaderWithBackButton} from '../../../core/layout/HeaderWithBackButton';
 import {RootStackParamList} from '../navigation/mainStack';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import { Account } from '@signumjs/core';
 
 type ImportAccountRouteProps = RouteProp<RootStackParamList, 'ImportAccount'>;
 type ImportAccountNavProp = StackNavigationProp<
@@ -48,14 +50,14 @@ export const ImportAccountScreen = () => {
     type: 'active' | 'offline',
   ) => {
     try {
-      let account;
+      let account: Account;
       if (type === 'active') {
         account = dispatch(createActiveAccount(passphraseOrAddress));
       } else if (type === 'offline') {
         account = dispatch(createOfflineAccount(passphraseOrAddress));
       }
-      // this.props.dispatch(addAccount(account));
-      await dispatch(hydrateAccount({account})); // async
+      await dispatch(addAccount(account!));
+      dispatch(hydrateAccount({account: account!})).then(); // async
       navigation.navigate('Accounts');
     } catch (error) {
       Alert.alert((error as any).message);

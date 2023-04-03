@@ -49,8 +49,7 @@ const actions = {
 };
 
 export const createActiveAccount = createActionFn<string, Account>(
-  // @ts-ignore
-  async (_dispatch, getState, phrase): Promise<Account> => {
+   (_dispatch, getState, phrase): Account => {
     const pin = getState().auth.passcode;
     const keys = generateMasterKeys(phrase);
 
