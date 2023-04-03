@@ -42,7 +42,9 @@
         "createAccount": "创建账户",
         "hint": "你有没有账号？",
         "importAccount": "导入账户",
-        "title": "新增帐户"
+        "title": "新增帐户",
+        "limitReached": "已达到最大帐户数。",
+        "limitReachedHint": "请求帐户数据可能会占用大量移动带宽。这就是帐户数量有限的原因。"
       },
       "createAccount": {
         "createAccount": "创建账户",

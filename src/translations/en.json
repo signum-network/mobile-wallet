@@ -47,7 +47,9 @@
         "createAccount": "Create account",
         "hint": "Do you have an account?",
         "importAccount": "Import account",
-        "title": "Add account"
+        "title": "Add account",
+        "limitReached": "Maximum number of accounts reached.",
+        "limitReachedHint": "Requesting account data can be heavy for mobile bandwidth. That's why the number of accounts is limited. "
       },
       "createAccount": {
         "createAccount": "Create account",

@@ -47,7 +47,9 @@
         "createAccount": "Criar Conta",
         "hint": "Você tem uma conta?",
         "importAccount": "Importar Conta",
-        "title": "Adicionar Conta"
+        "title": "Adicionar Conta",
+        "limitReached": "Número máximo de contas atingido.",
+        "limitReachedHint": "A solicitação de dados da conta pode ser pesada para a largura de banda móvel. É por isso que o número de contas é limitado."
       },
       "createAccount": {
         "createAccount": "Criar Conta",

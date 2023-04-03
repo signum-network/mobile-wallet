@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Button} from '../../../../core/components/base/Button';
 import {SwitchItem} from '../../../../core/components/base/SwitchItem';
@@ -30,7 +30,7 @@ type ScanNavigationProps = StackNavigationProp<
 
 const styles = StyleSheet.create({
   mainBlock: {
-    marginTop: '10%'
+    marginTop: '10%',
   },
   passphraseSwitch: {
     paddingTop: 10,
@@ -57,14 +57,24 @@ const styles = StyleSheet.create({
 
 export const ImportActiveAccount: React.FC<Props> = ({onFinish, seed = ''}) => {
   const navigation = useNavigation<ScanNavigationProps>();
-  const [passphrase, setPassphrase] = useState(seed);
+  const [passphrase, setPassphrase] = useState('');
   const [address, setAddress] = useState('');
   const [showPassphrase, setShowPassphrase] = useState(false);
   const chainInfo = useSelector(selectChainInfo);
   const handleChangePassphrase = (phrase: string) => {
     setPassphrase(phrase);
-    if (phrase.length) {
-      const {publicKey} = generateMasterKeys(phrase);
+  };
+
+  useEffect(() => {
+    if (seed) {
+      // hmm, thought it could be done in useState() already, but doesn'' work as expected
+      setPassphrase(seed);
+    }
+  }, [seed]);
+
+  useEffect(() => {
+    if (passphrase.length) {
+      const {publicKey} = generateMasterKeys(passphrase);
       setAddress(
         Address.fromPublicKey(
           publicKey,
@@ -74,7 +84,7 @@ export const ImportActiveAccount: React.FC<Props> = ({onFinish, seed = ''}) => {
     } else {
       setAddress('');
     }
-  };
+  }, [chainInfo, passphrase]);
 
   const handleShowPassphrase = (show: boolean) => {
     setShowPassphrase(show);
@@ -100,10 +110,10 @@ export const ImportActiveAccount: React.FC<Props> = ({onFinish, seed = ''}) => {
       <View style={styles.mainBlock}>
         <BInput
           title={i18n.t(auth.models.account.passphrase)}
-          value={seed}
-          autoCapitalize={'characters'}
+          value={passphrase}
           onChange={handleChangePassphrase}
           rightIcons={InputRightIcons}
+          secret={!showPassphrase}
           theme="light"
         />
         <AccountTypeHint>

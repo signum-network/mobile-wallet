@@ -23,6 +23,7 @@ interface Props {
   editable?: boolean;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
   theme?: 'light' | 'normal';
+  secret? : boolean;
 }
 
 export enum KeyboardTypes {
@@ -44,6 +45,7 @@ export const BInput = (props: Props) => {
     rightIcons,
     autoCapitalize,
     theme = 'normal',
+    secret = false,
   } = props;
   const styles: any = {
     wrapper: {
@@ -104,6 +106,7 @@ export const BInput = (props: Props) => {
           placeholderTextColor={
             theme === 'normal' ? Colors.GREY_TT : Colors.GREY_T
           }
+          secureTextEntry={secret}
         />
         <View style={styles.end}>{rightIcons}</View>
       </View>

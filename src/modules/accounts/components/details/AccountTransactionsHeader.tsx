@@ -2,15 +2,11 @@ import {Account} from '@signumjs/core';
 import {Amount} from '@signumjs/util';
 import {toNumber} from 'lodash';
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Text, TextAlign} from '../../../../core/components/base/Text';
 import {i18n} from '../../../../core/i18n';
 import {Colors} from '../../../../core/theme/colors';
-import {
-  defaultSideOffset,
-  FontSizes,
-  Sizes,
-} from '../../../../core/theme/sizes';
+import {defaultSideOffset, FontSizes, Sizes,} from '../../../../core/theme/sizes';
 import {core} from '../../../../core/translations';
 import {amountToString} from '../../../../core/utils/numbers';
 import {PriceInfoReduxState} from '../../../price-api/store/reducer';
@@ -33,6 +29,9 @@ const styles = StyleSheet.create({
   },
   qrCode: {
     paddingHorizontal: 8,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 
@@ -92,6 +91,7 @@ export const AccountTransactionsHeader: React.FC<Props> = props => {
           color={Colors.BLUE_DARKER}
           quietZone={8}
         />
+        <Text size={FontSizes.SMALLEST} textAlign={TextAlign.CENTER} color={Colors.GREY_LIGHT}>{account.accountRS}</Text>
       </View>
       <View>
           <AmountText amount={balances.totalBalance} size={FontSizes.LARGE} />

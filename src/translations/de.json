@@ -47,7 +47,9 @@
         "createAccount": "Konto erstellen",
         "hint": "Hast Du schon ein Konto?",
         "importAccount": "Konto importieren",
-        "title": "Konto hinzufügen"
+        "title": "Konto hinzufügen",
+        "limitReached": "Maximale Anzahl an Konten erreicht.",
+        "limitReachedHint": "Das Anfordern von Kontodaten kann für die mobile Bandbreite sehr aufwendig sein. Aus diesem Grund ist die Anzahl der Konten begrenzt."
       },
       "createAccount": {
         "createAccount": "Konto erstellen",

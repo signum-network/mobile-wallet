@@ -20,7 +20,7 @@ import {HeaderWithBackButton} from '../../../core/layout/HeaderWithBackButton';
 import {RootStackParamList} from '../navigation/mainStack';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import { Account } from '@signumjs/core';
+import {Account} from '@signumjs/core';
 
 type ImportAccountRouteProps = RouteProp<RootStackParamList, 'ImportAccount'>;
 type ImportAccountNavProp = StackNavigationProp<
@@ -35,6 +35,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: Sizes.LARGE,
     paddingTop: '30%',
+  },
+  centeredText: {
+    marginTop: '50%',
   },
 });
 

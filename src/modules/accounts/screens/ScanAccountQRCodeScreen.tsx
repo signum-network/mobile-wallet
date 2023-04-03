@@ -47,7 +47,10 @@ export const ScanAccountQRCodeScreen = () => {
   const route = useRoute<RouteProps>();
   const navigation = useNavigation<ScanAccountNavProp>();
   const scanType = route.params.scanType;
-  const title = scanType === 'address' ? i18n.t(auth.scanAccount.scanAddress) : i18n.t(auth.scanAccount.scanRecoveryPhrase)
+  const title =
+    scanType === 'address'
+      ? i18n.t(auth.scanAccount.scanAddress)
+      : i18n.t(auth.scanAccount.scanRecoveryPhrase);
   const processAddressScanResult = (scannedValue: string) => {
     try {
       const address = Address.create(scannedValue).getNumericId();
@@ -57,11 +60,15 @@ export const ScanAccountQRCodeScreen = () => {
     }
   };
 
+  const processSeedScanResult = (seed: string) => {
+    navigation.navigate('ImportAccount', {seed});
+  };
+
   const handleScannedCode = (scanResult: string) => {
     if (scanType === 'address') {
       processAddressScanResult(scanResult);
     } else if (scanType === 'seed') {
-      console.log('seed code');
+      processSeedScanResult(scanResult);
     }
   };
 

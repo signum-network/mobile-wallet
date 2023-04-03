@@ -51,6 +51,8 @@ export const auth = {
     createAccount: 'accounts.screens.addAccount.createAccount',
     hint: 'accounts.screens.addAccount.hint',
     importAccount: 'accounts.screens.addAccount.importAccount',
+    limitReached: 'accounts.screens.addAccount.limitReached',
+    limitReachedHint: 'accounts.screens.addAccount.limitReachedHint',
   },
   importAccount: {
     import: 'accounts.screens.importAccount.import',
