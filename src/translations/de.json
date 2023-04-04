@@ -224,8 +224,8 @@
         "reset": "Formular Zurücksetzen",
         "fee": {
           "cheap": "billig",
-          "priority": "Priorität",
-          "standard": "Standard"
+          "priority": "priorität",
+          "standard": "standard"
         }
       },
       "scan": {

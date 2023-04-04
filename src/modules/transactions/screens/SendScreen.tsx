@@ -33,7 +33,7 @@ import {
   SendStackParamList,
 } from '../../accounts/navigation/mainStack';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {selectChainInfo} from "../../network/store/selectors";
+import {selectChainInfo} from '../../network/store/selectors';
 
 type SendScreenNavProp = CompositeNavigationProp<
   StackNavigationProp<SendStackParamList, 'Send'>,
@@ -71,6 +71,11 @@ export const SendScreen = () => {
     if (!route.params) {
       return;
     }
+
+    // already filled - to avoid resetting on re-rendering
+    // if(deeplinkData !== null){
+    //   return;
+    // }
 
     console.log('SendScreen - Got Deeplink Params', route.params);
     // @ts-ignore

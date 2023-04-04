@@ -63,7 +63,9 @@ async function getPlainText(
           });
           publicKey = recipient.publicKey;
         }
-        return publicKey ? decryptMessage(encryptedMessage, publicKey, decryptionKey) : '[Encrypted Message]';
+        return publicKey
+          ? decryptMessage(encryptedMessage, publicKey, decryptionKey)
+          : '[Encrypted Message]';
       } else {
         return '[Encrypted Binary Message]';
       }
@@ -117,7 +119,7 @@ export const TransactionMessageView = ({transaction}: Props) => {
   const gotMessage = hasMessage(transaction);
   const [plainText, setPlainText] = useState<string | null>(null);
 
-  const shouldRenderMessage = gotMessage && transaction.attachment;
+  const shouldRenderMessage = gotMessage;
 
   useEffect(() => {
     if (shouldRenderMessage) {
