@@ -33,6 +33,7 @@ import {
   SendStackParamList,
 } from '../../accounts/navigation/mainStack';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {selectChainInfo} from "../../network/store/selectors";
 
 type SendScreenNavProp = CompositeNavigationProp<
   StackNavigationProp<SendStackParamList, 'Send'>,
@@ -56,6 +57,8 @@ export const SendScreen = () => {
   const [deeplinkData, setDeeplinkData] = useState<SendFormState>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const chainInfo = useSelector(selectChainInfo);
+  const addressPrefix = chainInfo ? chainInfo.addressPrefix : 'S';
   const accounts = useSelector<ApplicationState, Account[]>(
     state => state.auth.accounts || [],
   );
@@ -152,6 +155,7 @@ export const SendScreen = () => {
               onCameraIconPress={handleCameraIconPress}
               deepLinkProps={deeplinkData}
               suggestedFees={suggestedFees}
+              addressPrefix={addressPrefix}
             />
           ) : (
             <NoActiveAccount />

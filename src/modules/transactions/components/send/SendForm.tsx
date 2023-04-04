@@ -49,14 +49,11 @@ import {
 } from '../../../../core/utils/amount';
 import {core} from '../../../../core/translations';
 import {
-  MinimumTransactionFeeSigna,
   SmartContractPublicKey,
 } from '../../../../core/utils/constants';
 import {shortenString} from '../../../../core/utils/string';
 import {FeeSelector} from '../FeeSelector';
 import {DescriptorData} from '@signumjs/standards';
-
-const AddressPrefix = 'S-';
 
 interface Props {
   loading: boolean;
@@ -69,6 +66,7 @@ interface Props {
   accounts: Account[];
   suggestedFees: SuggestedFees | null;
   deepLinkProps?: SendFormState;
+  addressPrefix: string;
 }
 
 export interface SendFormState {
@@ -146,6 +144,7 @@ const subBalanceStyles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
     marginBottom: Sizes.MEDIUM,
   },
 });
@@ -159,7 +158,7 @@ const Balances: React.FC<{balances?: AccountBalances}> = ({
     </Text>
     <AmountText
       color={Colors.GREY}
-      size={FontSizes.SMALLER}
+      size={FontSizes.SMALL}
       amount={balances.totalBalance}
     />
     {balances.lockedBalance.greater(Amount.Zero()) && (
@@ -244,7 +243,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
       encrypt: (deeplinkProps && deeplinkProps.encrypt) || false,
       immutable: (deeplinkProps && deeplinkProps.immutable) || false,
       recipient: new Recipient(
-        (deeplinkProps && deeplinkProps.address) || AddressPrefix,
+        (deeplinkProps && deeplinkProps.address) || this.props.addressPrefix + '-',
         (deeplinkProps && deeplinkProps.address) || '',
       ),
       addMessage: (deeplinkProps && !!deeplinkProps.message) || false,
@@ -277,7 +276,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
     if (!matches || matches.length < 2) {
       return null;
     }
-    const unwrappedAddress = `${AddressPrefix}${matches[2]}`.toUpperCase();
+    const unwrappedAddress = `${this.props.addressPrefix}-${matches[2]}`.toUpperCase();
     return Address.fromReedSolomonAddress(unwrappedAddress).getNumericId();
   }
 
@@ -298,7 +297,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
 
     if (r.length === 0) {
       type = RecipientType.UNKNOWN;
-    } else if (r.toUpperCase().startsWith(AddressPrefix)) {
+    } else if (r.toUpperCase().startsWith(this.props.addressPrefix + '-')) {
       type = RecipientType.ADDRESS;
     } else if (isUnstoppableDomain(r)) {
       type = RecipientType.UNSTOPPABLE;
@@ -627,7 +626,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
 
     const RecipientRightIcons = (
       <View style={{flexDirection: 'row'}}>
-        {recipient.addressRaw !== AddressPrefix && (
+        {recipient.addressRaw !== this.props.addressPrefix + '-' && (
           <AccountStatusPill
             address={recipient.addressRS}
             type={recipient.type}

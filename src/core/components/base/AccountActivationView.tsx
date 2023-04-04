@@ -33,11 +33,15 @@ export const AccountActivationView = ({account}: Props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!mounted) {
-      return;
-    }
+    setMounted(true);
+    return () => {
+      setMounted(false);
+    };
+  }, []);
+
+  useEffect(() => {
     // @ts-ignore
-    if (account && account.type === 'active') {
+    if (chainApi && account && account.type === 'active') {
       chainApi.account
         .getAccount({
           accountId: account.account,
@@ -51,10 +55,7 @@ export const AccountActivationView = ({account}: Props) => {
           /* no op */
         });
     }
-    return () => {
-      setMounted(false);
-    };
-  }, [chainApi, account, mounted]);
+  }, [account, chainApi, mounted]);
 
   const handleButtonPress = async () => {
     try {

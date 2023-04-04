@@ -1,16 +1,9 @@
 #!/bin/bash
-
-npx react-native bundle --platform android --dev false \
-  --entry-file index.js \
-  --bundle-output android/app/src/main/assets/index.android.bundle \
-  --assets-dest android/app/src/main/res
-
-sleep 2
-
+# because of duplicate resource errors
+rm -r android/app/src/main/res/drawable-*
 cd android
-
 ./gradlew clean
-./gradlew assembleRelease -x bundleReleaseJsAndAssets -PMYAPP_UPLOAD_STORE_FILE=signum-network.jks \
+./gradlew assembleRelease -PMYAPP_UPLOAD_STORE_FILE=signum-network.jks \
   -PMYAPP_UPLOAD_STORE_PASSWORD="$1" \
   -PMYAPP_UPLOAD_KEY_PASSWORD="$1" \
   -PMYAPP_UPLOAD_KEY_ALIAS="$2" \

@@ -279,7 +279,7 @@ const Settings = ({}: Props) => {
             </View>
             <View>
               <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
-                Phoenix Signum Wallet {VersionNumber.appVersion} (
+                Signum Mobile Wallet {VersionNumber.appVersion} (
                 {VersionNumber.buildVersion})
               </Text>
               <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
