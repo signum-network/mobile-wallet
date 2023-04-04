@@ -1,4 +1,4 @@
-import {Account, Address, Alias, Transaction} from '@signumjs/core';
+import {Account, Address, Alias} from '@signumjs/core';
 import {encryptAES, generateMasterKeys, hashSHA256} from '@signumjs/crypto';
 import {some} from 'lodash';
 import {i18n} from '../../../core/i18n';
@@ -187,7 +187,7 @@ export const activateAccount = createActionFn<
       console.error('account activation failed', e);
       if (e instanceof HttpError) {
         if (e.status >= 400 && e.status < 429) {
-          throw new AbortError(e.data);
+          throw new AbortError(e.data.message);
         }
       }
     }

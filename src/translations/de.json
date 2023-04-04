@@ -102,7 +102,8 @@
       "ok": "OK",
       "save": "Speichern",
       "submit": "Absenden",
-      "back": "Zurück"
+      "back": "Zurück",
+      "retry": "Erneut Versuchen"
     },
     "currency": {
       "BTC": {
@@ -158,6 +159,12 @@
       "qrCodeScanner": {
         "errorNoPermission": "Keine Berechtigung erteilt",
         "errorNoDevice": "Keine Kamera gefunden"
+      },
+      "accountActivationView": {
+        "activationHint": "Diesem Konto ist kein öffentlicher Schlüssel zugewiesen. Dies ist ein Sicherheitsrisiko, und die Guthaben sind nicht sicher. Schütze jetzt dein Konto!",
+        "activate": "Jetzt schützen!",
+        "activationFailure": "Hmm. Schutz fehlgeschlagen!",
+        "activationSuccess": "Schutz erfolgreich beantragt!"
       }
     }
   },

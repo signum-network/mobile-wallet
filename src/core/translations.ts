@@ -13,6 +13,7 @@ export const core: any = {
     ok: 'core.actions.ok',
     submit: 'core.actions.submit',
     back: 'core.actions.back',
+    retry: 'core.actions.retry',
   },
   dates: {
     months: {
@@ -67,5 +68,13 @@ export const core: any = {
       errorNoPermission: 'core.components.qrCodeScanner.errorNoPermission',
       errorNoDevice: 'core.components.qrCodeScanner.errorNoDevice',
     },
-  }
+    accountActivationView: {
+      activationHint: 'core.components.accountActivationView.activationHint',
+      activationFailure:
+        'core.components.accountActivationView.activationFailure',
+      activationSuccess:
+        'core.components.accountActivationView.activationSuccess',
+      activate: 'core.components.accountActivationView.activate',
+    },
+  },
 };

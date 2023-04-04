@@ -63,7 +63,7 @@ async function getPlainText(
           });
           publicKey = recipient.publicKey;
         }
-        return decryptMessage(encryptedMessage, publicKey, decryptionKey);
+        return publicKey ? decryptMessage(encryptedMessage, publicKey, decryptionKey) : '[Encrypted Message]';
       } else {
         return '[Encrypted Binary Message]';
       }

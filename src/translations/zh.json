@@ -93,7 +93,8 @@
       "next": "下一个",
       "ok": "好的",
       "save": "节省",
-      "submit": "提交"
+      "submit": "提交",
+      "retry": "重试"
     },
     "balances": {
       "available": "可用的",
@@ -105,6 +106,12 @@
       "qrCodeScanner": {
         "errorNoDevice": "找不到相机",
         "errorNoPermission": "未授予许可"
+      },
+      "accountActivationView": {
+        "activationHint": "此帐户没有分配公钥。这是一种安全风险，因为您的资金不安全。立即保护您的帐户！",
+        "activate": "立即保护！",
+        "activationFailure": "唔。保护失败！",
+        "activationSuccess": "保护请求成功！"
       }
     },
     "currency": {

@@ -93,7 +93,8 @@
       "next": "Próximo",
       "ok": "DE ACUERDO",
       "save": "Ahorrar",
-      "submit": "Entregar"
+      "submit": "Entregar",
+      "retry": "Rever"
     },
     "balances": {
       "available": "Disponible",
@@ -105,6 +106,12 @@
       "qrCodeScanner": {
         "errorNoDevice": "No se encontró ninguna cámara",
         "errorNoPermission": "Sin permiso concedido"
+      },
+      "accountActivationView": {
+        "activationHint": "Esta cuenta no tiene clave pública asignada. Este es un riesgo de seguridad ya que sus fondos no están seguros. ¡Proteja su cuenta ahora!",
+        "activate": "¡Proteger ahora!",
+        "activationFailure": "Mmm. ¡Protección fallida!",
+        "activationSuccess": "¡Protección solicitada con éxito!"
       }
     },
     "currency": {

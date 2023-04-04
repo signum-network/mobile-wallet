@@ -6,13 +6,18 @@ import {StyleSheet, View} from 'react-native';
 import {Text, TextAlign} from '../../../../core/components/base/Text';
 import {i18n} from '../../../../core/i18n';
 import {Colors} from '../../../../core/theme/colors';
-import {defaultSideOffset, FontSizes, Sizes} from '../../../../core/theme/sizes';
+import {
+  defaultSideOffset,
+  FontSizes,
+  Sizes,
+} from '../../../../core/theme/sizes';
 import {core} from '../../../../core/translations';
 import {amountToString} from '../../../../core/utils/numbers';
 import {PriceInfoReduxState} from '../../../price-api/store/reducer';
 import {AmountText} from '../../../../core/components/base/Amount';
 import {getBalancesFromAccount} from '../../../../core/utils/balance/getBalancesFromAccount';
 import QRCode from 'react-native-qrcode-svg';
+import {AccountActivationView} from '../../../../core/components/base/AccountActivationView';
 
 interface Props {
   account: Account;
@@ -32,7 +37,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });
 
 const subBalanceStyles = StyleSheet.create({
@@ -82,18 +87,24 @@ export const AccountTransactionsHeader: React.FC<Props> = props => {
   const hasCommittedAmount = balances.committedBalance.greater(Amount.Zero());
 
   return (
-    <View style={styles.view}>
-      <View style={styles.qrCode}>
-        <QRCode
-          size={100}
-          value={account.accountRS}
-          backgroundColor={Colors.WHITE}
-          color={Colors.BLUE_DARKER}
-          quietZone={8}
-        />
-        <Text size={FontSizes.SMALLEST} textAlign={TextAlign.CENTER} color={Colors.GREY_LIGHT}>{account.accountRS}</Text>
-      </View>
-      <View>
+    <View>
+      <View style={styles.view}>
+        <View style={styles.qrCode}>
+          <QRCode
+            size={100}
+            value={account.accountRS}
+            backgroundColor={Colors.WHITE}
+            color={Colors.BLUE_DARKER}
+            quietZone={8}
+          />
+          <Text
+            size={FontSizes.SMALLEST}
+            textAlign={TextAlign.CENTER}
+            color={Colors.GREY_LIGHT}>
+            {account.accountRS}
+          </Text>
+        </View>
+        <View>
           <AmountText amount={balances.totalBalance} size={FontSizes.LARGE} />
           {(hasLockedAmount || hasCommittedAmount) && (
             <SubBalance
@@ -113,14 +124,16 @@ export const AccountTransactionsHeader: React.FC<Props> = props => {
               amount={balances.committedBalance}
             />
           )}
+        </View>
+        {priceInBTC ? (
+          <Text textAlign={TextAlign.CENTER} color={Colors.WHITE} bebasFont>
+            {i18n.t(core.currency.BTC.value, {
+              value: amountToString(totalBalanceBTC),
+            })}
+          </Text>
+        ) : null}
       </View>
-      {priceInBTC ? (
-        <Text textAlign={TextAlign.CENTER} color={Colors.WHITE} bebasFont>
-          {i18n.t(core.currency.BTC.value, {
-            value: amountToString(totalBalanceBTC),
-          })}
-        </Text>
-      ) : null}
+      <AccountActivationView account={account} />
     </View>
   );
 };
