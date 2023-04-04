@@ -10,20 +10,28 @@ import {Screen} from '../../../core/layout/Screen';
 import {ApplicationState} from '../../../core/store/initialState';
 import {core} from '../../../core/translations';
 import {HomeStackedAreaChart} from '../../home/components/HomeStackedAreaChart';
-import {loadHistoricalPriceApiData, selectCurrency,} from '../../price-api/store/actions';
+import {
+  loadHistoricalPriceApiData,
+  selectCurrency,
+} from '../../price-api/store/actions';
 import {PriceInfoReduxState, PriceType} from '../../price-api/store/reducer';
 import {AccountsList} from '../components/AccountsList';
 import {AccountsListHeader} from '../components/AccountsListHeader';
 import {TermsScreen} from '../components/terms/TermsScreen';
 import {hydrateAccount, removeAccount} from '../store/actions';
 import {agreeToTerms} from '../../../core/store/app/actions';
-import {NavigationProp, useFocusEffect, useNavigation,} from '@react-navigation/native';
+import {
+  NavigationProp,
+  useFocusEffect,
+  useNavigation,
+} from '@react-navigation/native';
 import {selectAccounts} from '../store/selectors';
 import {selectAgreedToTerms} from '../../../core/store/app/selectors';
 import {RootStackParamList} from '../navigation/mainStack';
-import {Colors} from "../../../core/theme/colors";
-import {Text, TextAlign} from '../../../core/components/base/Text'
-import {FontSizes} from "../../../core/theme/sizes";
+import {Colors} from '../../../core/theme/colors';
+import {Text, TextAlign} from '../../../core/components/base/Text';
+import {FontSizes} from '../../../core/theme/sizes';
+import {defaultSettings} from '../../../core/environment';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -42,10 +50,10 @@ const styles = StyleSheet.create({
   addAccountText: {
     marginBottom: 20,
   },
-  deleteHint : {
+  deleteHint: {
     marginTop: 10,
-    marginRight: 10
-  }
+    marginRight: 10,
+  },
 });
 
 type HomeScreenNavigationProp = NavigationProp<RootStackParamList, 'Accounts'>;
@@ -68,7 +76,10 @@ export const HomeScreen = () => {
   useFocusEffect(() => {
     setIsTermsScreenVisible(!agreedToTerms);
     setShouldUpdateAccounts(true);
-    timeoutHandle.current = setInterval(updateAllAccounts, 30 * 1000);
+    timeoutHandle.current = setInterval(
+      updateAllAccounts,
+      defaultSettings.pollingTime * 1000,
+    );
     return () => {
       setShouldUpdateAccounts(false);
       if (timeoutHandle.current) {
@@ -160,8 +171,12 @@ export const HomeScreen = () => {
           )) ||
             null}
           <View style={styles.deleteHint}>
-          <Text color={Colors.GREY} size={FontSizes.SMALLEST} textAlign={TextAlign.RIGHT} >{i18n.t(core.screens.home.deleteHint)}</Text>
-
+            <Text
+              color={Colors.GREY}
+              size={FontSizes.SMALLEST}
+              textAlign={TextAlign.RIGHT}>
+              {i18n.t(core.screens.home.deleteHint)}
+            </Text>
           </View>
           <AccountsList
             accounts={accounts}

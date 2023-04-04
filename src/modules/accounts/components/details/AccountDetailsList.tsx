@@ -42,7 +42,7 @@ export const AccountDetailsList: React.FC<Props> = props => {
       style={styles.flatList}
       ListHeaderComponent={renderHeader}
       ListEmptyComponent={renderNoData}
-      data={account.transactions}
+      data={account.transactions || []}
       renderItem={renderTransactionItem}
       keyExtractor={keyExtractor}
       ItemSeparatorComponent={ListSeparator}

@@ -1,4 +1,4 @@
-import {Account} from '@signumjs/core';
+import {Account, Address} from '@signumjs/core';
 import {Amount} from '@signumjs/util';
 import {toNumber} from 'lodash';
 import React from 'react';
@@ -18,6 +18,7 @@ import {AmountText} from '../../../../core/components/base/Amount';
 import {getBalancesFromAccount} from '../../../../core/utils/balance/getBalancesFromAccount';
 import QRCode from 'react-native-qrcode-svg';
 import {AccountActivationView} from '../../../../core/components/base/AccountActivationView';
+import {useAddressPrefix} from '../../../../core/hooks/useAddressPrefix';
 
 interface Props {
   account: Account;
@@ -72,6 +73,7 @@ const SubBalance: React.FC<{amount: Amount; text: string}> = ({
 );
 
 export const AccountTransactionsHeader: React.FC<Props> = props => {
+  const {addressPrefix} = useAddressPrefix();
   const {account, priceApi} = props;
   const priceInBTC =
     priceApi && priceApi.priceInfo && priceApi.priceInfo.price_btc;
@@ -85,6 +87,12 @@ export const AccountTransactionsHeader: React.FC<Props> = props => {
 
   const hasLockedAmount = balances.lockedBalance.greater(Amount.Zero());
   const hasCommittedAmount = balances.committedBalance.greater(Amount.Zero());
+  const qrcodeValue = account
+    ? Address.fromNumericId(
+        account.account,
+        addressPrefix,
+      ).getReedSolomonAddress()
+    : '';
 
   return (
     <View>
@@ -92,7 +100,7 @@ export const AccountTransactionsHeader: React.FC<Props> = props => {
         <View style={styles.qrCode}>
           <QRCode
             size={100}
-            value={account.accountRS}
+            value={qrcodeValue}
             backgroundColor={Colors.WHITE}
             color={Colors.BLUE_DARKER}
             quietZone={8}
@@ -101,7 +109,7 @@ export const AccountTransactionsHeader: React.FC<Props> = props => {
             size={FontSizes.SMALLEST}
             textAlign={TextAlign.CENTER}
             color={Colors.GREY_LIGHT}>
-            {account.accountRS}
+            {qrcodeValue}
           </Text>
         </View>
         <View>

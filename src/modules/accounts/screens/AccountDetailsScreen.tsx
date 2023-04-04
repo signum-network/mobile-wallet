@@ -19,6 +19,7 @@ import {selectAccount} from '../store/selectors';
 import {auth} from '../translations';
 import {defaultSettings} from '../../../core/environment';
 import useSWRNative from '@nandorojo/swr-react-native';
+import {useAddressPrefix} from "../../../core/hooks/useAddressPrefix";
 
 type AccountDetailsRouteProps = RouteProp<RootStackParamList, 'AccountDetails'>;
 type AccountDetailsNavProp = StackNavigationProp<
@@ -46,6 +47,8 @@ const AccountDetails = (props: Props) => {
   const route = useRoute<AccountDetailsRouteProps>();
   const account = useSelector(selectAccount(route.params.account || ''));
   const {priceApi, navigation} = props;
+  const {addressPrefix} = useAddressPrefix();
+
 
   useEffect(() => {
     const updateAccounts = (pendingOnly: boolean) => {
@@ -94,6 +97,8 @@ const AccountDetails = (props: Props) => {
     return null;
   }
 
+  const title = account ? Address.create(account.account, addressPrefix).getReedSolomonAddress() : 'Account Details';
+
   return (
     <Screen>
       <FullHeightView withoutPaddings>
@@ -113,7 +118,7 @@ const AccountDetails = (props: Props) => {
             />
           </TouchableOpacity>
           <View style={{flex: 1, alignItems: 'center', margin: 10}}>
-            <HeaderTitle>{account.accountRS || 'Account Details'}</HeaderTitle>
+            <HeaderTitle>{title}</HeaderTitle>
           </View>
           <TouchableOpacity onPress={handleCopy}>
             <Image style={styles.copyIcon} source={actionIcons.copy} />

@@ -2,9 +2,8 @@ import {Account} from '@signumjs/core';
 import {Alert, StyleSheet, View} from 'react-native';
 import {BorderRadiusSizes, FontSizes, Sizes} from '../../theme/sizes';
 import {Colors} from '../../theme/colors';
-import {useDispatch, useSelector} from 'react-redux';
-import {selectChainApi} from '../../store/app/selectors';
-import {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {useState} from 'react';
 import {Button} from './Button';
 import {i18n} from '../../i18n';
 import {core} from '../../translations';
@@ -26,37 +25,8 @@ interface Props {
 }
 
 export const AccountActivationView = ({account}: Props) => {
-  const chainApi = useSelector(selectChainApi);
-  const [shouldRender, setShouldRender] = useState(false);
-  const [mounted, setMounted] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setMounted(true);
-    return () => {
-      setMounted(false);
-    };
-  }, []);
-
-  useEffect(() => {
-    // @ts-ignore
-    if (chainApi && account && account.type === 'active') {
-      chainApi.account
-        .getAccount({
-          accountId: account.account,
-          includeEstimatedCommitment: false,
-          includeCommittedAmount: false,
-        })
-        .then(a => {
-          mounted && setShouldRender(!a.publicKey);
-        })
-        .catch(() => {
-          /* no op */
-        });
-    }
-  }, [account, chainApi, mounted]);
-
   const handleButtonPress = async () => {
     try {
       setIsLoading(true);
@@ -91,7 +61,7 @@ export const AccountActivationView = ({account}: Props) => {
     }
   };
 
-  if (!shouldRender) {
+  if (account.publicKey) {
     return null;
   }
 
