@@ -1,4 +1,8 @@
 # Ignore artifacts:
+.vscode
+.idea
+.bundle
+node_modules
 build
 coverage
 ios
