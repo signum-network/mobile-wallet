@@ -53,12 +53,16 @@
         "generateSeed": "生成种子",
         "generatedPercent": "生成：{{percent}}%",
         "howToGenerate": "在该区域移动手指以创建随机种子。",
-        "notePassphrase": "注意密码",
-        "notePassphraseHint": "记下您的密码。密码是您帐户的主密钥。因此，请始终保持您的密码安全和私密！",
-        "notePassphraseHint2": "我们甚至不会在您的设备上存储密码，因此我们无法恢复对帐户的访问权限。注意！",
+        "notePassphrase": "你的助记词",
+        "notePassphraseHint": "记下您的恢复短语和/或制作屏幕截图。恢复短语是您帐户的主密钥。因此，请始终保持安全和私密！",
+        "notePassphraseHint2": "恢复短语不会存储在您的设备上。如果没有恢复短语，您将无法再恢复您的帐户和/或进行交易，并且您的资金也会丢失。注意！",
         "pinPlaceholder": "别针",
-        "step": "步骤{{步骤}}/4",
-        "title": "创建账户"
+        "step": "步骤{{step}}/{{maxStep}}",
+        "title": "创建账户",
+        "notedIt": "我注意到了！",
+        "finalize": "完成",
+        "verifyPhrase": "验证助记词",
+        "enterWord": "输入字号"
       },
       "importAccount": {
         "accountPreviewLabel": "地址预览",

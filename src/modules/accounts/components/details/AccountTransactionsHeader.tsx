@@ -6,7 +6,7 @@ import {StyleSheet, View} from 'react-native';
 import {Text, TextAlign} from '../../../../core/components/base/Text';
 import {i18n} from '../../../../core/i18n';
 import {Colors} from '../../../../core/theme/colors';
-import {defaultSideOffset, FontSizes, Sizes,} from '../../../../core/theme/sizes';
+import {defaultSideOffset, FontSizes, Sizes} from '../../../../core/theme/sizes';
 import {core} from '../../../../core/translations';
 import {amountToString} from '../../../../core/utils/numbers';
 import {PriceInfoReduxState} from '../../../price-api/store/reducer';

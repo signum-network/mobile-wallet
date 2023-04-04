@@ -15,6 +15,10 @@ import {
 } from './utils';
 import {selectChainApi} from '../../../core/store/app/selectors';
 import {selectAccount} from './selectors';
+import pRetry, {AbortError} from 'p-retry';
+import {HttpClientFactory, HttpError} from '@signumjs/http';
+import {selectChainInfo} from '../../network/store/selectors';
+import {defaultSettings} from '../../../core/environment';
 
 interface UnstoppableDomainResponse {
   addresses: {
@@ -49,7 +53,7 @@ const actions = {
 };
 
 export const createActiveAccount = createActionFn<string, Account>(
-   (_dispatch, getState, phrase): Account => {
+  (_dispatch, getState, phrase): Account => {
     const pin = getState().auth.passcode;
     const keys = generateMasterKeys(phrase);
 
@@ -158,6 +162,37 @@ export const getAccount = createActionFn<string, Promise<Account>>(
     });
   },
 );
+
+export const activateAccount = createActionFn<
+  {accountId: string; publicKey: string},
+  Promise<void>
+>(async (_dispatch, getState, {accountId, publicKey}) => {
+  return pRetry(async () => {
+    try {
+      const chainInfo = selectChainInfo(getState());
+      const networkName = chainInfo
+        ? chainInfo.networkName.toLowerCase()
+        : 'signum';
+      const activationUrl =
+        networkName === 'signum'
+          ? defaultSettings.activationServiceMainNet
+          : defaultSettings.activationServiceTestNet;
+      const client = HttpClientFactory.createHttpClient(activationUrl);
+      await client.post('api/activate', {
+        account: accountId,
+        publickey: publicKey,
+        ref: 'signum-mobile-wallet',
+      });
+    } catch (e: any) {
+      console.error('account activation failed', e);
+      if (e instanceof HttpError) {
+        if (e.status >= 400 && e.status < 429) {
+          throw new AbortError(e.data);
+        }
+      }
+    }
+  });
+});
 
 export const getAlias = createActionFn<string, Promise<Alias>>(
   async (_dispatch, getState, account) => {

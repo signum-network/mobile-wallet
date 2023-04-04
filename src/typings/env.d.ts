@@ -7,4 +7,6 @@ declare module '@env' {
   export const RELIABLE_NODE_HOSTS: string;
   export const BLACK_LISTED_ACCOUNT_IDS: string;
   export const TESTNET_NODE_HOSTS: string;
+  export const ACTIVATION_SERVICE_URL_MAINNET: string;
+  export const ACTIVATION_SERVICE_URL_TESTNET: string;
 }

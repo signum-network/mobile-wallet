@@ -53,12 +53,16 @@
         "generateSeed": "Generar semilla",
         "generatedPercent": "Generado: {{percent}}%",
         "howToGenerate": "Mueva su dedo por el área para crear una semilla aleatoria.",
-        "notePassphrase": "Frase de contraseña de la nota",
-        "notePassphraseHint": "Anote su frase de contraseña. La frase de contraseña es la clave maestra de su cuenta. ¡Por lo tanto, mantenga su contraseña siempre segura y privada!",
-        "notePassphraseHint2": "No almacenamos la frase de contraseña ni siquiera en su dispositivo, por lo que no podemos recuperar el acceso a la cuenta. ¡Apúntalo!",
+        "notePassphrase": "Tu Frase de Recuperación",
+        "notePassphraseHint": "Anote su frase de recuperación y/o haga una captura de pantalla. La frase de recuperación es la clave maestra de su cuenta. ¡Por lo tanto, manténgalo siempre seguro y privado!",
+        "notePassphraseHint2": "Las frases de recuperación no se almacenarán en su dispositivo. Sin la frase de recuperación, ya no podrá recuperar su cuenta ni realizar transacciones, y sus fondos se perderán. ¡Apúntalo!",
         "pinPlaceholder": "ALFILER",
-        "step": "Paso {{paso}}/4",
-        "title": "Crear una cuenta"
+        "step": "Paso {{step}}/{{maxStep}}",
+        "title": "Crear una cuenta",
+        "notedIt": "¡Lo noté!",
+        "finalize": "Finalizar",
+        "verifyPhrase": "Verificar frase de recuperación",
+        "enterWord": "Ingrese la palabra No."
       },
       "importAccount": {
         "accountPreviewLabel": "Vista previa de la dirección",

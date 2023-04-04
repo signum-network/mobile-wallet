@@ -1,40 +1,32 @@
 import {Account} from '@signumjs/core';
 import {PassPhraseGenerator} from '@signumjs/crypto';
-import React from 'react';
+import React, {useState} from 'react';
 import {Alert, View, StyleSheet} from 'react-native';
-import {connect} from 'react-redux';
-import {HeaderTitle} from '../../../core/components/header/HeaderTitle';
+import {useDispatch} from 'react-redux';
 import {i18n} from '../../../core/i18n';
-import {InjectedReduxProps} from '../../../core/interfaces';
 import {FullHeightView} from '../../../core/layout/FullHeightView';
 import {Screen} from '../../../core/layout/Screen';
-import {routes} from '../../../core/navigation/routes';
-import {ApplicationState} from '../../../core/store/initialState';
 import {Colors} from '../../../core/theme/colors';
-import {EnterPassphraseStage} from '../components/create/EnterPassphraseStage';
-import {NotePassphraseStage} from '../components/create/NotePassphraseStage';
 import {SeedGeneratorStage} from '../components/create/SeedGeneratorStage';
 import {StepCounter} from '../components/create/StepCounter';
 import {
+  activateAccount,
   addAccount,
   createActiveAccount,
   hydrateAccount,
 } from '../store/actions';
-import {AuthReduxState} from '../store/reducer';
 import {auth} from '../translations';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/mainStack';
 import {HeaderWithBackButton} from '../../../core/layout/HeaderWithBackButton';
+import {useNavigation} from '@react-navigation/native';
+import {ShowPassphraseStage} from '../components/create/ShowPassphraseStage';
+import {VerifyPassphraseStage} from '../components/create/VerifyPassphraseStage';
 
 type CreateAccountNavProp = StackNavigationProp<
   RootStackParamList,
   'CreateAccount'
 >;
-
-interface IProps extends InjectedReduxProps {
-  auth: AuthReduxState;
-  navigation: CreateAccountNavProp;
-}
 
 interface State {
   stage: Stages;
@@ -45,9 +37,8 @@ interface State {
 
 enum Stages {
   GENERATE_SEED = 0,
-  ENTER_PIN = 1,
-  NOTE_PASSPHRASE = 2,
-  ENTER_PASSPHRASE = 3,
+  NOTE_PASSPHRASE,
+  ENTER_PASSPHRASE,
 }
 
 const getDefaultState = (): State => ({
@@ -66,89 +57,78 @@ const styles = StyleSheet.create({
 
 const passPhraseGenerator: PassPhraseGenerator = new PassPhraseGenerator();
 
-class CreateAccount extends React.PureComponent<IProps, State> {
-  static navigationOptions = {
-    headerTitle: <HeaderTitle>{i18n.t(auth.createAccount.title)}</HeaderTitle>,
-  };
+export const CreateAccountScreen = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation<CreateAccountNavProp>();
+  const [state, setState] = useState(getDefaultState());
 
-  state: State = getDefaultState();
-
-  createAccount = async () => {
-    const {phrase} = this.state;
+  const createAccount = async () => {
+    const {phrase} = state;
 
     try {
       const joinedPhrase = phrase.join(' ');
-      const account = await this.props.dispatch(
-        createActiveAccount(joinedPhrase),
+      const account = await dispatch(createActiveAccount(joinedPhrase));
+      await dispatch(
+        activateAccount({
+          accountId: account.account,
+          // @ts-ignore
+          publicKey: account.keys.publicKey,
+        }),
       );
-      // @ts-ignore because we have account here 100%
-      await this.props.dispatch(addAccount(account));
-      await this.props.dispatch(hydrateAccount({account}));
-    } catch (error) {
+      await dispatch(addAccount(account));
+      await dispatch(hydrateAccount({account}));
+    } catch (error: any) {
       // This error shouldn't be possible, but still
-      this.setState(getDefaultState());
+      setState(getDefaultState());
       Alert.alert(error.message);
     }
-    this.props.navigation.navigate('Accounts');
+    navigation.navigate('Accounts');
   };
 
-  handlePhraseNoted = () => {
-    this.setState({
+  const handlePhraseNoted = () => {
+    setState({
+      ...state,
       stage: Stages.ENTER_PASSPHRASE,
     });
   };
 
-  handleSeedGenerated = async (seed: string[]) => {
+  const handleSeedGenerated = async (seed: string[]) => {
     const phrase = await passPhraseGenerator.generatePassPhrase(seed);
-    this.setState({
+    setState({
+      ...state,
       phrase,
       stage: Stages.NOTE_PASSPHRASE,
     });
   };
 
-  renderStage = () => {
-    const {stage, phrase} = this.state;
+  const renderStage = () => {
+    const {stage, phrase} = state;
 
     switch (stage) {
       case Stages.GENERATE_SEED:
-        return (
-          <SeedGeneratorStage onSeedGenerated={this.handleSeedGenerated} />
-        );
+        return <SeedGeneratorStage onSeedGenerated={handleSeedGenerated} />;
       case Stages.NOTE_PASSPHRASE:
         return (
-          <NotePassphraseStage
-            phrase={phrase}
-            onFinish={this.handlePhraseNoted}
-          />
+          <ShowPassphraseStage phrase={phrase} onFinish={handlePhraseNoted} />
         );
       case Stages.ENTER_PASSPHRASE:
         return (
-          <EnterPassphraseStage phrase={phrase} onFinish={this.createAccount} />
+          <VerifyPassphraseStage phrase={phrase} onFinish={createAccount} />
         );
     }
 
     return null;
   };
 
-  render() {
-    return (
-      <Screen>
-        <FullHeightView style={{backgroundColor: Colors.WHITE}} withoutPaddings>
-          <HeaderWithBackButton title={i18n.t(auth.createAccount.title)} />
-          <View style={styles.center}>
-            <StepCounter stage={this.state.stage} />
-            {this.renderStage()}
-          </View>
-        </FullHeightView>
-      </Screen>
-    );
-  }
-}
-
-function mapStateToProps(state: ApplicationState) {
-  return {
-    auth: state.auth,
-  };
-}
-
-export const CreateAccountScreen = connect(mapStateToProps)(CreateAccount);
+  return (
+    <Screen>
+      <FullHeightView style={{backgroundColor: Colors.WHITE}} withoutPaddings>
+        <HeaderWithBackButton title={i18n.t(auth.createAccount.title)} />
+        <View style={styles.center}>
+          <StepCounter stage={state.stage + 1} maxStages={3} />
+          {renderStage()}
+        </View>
+      </FullHeightView>
+    </Screen>
+  );
+};

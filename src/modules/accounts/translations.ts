@@ -45,6 +45,10 @@ export const auth = {
     enterPin: 'accounts.screens.createAccount.enterPin',
     enterPinHint: 'accounts.screens.createAccount.enterPinHint',
     next: 'core.actions.next',
+    notedIt: 'accounts.screens.createAccount.notedIt',
+    finalize: 'accounts.screens.createAccount.finalize',
+    verifyPhrase: 'accounts.screens.createAccount.verifyPhrase',
+    enterWord: 'accounts.screens.createAccount.enterWord'
   },
   addAccount: {
     title: 'accounts.screens.addAccount.title',

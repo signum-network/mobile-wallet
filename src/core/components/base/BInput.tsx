@@ -104,7 +104,7 @@ export const BInput = (props: Props) => {
           returnKeyType={'done'}
           placeholder={placeholder}
           placeholderTextColor={
-            theme === 'normal' ? Colors.GREY_TT : Colors.GREY_T
+            theme === 'normal' ? Colors.GREY : Colors.GREY_DARK
           }
           secureTextEntry={secret}
         />

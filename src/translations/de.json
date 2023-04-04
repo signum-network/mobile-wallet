@@ -58,12 +58,16 @@
         "generateSeed": "Seed generieren",
         "generatedPercent": "Generiert: {{percent}}%",
         "howToGenerate": "Bewege Deinen Finger über den Bereich, um einen zufälligen Seed zu erzeugen",
-        "notePassphrase": "Passphrase aufschreiben",
-        "notePassphraseHint": "Schreibe Deine Passphrase auf. Die Passphrase ist der Hauptschlüssel zu Deinem Konto. Bewahre die Passphrase immer sicher auf und vergiss sie nie!",
-        "notePassphraseHint2": "Die Passphrase wird nicht auf dem Gerät gespeichert, daher kann - im Falle eines Verlustes - der Zugang zum Konto nicht wieder hergestellt werden. Schreib die Passphrase auf!",
+        "notePassphrase": "Deine Recovery Phrase",
+        "notePassphraseHint": "Notiere diese Recovery Phrase und/oder mache einen Screenshot dieses Bildschirms. Die Recovery Phrase ist der Hauptschlüssel zu deinem Konto. Bewahre sie daher sicher und privat auf!",
+        "notePassphraseHint2": "Die Recovery Phrase wird nicht auf dem Gerät gespeichert, daher kann - im Falle eines Verlustes - der Zugang zum Konto nicht wieder hergestellt werden. Deine Guthaben sind dann verloren. Schreib die Recovery Phrase auf!",
         "pinPlaceholder": "PIN",
-        "step": "Schritt {{step}}/4",
-        "title": "Konto erstellen"
+        "step": "Schritt {{step}}/{{maxStep}}",
+        "title": "Konto erstellen",
+        "notedIt": "Ich habe es notiert!",
+        "finalize": "Abschließen",
+        "verifyPhrase": "Recovery Phrase Verifizieren",
+        "enterWord": "Gib folgendes Wort ein "
       },
       "importAccount": {
         "activeAccount": "Recovery Phrase Verwenden ",

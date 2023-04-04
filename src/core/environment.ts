@@ -1,7 +1,5 @@
 import {toNumber, toString} from 'lodash';
 
-// @ts-ignore-next-line WARNING: typescript can't check what we have in .env
-// tslint:disable-next-line: max-line-length
 import {
   CRYPTOCOMPARE_HOST_URL,
   DEFAULT_NODE_HOST,
@@ -10,7 +8,9 @@ import {
   BLACK_LISTED_ACCOUNT_IDS,
   TESTNET_NODE_HOSTS,
   UPDATE_POLLING_SECONDS,
-    UPDATE_POLLING_PENDING_SECONDS,
+  UPDATE_POLLING_PENDING_SECONDS,
+  ACTIVATION_SERVICE_URL_MAINNET,
+  ACTIVATION_SERVICE_URL_TESTNET,
 } from '@env';
 
 // So we check it like this
@@ -22,7 +22,9 @@ if (
   !RELIABLE_NODE_HOSTS ||
   !BLACK_LISTED_ACCOUNT_IDS ||
   !UPDATE_POLLING_SECONDS ||
-  !UPDATE_POLLING_PENDING_SECONDS
+  !UPDATE_POLLING_PENDING_SECONDS ||
+  !ACTIVATION_SERVICE_URL_MAINNET ||
+  !ACTIVATION_SERVICE_URL_TESTNET
 ) {
   throw new Error('Incorrect .env config!');
 }
@@ -42,6 +44,8 @@ const defaultSettings = {
   pollingTimePending: toNumber(UPDATE_POLLING_PENDING_SECONDS),
   cryptoCompareURL: toString(CRYPTOCOMPARE_HOST_URL),
   blackListedAccountIds: fromCsvString(BLACK_LISTED_ACCOUNT_IDS),
+  activationServiceMainNet: toString(ACTIVATION_SERVICE_URL_MAINNET),
+  activationServiceTestNet: toString(ACTIVATION_SERVICE_URL_TESTNET),
 };
 
 console.log('Environment Settings:', defaultSettings);

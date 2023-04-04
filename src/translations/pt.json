@@ -58,12 +58,16 @@
         "generateSeed": "Gerar semente",
         "generatedPercent": "Gerado: {{percent}}%",
         "howToGenerate": "Mova o dedo pela área para criar uma semente aleatória.",
-        "notePassphrase": "Anote a frase secreta",
-        "notePassphraseHint": "Anote sua frase secreta. A frase secreta é a chave mestra da sua conta. Portanto, mantenha sua frase secreta sempre segura e privada!",
-        "notePassphraseHint2": "Não armazenamos a frase secreta nem mesmo em seu dispositivo, portanto, não podemos recuperar o acesso à conta. Anote!",
+        "notePassphrase": "Sua Frase de Recuperação",
+        "notePassphraseHint": "Anote sua frase de recuperação e/ou faça uma captura de tela. A frase de recuperação é a chave mestra da sua conta. Portanto, mantenha-o sempre seguro e privado!",
+        "notePassphraseHint2": "As frases de recuperação não serão armazenadas no seu dispositivo. Sem a frase de recuperação, você não poderá mais recuperar sua conta e/ou fazer transações e seus fundos serão perdidos. Anote!",
         "pinPlaceholder": "PIN",
-        "step": "Etapa {{step}}/4",
-        "title": "Criar Conta"
+        "step": "Etapa {{step}}/{{maxStep}}",
+        "title": "Criar Conta",
+        "notedIt": "Eu notei isso!",
+        "finalize": "Finalizar",
+        "verifyPhrase": "Verifique a Frase de Recuperação",
+        "enterWord": "Digite o número da palavra"
       },
       "importAccount": {
         "activeAccount": "Usar Frase de Recuperação",

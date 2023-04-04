@@ -58,12 +58,16 @@
         "generateSeed": "Generate seed",
         "generatedPercent": "Generated: {{percent}}%",
         "howToGenerate": "Move your finger across the area to create a random seed.",
-        "notePassphrase": "Note passphrase",
-        "notePassphraseHint": "Note down your passphrase. The passphrase is the master key to your account. Therefore, keep your passphrase always safe and private!",
-        "notePassphraseHint2": "We don't store passphrase even on your device, so we can't recover access to account. Note it!",
+        "notePassphrase": "Your Recovery Phrase",
+        "notePassphraseHint": "Note down your recovery phrase and/or make a screenshot. The recovery phrase is the master key to your account. Therefore, keep it always safe and private! ",
+        "notePassphraseHint2": "Recovery phrases won't be stored on your device. Without the recovery phrase you won't be able to recover your account and/or doing transactions anymore, and your funds are lost. Note it!",
         "pinPlaceholder": "PIN",
-        "step": "Step {{step}}/4",
-        "title": "Create account"
+        "step": "Step {{step}}/{{maxStep}}",
+        "title": "Create account",
+        "notedIt": "I noted it!",
+        "finalize": "Finalize",
+        "verifyPhrase": "Verify Recovery Phrase",
+        "enterWord": "Enter Word No."
       },
       "importAccount": {
         "activeAccount": "Use Recovery Phrase",

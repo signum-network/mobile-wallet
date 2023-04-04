@@ -7,11 +7,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {
-  Text,
-  TextAlign,
-  TextThemes,
-} from '../../../../core/components/base/Text';
+import {Text, TextAlign, TextThemes,} from '../../../../core/components/base/Text';
 import {i18n} from '../../../../core/i18n';
 import {Colors} from '../../../../core/theme/colors';
 import {BorderRadiusSizes} from '../../../../core/theme/sizes';
@@ -69,9 +65,7 @@ export class SeedGeneratorStage extends React.PureComponent<Props, State> {
             this.setState({seed});
             this.forceUpdate();
           } else {
-            console.log('seed', seed);
             this.props.onSeedGenerated(seed);
-
             this.setState({seedGenerated: true});
           }
         }
@@ -89,16 +83,18 @@ export class SeedGeneratorStage extends React.PureComponent<Props, State> {
             {i18n.t(auth.createAccount.generateSeed)}
           </Text>
         </View>
-        <Text textAlign={TextAlign.CENTER}>
-          {i18n.t(auth.createAccount.generatedPercent, {percent})}
-        </Text>
-        <View
-          style={styles.panResponderView}
-          {...this._panResponder.panHandlers}
-        />
-        <Text theme={TextThemes.HINT}>
-          {i18n.t(auth.createAccount.howToGenerate)}
-        </Text>
+        <View style={flexGrowStyle}>
+          <Text textAlign={TextAlign.CENTER}>
+            {i18n.t(auth.createAccount.generatedPercent, {percent})}
+          </Text>
+          <View
+            style={styles.panResponderView}
+            {...this._panResponder.panHandlers}
+          />
+          <Text theme={TextThemes.HINT} textAlign={TextAlign.CENTER}>
+            {i18n.t(auth.createAccount.howToGenerate)}
+          </Text>
+        </View>
       </React.Fragment>
     );
   }
