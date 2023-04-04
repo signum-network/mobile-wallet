@@ -17,6 +17,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {transactions} from '../translations';
 import {SendStackParamList} from '../../accounts/navigation/mainStack';
 import {QrCodeScanner} from '../../../core/components/base/QrCodeScanner';
+import {DeeplinkParts} from '@signumjs/util';
+import {Address} from '@signumjs/core';
 
 type ScanQRCodeScreenNavProp = StackNavigationProp<
   SendStackParamList,
@@ -44,12 +46,33 @@ const styles = StyleSheet.create({
   },
 });
 
+// accepts account info also...for better ux, but faking deeplink then
+function tryParseAccountAddress(scanResult: string): DeeplinkParts | null {
+  try {
+    const address = Address.create(scanResult);
+    // @ts-ignore
+    return {
+      action: SupportedDeeplinkActions.Pay,
+      decodedPayload: {
+        recipient: address.getNumericId(),
+      },
+    };
+  } catch (e: any) {
+    console.log('tryParseAccountAddress', e);
+  }
+  return null;
+}
+
 export const ScanDeeplinkQRCodeScreen = () => {
   const navigation = useNavigation<ScanQRCodeScreenNavProp>();
 
   const handleOnScanned = (scanResult: string) => {
     try {
-      const {action, decodedPayload} = getDeeplinkInfo(scanResult);
+      let info = tryParseAccountAddress(scanResult);
+      if (!info) {
+        info = getDeeplinkInfo(scanResult);
+      }
+      const {action, decodedPayload} = info;
       if (action !== SupportedDeeplinkActions.Pay) {
         return Alert.alert(`Unsupported Deeplink Action: ${action}`);
       }
