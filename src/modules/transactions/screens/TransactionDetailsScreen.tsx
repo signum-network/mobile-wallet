@@ -1,5 +1,4 @@
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {actionIcons} from '../../../assets/icons';
@@ -8,7 +7,6 @@ import {i18n} from '../../../core/i18n';
 import {FullHeightView} from '../../../core/layout/FullHeightView';
 import {Screen} from '../../../core/layout/Screen';
 import {Colors} from '../../../core/theme/colors';
-import {PriceInfoReduxState} from '../../price-api/store/reducer';
 import {RootStackParamList} from '../../accounts/navigation/mainStack';
 import {auth} from '../../accounts/translations';
 import {TransactionDetails} from '../components/transactions/TransactionDetails';
@@ -17,18 +15,8 @@ type TransactionDetailsRouteProps = RouteProp<
   RootStackParamList,
   'TransactionDetails'
 >;
-type TransactionDetailsNavProp = StackNavigationProp<
-  RootStackParamList,
-  'TransactionDetails'
->;
 
-interface Props {
-  priceApi: PriceInfoReduxState;
-  route: TransactionDetailsRouteProps;
-  navigation: TransactionDetailsNavProp;
-}
-
-export const TransactionDetailsScreen = ({}: Props) => {
+export const TransactionDetailsScreen = () => {
   const navigation = useNavigation();
   const route = useRoute<TransactionDetailsRouteProps>();
 

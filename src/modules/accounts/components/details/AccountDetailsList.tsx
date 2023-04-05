@@ -12,6 +12,7 @@ interface Props {
   account: Account;
   onTransactionPress: (transaction: Transaction) => void;
   priceApi?: PriceInfoReduxState;
+  isLoading: boolean;
 }
 
 const styles: any = {
@@ -26,7 +27,11 @@ export const AccountDetailsList: React.FC<Props> = props => {
   const keyExtractor = (item: Transaction, index: number) =>
     toString(item.fullHash || index);
   const renderHeader = () => (
-    <AccountTransactionsHeader priceApi={priceApi} account={account} />
+    <AccountTransactionsHeader
+      priceApi={priceApi}
+      account={account}
+      isLoading={props.isLoading}
+    />
   );
   const renderNoData = () => <NoTransactions />;
   const renderTransactionItem = ({item}: ListRenderItemInfo<Transaction>) => (

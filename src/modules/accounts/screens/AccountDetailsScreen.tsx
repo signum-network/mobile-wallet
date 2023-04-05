@@ -2,7 +2,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {Address, Transaction} from '@signumjs/core';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Alert, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {connect, useDispatch, useSelector} from 'react-redux';
 import {actionIcons} from '../../../assets/icons';
@@ -18,7 +18,6 @@ import {updateAccountTransactions} from '../store/actions';
 import {selectAccount} from '../store/selectors';
 import {auth} from '../translations';
 import {defaultSettings} from '../../../core/environment';
-import useSWRNative from '@nandorojo/swr-react-native';
 import {useAddressPrefix} from '../../../core/hooks/useAddressPrefix';
 
 type AccountDetailsRouteProps = RouteProp<RootStackParamList, 'AccountDetails'>;
@@ -48,14 +47,18 @@ const AccountDetails = (props: Props) => {
   const account = useSelector(selectAccount(route.params.account || ''));
   const {priceApi, navigation} = props;
   const {addressPrefix} = useAddressPrefix();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const updateAccounts = (pendingOnly: boolean) => {
       if (account) {
-        dispatch(updateAccountTransactions({account, pendingOnly}));
+        return dispatch(updateAccountTransactions({account, pendingOnly}));
       }
+      return Promise.resolve();
     };
-    updateAccounts(false);
+    updateAccounts(false).finally(() => {
+      setIsLoading(false);
+    });
     let elapsedSeconds = 0;
     timeoutHandle.current = setInterval(() => {
       ++elapsedSeconds;
@@ -130,6 +133,7 @@ const AccountDetails = (props: Props) => {
             account={account}
             onTransactionPress={handleTransactionPress}
             priceApi={priceApi}
+            isLoading={isLoading}
           />
         </View>
       </FullHeightView>

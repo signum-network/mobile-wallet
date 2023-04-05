@@ -19,14 +19,17 @@ import {getBalancesFromAccount} from '../../../../core/utils/balance/getBalances
 import QRCode from 'react-native-qrcode-svg';
 import {AccountActivationView} from '../../../../core/components/base/AccountActivationView';
 import {useAddressPrefix} from '../../../../core/hooks/useAddressPrefix';
+import {LoadingIndicator} from '../../../../core/components/base/LoadingIndicator';
 
 interface Props {
   account: Account;
   priceApi?: PriceInfoReduxState;
+  isLoading: boolean;
 }
 
 const styles = StyleSheet.create({
   view: {
+    position: 'relative',
     paddingHorizontal: defaultSideOffset,
     marginBottom: Sizes.MEDIUM,
     display: 'flex',
@@ -38,6 +41,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  loadingIndicator: {
+    position: 'absolute',
+    top: 0,
+    left: Sizes.LARGER,
   },
 });
 
@@ -74,7 +82,7 @@ const SubBalance: React.FC<{amount: Amount; text: string}> = ({
 
 export const AccountTransactionsHeader: React.FC<Props> = props => {
   const {addressPrefix} = useAddressPrefix();
-  const {account, priceApi} = props;
+  const {account, priceApi, isLoading} = props;
   const priceInBTC =
     priceApi && priceApi.priceInfo && priceApi.priceInfo.price_btc;
 
@@ -97,6 +105,13 @@ export const AccountTransactionsHeader: React.FC<Props> = props => {
   return (
     <View>
       <View style={styles.view}>
+        <View style={styles.loadingIndicator}>
+          <LoadingIndicator
+            show={isLoading}
+            size="small"
+            color={Colors.GREY_LIGHT}
+          />
+        </View>
         <View style={styles.qrCode}>
           <QRCode
             size={100}
