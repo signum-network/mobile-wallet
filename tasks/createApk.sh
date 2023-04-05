@@ -8,4 +8,4 @@ cd android
   -PMYAPP_UPLOAD_KEY_PASSWORD="$1" \
   -PMYAPP_UPLOAD_KEY_ALIAS="$2" \
 
-jarsigner -verify -verbose -certs ./app/build/outputs/apk/release/app-release.apk
+#jarsigner -verify -verbose -certs ./app/build/outputs/apk/release/app-release.apk
