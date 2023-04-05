@@ -31,7 +31,7 @@
     "translations:sort": "node tasks/sortJsonDir.js src/translations && git add src/translations/*.json",
     "test": "jest",
     "tsc": "tsc --init --pretty --jsx react",
-    "prepare": "cd .. && husky install",
+    "prepare": "husky install",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -78,7 +78,7 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "rn-swipe-button": "^1.3.8",
-    "vision-camera-code-scanner": "^0.2.0"
+    "vision-camera-code-scanner": "0.2.0"
   },
   "rnpm": {
     "assets": [
