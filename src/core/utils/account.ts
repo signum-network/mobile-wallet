@@ -1,5 +1,5 @@
 import {Address} from '@signumjs/core';
-import {isBoolean} from "lodash";
+import {isBoolean} from 'lodash';
 
 export const trimAddressPrefix = (addressRS: string): string => {
   const index = addressRS.indexOf('-');

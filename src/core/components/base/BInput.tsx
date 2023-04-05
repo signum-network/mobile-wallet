@@ -23,7 +23,7 @@ interface Props {
   editable?: boolean;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
   theme?: 'light' | 'normal';
-  secret? : boolean;
+  secret?: boolean;
 }
 
 export enum KeyboardTypes {

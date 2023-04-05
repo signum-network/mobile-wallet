@@ -48,9 +48,7 @@ import {
   stableParseSignaAmount,
 } from '../../../../core/utils/amount';
 import {core} from '../../../../core/translations';
-import {
-  SmartContractPublicKey,
-} from '../../../../core/utils/constants';
+import {SmartContractPublicKey} from '../../../../core/utils/constants';
 import {shortenString} from '../../../../core/utils/string';
 import {FeeSelector} from '../FeeSelector';
 import {DescriptorData} from '@signumjs/standards';
@@ -243,7 +241,8 @@ export class SendForm extends React.Component<Props, SendFormState> {
       encrypt: (deeplinkProps && deeplinkProps.encrypt) || false,
       immutable: (deeplinkProps && deeplinkProps.immutable) || false,
       recipient: new Recipient(
-        (deeplinkProps && deeplinkProps.address) || this.props.addressPrefix + '-',
+        (deeplinkProps && deeplinkProps.address) ||
+          this.props.addressPrefix + '-',
         (deeplinkProps && deeplinkProps.address) || '',
       ),
       addMessage: (deeplinkProps && !!deeplinkProps.message) || false,
@@ -276,7 +275,8 @@ export class SendForm extends React.Component<Props, SendFormState> {
     if (!matches || matches.length < 2) {
       return null;
     }
-    const unwrappedAddress = `${this.props.addressPrefix}-${matches[2]}`.toUpperCase();
+    const unwrappedAddress =
+      `${this.props.addressPrefix}-${matches[2]}`.toUpperCase();
     return Address.fromReedSolomonAddress(unwrappedAddress).getNumericId();
   }
 

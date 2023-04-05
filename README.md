@@ -14,7 +14,7 @@ iOS: 2nd week April, 2023
 
 > This is the first step before major layout changes, and token support is coming. ETA: End of Q2/Beginning Q3
 
-------------
+---
 
 # Signum Mobile Wallet
 

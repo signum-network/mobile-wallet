@@ -11,7 +11,7 @@ import {auth} from '../../translations';
 
 interface Props {
   stage: number;
-  maxStages: number
+  maxStages: number;
 }
 
 const styles = StyleSheet.create({
@@ -20,11 +20,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export const StepCounter: React.FunctionComponent<Props> = ({stage, maxStages}: Props) => {
+export const StepCounter: React.FunctionComponent<Props> = ({
+  stage,
+  maxStages,
+}: Props) => {
   return (
     <View style={styles.view}>
       <Text theme={TextThemes.HINT} textAlign={TextAlign.CENTER}>
-        {i18n.t(auth.createAccount.step, {step: stage, maxStep: maxStages })}
+        {i18n.t(auth.createAccount.step, {step: stage, maxStep: maxStages})}
       </Text>
     </View>
   );

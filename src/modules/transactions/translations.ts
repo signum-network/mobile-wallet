@@ -54,6 +54,6 @@ export const transactions = {
     },
     details: {
       loading: 'core.screens.loading.loadingText',
-    }
+    },
   },
 };

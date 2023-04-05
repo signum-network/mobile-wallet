@@ -44,7 +44,7 @@ import {
   RootStackParamList,
   SendStackParamList,
 } from './src/modules/accounts/navigation/mainStack';
-import {ScanAccountQRCodeScreen} from "./src/modules/accounts/screens/ScanAccountQRCodeScreen";
+import {ScanAccountQRCodeScreen} from './src/modules/accounts/screens/ScanAccountQRCodeScreen';
 
 const store: Store = getStore();
 
@@ -220,7 +220,10 @@ export const SendStack = () => {
   return (
     <SendNavStack.Navigator screenOptions={{headerShown: false}}>
       <SendNavStack.Screen name="Send" component={SendScreen} />
-      <SendNavStack.Screen name="ScanDeeplink" component={ScanDeeplinkQRCodeScreen} />
+      <SendNavStack.Screen
+        name="ScanDeeplink"
+        component={ScanDeeplinkQRCodeScreen}
+      />
     </SendNavStack.Navigator>
   );
 };

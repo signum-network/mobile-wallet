@@ -7,7 +7,11 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {Text, TextAlign, TextThemes,} from '../../../../core/components/base/Text';
+import {
+  Text,
+  TextAlign,
+  TextThemes,
+} from '../../../../core/components/base/Text';
 import {i18n} from '../../../../core/i18n';
 import {Colors} from '../../../../core/theme/colors';
 import {BorderRadiusSizes} from '../../../../core/theme/sizes';

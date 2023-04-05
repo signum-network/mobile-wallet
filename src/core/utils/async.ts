@@ -1,7 +1,6 @@
 import {AsyncParticleStates} from '../enums';
 import {AsyncParticle} from '../interfaces';
 
-
 export function initAsyncParticle<T>(data: T | null = null): AsyncParticle<T> {
   return {
     data,

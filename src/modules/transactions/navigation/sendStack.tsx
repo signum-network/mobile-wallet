@@ -1,6 +1,4 @@
-import {
-  createStackNavigator,
-} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
 import {defaultStackOptions} from '../../../core/navigation/defaultStackOptions';
 import {routes} from '../../../core/navigation/routes';

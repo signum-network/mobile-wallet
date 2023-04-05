@@ -3,7 +3,8 @@ import {
   AttachmentEncryptedMessage,
   AttachmentMessage,
   TransactionId,
-  SendAmountArgs, Address,
+  SendAmountArgs,
+  Address,
 } from '@signumjs/core';
 import {
   decryptAES,

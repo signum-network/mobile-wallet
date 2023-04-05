@@ -26,10 +26,7 @@ const getSuggestedFees: Reducer<NetworkReduxState, SuggestedFees> = (
     suggestedFees,
   };
 };
-const setChainInfo: Reducer<NetworkReduxState, ChainInfo> = (
-  state,
-  action,
-) => {
+const setChainInfo: Reducer<NetworkReduxState, ChainInfo> = (state, action) => {
   const chainInfo = action.payload;
 
   return {

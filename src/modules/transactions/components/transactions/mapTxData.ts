@@ -3,7 +3,7 @@ import {Amount, ChainTime} from '@signumjs/util';
 import {startCase, toNumber} from 'lodash';
 import {formatAttachmentData} from './formatAttachmentData';
 import {formatDistributionData} from './formatDistributionData';
-import {SmartContractPublicKey} from "../../../../core/utils/constants";
+import {SmartContractPublicKey} from '../../../../core/utils/constants';
 
 export interface TxKeyValue {
   key: string;
@@ -11,7 +11,7 @@ export interface TxKeyValue {
 }
 
 const ExcludeList: string[] = [
-    'attachmentBytes',
+  'attachmentBytes',
   'ecBlockHeight',
   'ecBlockId',
   'blockTimestamp',
@@ -45,10 +45,7 @@ const KeyValueMappers = {
   }),
   senderPublicKey: ({value}: TxKeyValue): TxKeyValue => ({
     key: 'Sender Public Key',
-    value:
-      value === SmartContractPublicKey
-        ? 'Smart Contract'
-        : value,
+    value: value === SmartContractPublicKey ? 'Smart Contract' : value,
   }),
 };
 

@@ -28,7 +28,8 @@ export const auth = {
     copy: 'accounts.screens.accountDetails.copy',
   },
   transactionDetails: {
-    copiedSuccessfully: 'accounts.screens.transactionDetails.copiedSuccessfully',
+    copiedSuccessfully:
+      'accounts.screens.transactionDetails.copiedSuccessfully',
     copy: 'accounts.screens.transactionDetails.copy',
     headerTitle: 'accounts.screens.transactionDetails.headerTitle',
   },
@@ -48,7 +49,7 @@ export const auth = {
     notedIt: 'accounts.screens.createAccount.notedIt',
     finalize: 'accounts.screens.createAccount.finalize',
     verifyPhrase: 'accounts.screens.createAccount.verifyPhrase',
-    enterWord: 'accounts.screens.createAccount.enterWord'
+    enterWord: 'accounts.screens.createAccount.enterWord',
   },
   addAccount: {
     title: 'accounts.screens.addAccount.title',

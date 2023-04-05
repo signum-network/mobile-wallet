@@ -59,8 +59,7 @@ You should be able to run `npm start` without issues, which will start:
 - Starts the Mobile Emulator
 - Builds and run the app
 
-
-# XCode 
+# XCode
 
 Run `npx pod install`
 

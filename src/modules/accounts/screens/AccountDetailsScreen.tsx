@@ -19,7 +19,7 @@ import {selectAccount} from '../store/selectors';
 import {auth} from '../translations';
 import {defaultSettings} from '../../../core/environment';
 import useSWRNative from '@nandorojo/swr-react-native';
-import {useAddressPrefix} from "../../../core/hooks/useAddressPrefix";
+import {useAddressPrefix} from '../../../core/hooks/useAddressPrefix';
 
 type AccountDetailsRouteProps = RouteProp<RootStackParamList, 'AccountDetails'>;
 type AccountDetailsNavProp = StackNavigationProp<
@@ -48,7 +48,6 @@ const AccountDetails = (props: Props) => {
   const account = useSelector(selectAccount(route.params.account || ''));
   const {priceApi, navigation} = props;
   const {addressPrefix} = useAddressPrefix();
-
 
   useEffect(() => {
     const updateAccounts = (pendingOnly: boolean) => {
@@ -97,7 +96,9 @@ const AccountDetails = (props: Props) => {
     return null;
   }
 
-  const title = account ? Address.create(account.account, addressPrefix).getReedSolomonAddress() : 'Account Details';
+  const title = account
+    ? Address.create(account.account, addressPrefix).getReedSolomonAddress()
+    : 'Account Details';
 
   return (
     <Screen>

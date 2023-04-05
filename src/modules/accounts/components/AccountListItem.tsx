@@ -2,12 +2,7 @@ import {Account} from '@signumjs/core';
 import {Amount} from '@signumjs/util';
 import {toNumber} from 'lodash';
 import React from 'react';
-import {
-  Animated,
-  Image,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Animated, Image, TouchableOpacity, View} from 'react-native';
 import {accountIcons, actionIcons} from '../../../assets/icons';
 import {Text, TextAlign} from '../../../core/components/base/Text';
 import {i18n} from '../../../core/i18n';
@@ -20,7 +15,7 @@ import {shortenRSAddress} from '../../../core/utils/account';
 import {AmountText} from '../../../core/components/base/Amount';
 import {RectButton, Swipeable} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
-import {shortenString} from "../../../core/utils/string";
+import {shortenString} from '../../../core/utils/string';
 
 interface Props {
   onPress: (account: Account) => void;

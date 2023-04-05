@@ -19,7 +19,7 @@ import {i18n} from '../../../../core/i18n';
 import {auth} from '../../../accounts/translations';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {actionIcons} from '../../../../assets/icons';
-import {TransactionMessageView} from "./TransactionMessageView";
+import {TransactionMessageView} from './TransactionMessageView';
 
 interface Props {
   transaction: Transaction;
@@ -81,8 +81,9 @@ export const TransactionDetails: React.FC<Props> = ({transaction}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.transactionId}
-            onPress={() => touchedItem(transaction.transaction)}>
+        <TouchableOpacity
+          style={styles.transactionId}
+          onPress={() => touchedItem(transaction.transaction)}>
           <Text
             color={Colors.WHITE}
             textAlign={
