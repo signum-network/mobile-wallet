@@ -29,6 +29,7 @@ export const BCheckbox: React.FunctionComponent<Props> = props => {
       <CheckBox
         disabled={disabled}
         value={value}
+        boxType="square"
         onValueChange={onCheck}
         tintColors={{true: color, false: color}}
         style={{width: 20, height: 20}}

@@ -3,8 +3,9 @@ import {View} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import {Colors} from '../../theme/colors';
 import {fonts} from '../../theme/fonts';
-import {FontSizes, Sizes} from '../../theme/sizes';
+import {FontSizes} from '../../theme/sizes';
 import {Text as BText} from './Text';
+import {isIOS} from '../../utils/platform';
 
 interface Props {
   value: any;
@@ -54,7 +55,7 @@ export const BSelect: React.FC<Props> = props => {
           <Picker.Item
             key={i.value}
             fontFamily={fonts.roboto}
-            color={Colors.WHITE}
+            color={isIOS ? Colors.WHITE : Colors.BLUE_DARKER}
             style={styles.pickerItem}
             label={i.label}
             value={i.value}

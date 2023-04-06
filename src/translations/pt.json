@@ -64,7 +64,7 @@
         "pinPlaceholder": "PIN",
         "step": "Etapa {{step}}/{{maxStep}}",
         "title": "Criar Conta",
-        "notedIt": "Eu notei isso!",
+        "notedIt": "Eu anotei isso!",
         "finalize": "Finalizar",
         "verifyPhrase": "Verifique a Frase de Recuperação",
         "enterWord": "Digite o número da palavra"
