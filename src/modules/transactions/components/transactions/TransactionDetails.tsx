@@ -20,6 +20,8 @@ import {auth} from '../../../accounts/translations';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {actionIcons} from '../../../../assets/icons';
 import {TransactionMessageView} from './TransactionMessageView';
+import {useSelector} from 'react-redux';
+import {selectChainInfo} from '../../../network/store/selectors';
 
 interface Props {
   transaction: Transaction;
@@ -58,7 +60,9 @@ const styles = StyleSheet.create({
 });
 
 export const TransactionDetails: React.FC<Props> = ({transaction}) => {
-  const data = mapTxData(transaction);
+  const chainInfo = useSelector(selectChainInfo);
+  const symbol = chainInfo ? chainInfo.symbol : 'SIGNA';
+  const data = mapTxData(transaction, {symbol});
   const touchedItem = (v: string = '') => {
     const value = v.trim();
     if (!value) {

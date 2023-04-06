@@ -5,6 +5,10 @@ import {formatAttachmentData} from './formatAttachmentData';
 import {formatDistributionData} from './formatDistributionData';
 import {SmartContractPublicKey} from '../../../../core/utils/constants';
 
+export interface TxDataMappingContext {
+  symbol: string;
+}
+
 export interface TxKeyValue {
   key: string;
   value: string;
@@ -21,13 +25,16 @@ const ExcludeList: string[] = [
 ];
 
 const KeyValueMappers = {
-  feeNQT: ({value}: TxKeyValue): TxKeyValue => ({
-    key: 'Fee',
-    value: Amount.fromPlanck(value).toString(),
+  feeNQT: ({value}: TxKeyValue, context: TxDataMappingContext): TxKeyValue => ({
+    key: `Fee (${context.symbol})`,
+    value: `${Amount.fromPlanck(value).getSigna()}`,
   }),
-  amountNQT: ({value}: TxKeyValue): TxKeyValue => ({
-    key: 'Amount',
-    value: Amount.fromPlanck(value).toString(),
+  amountNQT: (
+    {value}: TxKeyValue,
+    context: TxDataMappingContext,
+  ): TxKeyValue => ({
+    key: `Amount (${context.symbol})`,
+    value: Amount.fromPlanck(value).getSigna(),
   }),
   timestamp: ({key, value}: TxKeyValue): TxKeyValue => ({
     key,
@@ -51,12 +58,13 @@ const KeyValueMappers = {
 
 // @ts-ignore
 const mapKeyValueTuple = (
-  {key, value}: TxKeyValue,
+  txKeyValue: TxKeyValue,
   tx: Transaction,
+  context: TxDataMappingContext,
 ): TxKeyValue => {
   // @ts-ignore
-  const mapperFn = KeyValueMappers[key];
-  const tuple = mapperFn ? mapperFn({key, value}, tx) : {key, value};
+  const mapperFn = KeyValueMappers[txKeyValue.key];
+  const tuple = mapperFn ? mapperFn(txKeyValue, context) : txKeyValue;
   tuple.key = startCase(tuple.key);
   return tuple;
 };
@@ -71,7 +79,10 @@ const compareKeyValueFn = (a: TxKeyValue, b: TxKeyValue): number => {
   return 0;
 };
 
-export function mapTxData(transaction: Transaction): TxKeyValue[] {
+export function mapTxData(
+  transaction: Transaction,
+  context: TxDataMappingContext,
+): TxKeyValue[] {
   return (
     Object.keys(transaction)
       .filter(key => ExcludeList.indexOf(key) === -1)
@@ -88,6 +99,7 @@ export function mapTxData(transaction: Transaction): TxKeyValue[] {
                 : value.toString(),
           },
           transaction,
+          context,
         );
       })
       .sort(compareKeyValueFn)

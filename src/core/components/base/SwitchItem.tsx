@@ -51,6 +51,7 @@ export const SwitchItem: React.FunctionComponent<Props> = props => {
         <Switch
           onValueChange={handleSwitchChange}
           trackColor={{true: Colors.GREEN, false: Colors.BLUE_DARKEST}}
+          ios_backgroundColor={Colors.WHITE_TT}
           value={value}
           disabled={disabled}
         />
