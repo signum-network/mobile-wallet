@@ -98,8 +98,8 @@ android {
         applicationId "com.signum.phoenix"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "1.1.0"
+        versionCode 9
+        versionName "1.1.1"
     }
 
     splits {

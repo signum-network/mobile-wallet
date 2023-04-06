@@ -1,6 +1,17 @@
 # Change log
 
-## 1.1.0 (Build 8) TBD
+## 1.1.1 (Build 9)
+
+- Minor UI adjustments
+
+### Bug fixes
+
+- Eventually fixed Node List issue - not sure (#11)
+- Protection not coming up during writing (#10)
+- Should not reset Send Form with Qr Code Scan (#13)
+- Resets all data on Reset in Settings (#12)
+
+## 1.1.0 (Build 8)
 
 - Updated to RN0.71
 - Added more languages (Spanish, Chinese, Ukrainian, Russian)
