@@ -23,7 +23,7 @@ export const RootView = ({children, onReady}: Props) => {
 
   useEffect(() => {
     isAppLoaded && onReady();
-  }, [isAppLoaded]);
+  }, [isAppLoaded, onReady]);
 
   if (!isAppLoaded) {
     return <LoadingView />;

@@ -58,7 +58,9 @@ export const App = () => {
 
   useEffect(() => {
     const handleLanguagesChange = (event: ChangeLanguageEvent) => {
-      i18n.locale = event.language;
+      if (event && event.language) {
+        i18n.locale = event.language;
+      }
     };
 
     const handleOpenURL = (event: any) => {

@@ -9,6 +9,7 @@ export interface AppReduxState {
   appSettings: AppSettings;
   userSettings: UserSettings;
   chainApi: Api;
+  activityIndicator: number;
 }
 
 // static app settings
@@ -33,6 +34,7 @@ export const getInitialAppState = (): AppReduxState => {
       agreedToTerms: false,
       currentNodeHost: defaultSettings.nodeHost,
     },
+    activityIndicator: 0,
   };
 };
 
@@ -75,10 +77,19 @@ const setUserSettings: Reducer<AppReduxState, UserSettings> = (
   return newState;
 };
 
+const updateActivity: Reducer<AppReduxState, void> = state => {
+  const newState: AppReduxState = {
+    ...state,
+    activityIndicator: state.activityIndicator + 1,
+  };
+  return newState;
+};
+
 const reducers = {
   [actionTypes.appLoaded]: appLoaded,
   [actionTypes.setAppSettings]: setAppSettings,
   [actionTypes.setUserSettings]: setUserSettings,
+  [actionTypes.updateActivity]: updateActivity,
 };
 
 export const app = createReducers<AppReduxState>(

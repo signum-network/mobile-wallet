@@ -19,6 +19,7 @@ import {asyncTryRun} from '../../utils/asyncTryRun';
 
 const actions = {
   appLoaded: createAction<void>(actionTypes.appLoaded),
+  updateActivity: createAction<void>(actionTypes.updateActivity),
   setAppSettings: createAction<AppSettings>(actionTypes.setAppSettings),
   setUserSettings: createAction<UserSettings>(actionTypes.setUserSettings),
 };
@@ -83,3 +84,6 @@ export const agreeToTerms = createActionFn<void, Promise<void>>(
     });
   },
 );
+export const updateActivity = createActionFn<void, void>(dispatch => {
+  dispatch(actions.updateActivity());
+});

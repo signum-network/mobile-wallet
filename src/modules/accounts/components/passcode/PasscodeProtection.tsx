@@ -10,6 +10,7 @@ import {
 } from '../../store/selectors';
 import {resetAppState} from '../../../../core/store/app/actions';
 import {defaultSettings} from '../../../../core/environment';
+import {selectActivity} from '../../../../core/store/app/selectors';
 
 const styles = StyleSheet.create({
   view: {
@@ -27,6 +28,11 @@ export const PasscodeProtection = ({children}: Props) => {
   const dispatch = useDispatch();
   const passcode = useSelector(selectPasscode);
   const isPasscodeModalVisible = useSelector(selectIsPasscodeModalVisible);
+  const onActivity = useSelector(selectActivity);
+
+  useEffect(() => {
+    restartPasscodeTimer();
+  }, [onActivity]);
 
   useEffect(() => {
     if (!isPasscodeModalVisible) {
@@ -38,7 +44,8 @@ export const PasscodeProtection = ({children}: Props) => {
   }, [isPasscodeModalVisible]);
 
   const stopPasscodeTimer = () => {
-    clearTimeout(timeoutHandle.current || 0);
+    console.log('Stopping timer', timeoutHandle.current);
+    timeoutHandle.current && clearTimeout(timeoutHandle.current);
   };
 
   const restartPasscodeTimer = () => {
@@ -66,13 +73,14 @@ export const PasscodeProtection = ({children}: Props) => {
   };
 
   const handleActivity = () => {
+    console.log('activity...');
     restartPasscodeTimer();
   };
 
   return (
     <>
       <Modal
-        animationType={'slide'}
+        animationType="slide"
         visible={isPasscodeModalVisible}
         transparent={false}>
         {passcode ? (

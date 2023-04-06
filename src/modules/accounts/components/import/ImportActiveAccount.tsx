@@ -7,7 +7,7 @@ import {auth} from '../../translations';
 import {AccountTypeHint} from './AccountTypeHint';
 import {generateMasterKeys} from '@signumjs/crypto';
 import {Address} from '@signumjs/core';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {selectChainInfo} from '../../../network/store/selectors';
 import {Text, TextAlign} from '../../../../core/components/base/Text';
 import {BorderRadiusSizes, FontSizes} from '../../../../core/theme/sizes';
@@ -17,6 +17,7 @@ import {transactionIcons} from '../../../../assets/icons';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/mainStack';
+import {updateActivity} from '../../../../core/store/app/actions';
 
 interface Props {
   onFinish: (passphrase: string) => void;
@@ -61,8 +62,10 @@ export const ImportActiveAccount: React.FC<Props> = ({onFinish, seed = ''}) => {
   const [address, setAddress] = useState('');
   const [showPassphrase, setShowPassphrase] = useState(false);
   const chainInfo = useSelector(selectChainInfo);
+  const dispatch = useDispatch();
   const handleChangePassphrase = (phrase: string) => {
     setPassphrase(phrase);
+    dispatch(updateActivity());
   };
 
   useEffect(() => {

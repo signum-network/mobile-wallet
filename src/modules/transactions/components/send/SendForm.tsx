@@ -56,6 +56,8 @@ import {SmartContractPublicKey} from '../../../../core/utils/constants';
 import {shortenString} from '../../../../core/utils/string';
 import {FeeSelector} from '../FeeSelector';
 import {DescriptorData} from '@signumjs/standards';
+import {updateActivity} from '../../../../core/store/app/actions';
+import {connect} from 'react-redux';
 
 interface Props {
   loading: boolean;
@@ -69,6 +71,7 @@ interface Props {
   suggestedFees: SuggestedFees | null;
   deepLinkProps?: SendFormState;
   addressPrefix: string;
+  updateActivity: () => void;
 }
 
 export interface SendFormState {
@@ -203,9 +206,8 @@ function isUnstoppableDomain(recipient: string): boolean {
   );
 }
 
-export class SendForm extends React.Component<Props, SendFormState> {
+class _SendForm extends React.Component<Props, SendFormState> {
   private scrollViewRef = createRef<ScrollView>();
-
   constructor(props: any) {
     super(props);
     this.state = this.getInitialState(props.deepLinkProps);
@@ -307,7 +309,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
 
     if (r.length === 0) {
       type = RecipientType.UNKNOWN;
-    } else if (r.toUpperCase().startsWith(this.props.addressPrefix + '-')) {
+    } else if (isValidReedSolomonAddress(r)) {
       type = RecipientType.ADDRESS;
     } else if (isUnstoppableDomain(r)) {
       type = RecipientType.UNSTOPPABLE;
@@ -458,6 +460,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
 
   markAsDirty = (): void => {
     this.setState({dirty: true});
+    this.props.updateActivity();
   };
 
   handleChangeFromAccount = (sender: string) => {
@@ -820,3 +823,12 @@ export class SendForm extends React.Component<Props, SendFormState> {
     );
   }
 }
+
+// Old school workaround to trigger user activity
+function mapDispatchToProps(dispatch: any) {
+  return {
+    updateActivity: () => dispatch(updateActivity()),
+  };
+}
+
+export const SendForm = connect(null, mapDispatchToProps)(_SendForm);

@@ -1,6 +1,6 @@
 import React, {useMemo, useRef, useState} from 'react';
 import {connect, useDispatch, useSelector} from 'react-redux';
-import {Image, StyleSheet, Switch, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import VersionNumber from 'react-native-version-number';
 import {BSelect, SelectItem} from '../../../core/components/base/BSelect';
 import {
@@ -8,7 +8,6 @@ import {
   ButtonSizes,
   ButtonThemes,
 } from '../../../core/components/base/Button';
-import {BCheckbox} from '../../../core/components/base/BCheckbox';
 import {Text} from '../../../core/components/base/Text';
 import {HeaderTitle} from '../../../core/components/header/HeaderTitle';
 import {i18n} from '../../../core/i18n';
@@ -20,13 +19,10 @@ import {FontSizes, Sizes} from '../../../core/theme/sizes';
 import {resetAuthState} from '../../accounts/store/actions';
 import {AuthReduxState} from '../../accounts/store/reducer';
 import {settings} from '../translations';
-import {setNode} from '../../../core/store/app/actions';
+import {resetAppState, setNode} from '../../../core/store/app/actions';
 import {defaultSettings} from '../../../core/environment';
 import {useNavigation} from '@react-navigation/native';
-import {
-  selectCurrentNode,
-  selectIsAutomaticNodeSelection,
-} from '../../../core/store/app/selectors';
+import {selectCurrentNode} from '../../../core/store/app/selectors';
 import {logos, settingsIcons} from '../../../assets/icons';
 import {ResetModal} from '../../../core/components/modals/ResetModal';
 import {RootStackParamList} from '../../accounts/navigation/mainStack';
@@ -139,7 +135,6 @@ const Settings = ({}: Props) => {
   const [nodeInfo, setNodeInfo] = useState<NodeInformation | null>(null);
   const currentNode = useSelector(selectCurrentNode);
   const [customNode, setCustomNode] = useState(currentNode);
-  const isAutomatic = useSelector(selectIsAutomaticNodeSelection);
 
   const toggleConfirmDeletePrompt = () => {
     setErasePromptVisible(!erasePromptVisible);
@@ -147,6 +142,7 @@ const Settings = ({}: Props) => {
 
   const confirmErase = async () => {
     await dispatch(resetAuthState());
+    await dispatch(resetAppState());
     navigation.navigate('Accounts');
     toggleConfirmDeletePrompt();
   };
@@ -226,7 +222,6 @@ const Settings = ({}: Props) => {
               onChange={handleNodeSelect}
               title={i18n.t(settings.screens.settings.selectNode)}
               placeholder={i18n.t(settings.screens.settings.selectNode)}
-              disabled={isAutomatic}
             />
             <View style={styles.customNodeContainer}>
               <View style={styles.customNodeSwitch}>

@@ -25,6 +25,8 @@ import {shortenString} from '../../../../core/utils/string';
 import {shortenRSAddress} from '../../../../core/utils/account';
 import {BCheckbox} from '../../../../core/components/base/BCheckbox';
 import {FontSizes} from '../../../../core/theme/sizes';
+import {useDispatch} from 'react-redux';
+import {updateActivity} from '../../../../core/store/app/actions';
 
 interface Props {
   onSubmit: (form: ReceiveAmountPayload) => void;
@@ -74,6 +76,7 @@ const styles: any = {
 };
 
 export const ReceiveAmountForm: React.FC<Props> = props => {
+  const dispatch = useDispatch();
   const getInitialFormData = (): ReceiveAmountPayload => ({
     amount: '',
     immutable: false,
@@ -114,6 +117,7 @@ export const ReceiveAmountForm: React.FC<Props> = props => {
 
     setFormData(updated);
     setFormChanged(true);
+    dispatch(updateActivity());
   };
 
   const getAccounts = (): Array<SelectItem<string>> => {
