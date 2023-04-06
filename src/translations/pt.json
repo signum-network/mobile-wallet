@@ -247,7 +247,8 @@
         "copyright": "Copyright © Signum Network",
         "credits": "Créditos para blankey1337, titanishu e timewalker",
         "customNodeFound": "Nó personalizado encontrado",
-        "setCustomNode": "Definir nó personalizado"
+        "setCustomNode": "Definir nó personalizado",
+        "apply": "Aplicar"
       }
     }
   }

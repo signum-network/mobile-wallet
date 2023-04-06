@@ -247,7 +247,8 @@
         "copyright": "Copyright © Signum Network",
         "credits": "Кредиты Blankey1337, титанишу и путешественнику во времени",
         "customNodeFound": "Найден пользовательский узел",
-        "setCustomNode": "Установить пользовательский узел"
+        "setCustomNode": "Установить пользовательский узел",
+        "apply": "Применять"
       }
     }
   }

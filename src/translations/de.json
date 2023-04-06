@@ -247,7 +247,8 @@
         "copyright": "Copyright © Signum Network",
         "credits": "Dank an blankey1337, titanishu und timewalker",
         "customNodeFound": "Benutzerdefinierten Knoten gefunden",
-        "setCustomNode": "Benutzerdefinierten Knoten festlegen"
+        "setCustomNode": "Benutzerdefinierten Knoten festlegen",
+        "apply": "Anwenden"
       }
     }
   }

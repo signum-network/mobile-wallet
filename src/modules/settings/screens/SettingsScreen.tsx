@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   customNodeContainer: {
-    marginVertical: Sizes.MEDIUM,
+    marginVertical: Sizes.SMALL,
   },
   dangerZone: {
     position: 'relative',
@@ -191,7 +191,9 @@ const Settings = ({}: Props) => {
     dispatch(setNode(customNode));
   };
 
-  const nodeListItems = useMemo(() => {
+  // it should be memo'ed but it seems it causes trouble on updated version... not sure what's happening,
+  // so, I use this annoying re-render hoping that the error is fixed.
+  const getListItems = () => {
     const nodeHosts: String[] = defaultSettings.reliableNodeHosts;
     if (
       currentNode &&
@@ -208,7 +210,7 @@ const Settings = ({}: Props) => {
           value: n,
         } as SelectItem<string>),
     );
-  }, [currentNode]);
+  };
 
   return (
     <Screen>
@@ -218,7 +220,7 @@ const Settings = ({}: Props) => {
           <View style={styles.settingsZone}>
             <BSelect
               value={currentNode}
-              items={nodeListItems}
+              items={getListItems()}
               onChange={handleNodeSelect}
               title={i18n.t(settings.screens.settings.selectNode)}
               placeholder={i18n.t(settings.screens.settings.selectNode)}
@@ -233,31 +235,33 @@ const Settings = ({}: Props) => {
                 />
               </View>
               {nodeEditorEnabled && (
-                <View>
-                  <BInput value={customNode} onChange={handleSetCustomNode} />
-                </View>
-              )}
-              <LoadingIndicator show={loading} showDelay={0} />
-              {nodeInfo && !loading && (
-                <View style={styles.versionInfo}>
-                  <Text size={FontSizes.SMALLER} color={Colors.WHITE}>
-                    {nodeInfo.networkName} {nodeInfo.version}
-                  </Text>
-                  <Button
-                    theme={ButtonThemes.ACCENT}
-                    onPress={handleAcceptNode}
-                    size={ButtonSizes.SMALL}>
-                    <View style={styles.acceptButton}>
-                      <Image
-                        source={settingsIcons.check}
-                        style={styles.checkIcon}
-                      />
-                      <Text size={FontSizes.SMALL} color={Colors.WHITE}>
-                        Accept
+                <>
+                  <View>
+                    <BInput value={customNode} onChange={handleSetCustomNode} />
+                  </View>
+                  <LoadingIndicator show={loading} showDelay={0} />
+                  {nodeInfo && !loading && (
+                    <View style={styles.versionInfo}>
+                      <Text size={FontSizes.SMALLER} color={Colors.WHITE}>
+                        {nodeInfo.networkName} {nodeInfo.version}
                       </Text>
+                      <Button
+                        theme={ButtonThemes.ACCENT}
+                        onPress={handleAcceptNode}
+                        size={ButtonSizes.SMALL}>
+                        <View style={styles.acceptButton}>
+                          <Image
+                            source={settingsIcons.check}
+                            style={styles.checkIcon}
+                          />
+                          <Text size={FontSizes.SMALL} color={Colors.WHITE}>
+                            {i18n.t(settings.screens.settings.apply)}
+                          </Text>
+                        </View>
+                      </Button>
                     </View>
-                  </Button>
-                </View>
+                  )}
+                </>
               )}
             </View>
           </View>

@@ -190,7 +190,8 @@
         "erase": "Borrar todas las cuentas y restablecer el PIN",
         "selectNode": "Seleccionar nodo",
         "setCustomNode": "Establecer nodo personalizado",
-        "title": "Ajustes"
+        "title": "Ajustes",
+        "apply": "Aplicar"
       }
     }
   },

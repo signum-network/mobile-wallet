@@ -3,6 +3,7 @@ export const settings = {
     settings: {
       title: 'settings.screens.settings.title',
       erase: 'settings.screens.settings.erase',
+      apply: 'settings.screens.settings.apply',
       cancel: 'core.actions.cancel',
       confirmReset: 'settings.screens.settings.confirmReset',
       confirmErase: 'settings.screens.settings.confirmErase',
