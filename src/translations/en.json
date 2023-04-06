@@ -188,7 +188,7 @@
         "title": "Receive",
         "recipient": "Recipient",
         "generate": "Generate QR Code",
-        "immutable": "Immutable",
+        "immutable": "Sender cannot change data",
         "message": "Message",
         "reset": "Reset Form"
       },
@@ -226,7 +226,8 @@
           "cheap": "cheap",
           "standard": "standard",
           "priority": "priority"
-        }
+        },
+        "toHint": "Address, Id or Alias"
       },
       "scan": {
         "title": "Scan Payment QR Code"

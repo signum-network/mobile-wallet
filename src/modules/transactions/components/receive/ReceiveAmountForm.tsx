@@ -1,14 +1,14 @@
 import {Account, SuggestedFees} from '@signumjs/core';
 import {Amount} from '@signumjs/util';
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {BInput, KeyboardTypes} from '../../../../core/components/base/BInput';
 import {BSelect, SelectItem} from '../../../../core/components/base/BSelect';
 import {
   Button as BButton,
+  ButtonSizes,
   ButtonThemes,
 } from '../../../../core/components/base/Button';
-import {SwitchItem} from '../../../../core/components/base/SwitchItem';
 import {Text as BText} from '../../../../core/components/base/Text';
 import {i18n} from '../../../../core/i18n';
 import {Colors} from '../../../../core/theme/colors';
@@ -23,6 +23,8 @@ import {
 import {FeeSelector} from '../FeeSelector';
 import {shortenString} from '../../../../core/utils/string';
 import {shortenRSAddress} from '../../../../core/utils/account';
+import {BCheckbox} from '../../../../core/components/base/BCheckbox';
+import {FontSizes} from '../../../../core/theme/sizes';
 
 interface Props {
   onSubmit: (form: ReceiveAmountPayload) => void;
@@ -54,10 +56,17 @@ const styles: any = {
     width: '100%',
     height: 40,
   },
-  total: {
+  totalContainer: {
     marginTop: 10,
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  total: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: 1,
   },
   feeSection: {
     marginBottom: 10,
@@ -177,29 +186,31 @@ export const ReceiveAmountForm: React.FC<Props> = props => {
           title={i18n.t(transactions.screens.send.message)}
           placeholder={i18n.t(core.placeholders.message)}
         />
-        <SwitchItem
-          text={
-            <BText bebasFont color={Colors.WHITE}>
-              {i18n.t(transactions.screens.receive.immutable)}
-            </BText>
-          }
+        <BCheckbox
+          label={i18n.t(transactions.screens.receive.immutable)}
+          labelFontSize={FontSizes.SMALL}
           value={immutable}
-          onChange={handleFormChange('immutable')}
+          onCheck={handleFormChange('immutable')}
         />
-        <View style={styles.total}>
-          <BText bebasFont color={Colors.WHITE}>
-            {i18n.t(transactions.screens.send.total)}
-          </BText>
-          <AmountText amount={total || Amount.Zero()} />
+        <View style={styles.totalContainer}>
+          <View style={styles.total}>
+            <BText bebasFont color={Colors.WHITE}>
+              {i18n.t(transactions.screens.send.total)}
+            </BText>
+            <AmountText amount={total || Amount.Zero()} />
+          </View>
+          <View>
+            <BButton
+              size={ButtonSizes.SMALL}
+              theme={ButtonThemes.ACCENT}
+              disabled={!formChanged}
+              onPress={handleReset}>
+              {i18n.t(transactions.screens.receive.reset)}
+            </BButton>
+          </View>
         </View>
         <BButton disabled={!submitEnabled} onPress={handleSubmit}>
           {i18n.t(transactions.screens.receive.generate)}
-        </BButton>
-        <BButton
-          theme={ButtonThemes.ACCENT}
-          disabled={!formChanged}
-          onPress={handleReset}>
-          {i18n.t(transactions.screens.receive.reset)}
         </BButton>
       </View>
     </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar, StatusBarStyle, StyleSheet, Platform} from 'react-native';
+import {Platform, StatusBar, StatusBarStyle, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Colors} from '../theme/colors';
 
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   area: {
     flex: 1,
     backgroundColor: Colors.BLUE,
-    // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
 });
 

@@ -198,7 +198,7 @@
     "screens": {
       "receive": {
         "generate": "生成二维码",
-        "immutable": "不变的",
+        "immutable": "发件人不能更改数据",
         "message": "信息",
         "noAccount": {
           "button": "新增帐户",
@@ -246,7 +246,8 @@
         "title": "发送",
         "to": "到",
         "total": "全部的：",
-        "zilOutage": "无法从 ZIL API 获取。"
+        "zilOutage": "无法从 ZIL API 获取。",
+        "toHint": "地址、ID 或别名"
       }
     }
   }

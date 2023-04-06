@@ -198,7 +198,7 @@
     "screens": {
       "receive": {
         "generate": "Generar código QR",
-        "immutable": "Inmutable",
+        "immutable": "El remitente no puede cambiar los datos",
         "message": "Mensaje",
         "noAccount": {
           "button": "Añadir cuenta",
@@ -246,7 +246,8 @@
         "title": "Enviar",
         "to": "A",
         "total": "Total:",
-        "zilOutage": "No se puede obtener de la API de ZIL."
+        "zilOutage": "No se puede obtener de la API de ZIL.",
+        "toHint": "Dirección, Id o Alias"
       }
     }
   }

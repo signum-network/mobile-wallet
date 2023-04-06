@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   accountCol: {
     display: 'flex',
     flex: 1,
-    maxWidth: '40%',
+    maxWidth: '60%',
   },
   amountCol: {
     display: 'flex',

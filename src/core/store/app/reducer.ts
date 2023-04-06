@@ -1,6 +1,6 @@
 import {Api, composeApi, ApiSettings} from '@signumjs/core';
 import {defaultSettings} from '../../environment';
-import {AppSettings, ChainInfo, Reducer, UserSettings} from '../../interfaces';
+import {AppSettings, Reducer, UserSettings} from '../../interfaces';
 import {createReducers} from '../../utils/store';
 import {actionTypes} from './actionTypes';
 

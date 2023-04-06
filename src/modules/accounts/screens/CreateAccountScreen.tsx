@@ -53,6 +53,9 @@ const styles = StyleSheet.create({
     minHeight: '80%',
     padding: 10,
   },
+  background: {
+    backgroundColor: Colors.WHITE,
+  },
 });
 
 const passPhraseGenerator: PassPhraseGenerator = new PassPhraseGenerator();
@@ -121,8 +124,8 @@ export const CreateAccountScreen = () => {
   };
 
   return (
-    <Screen>
-      <FullHeightView style={{backgroundColor: Colors.WHITE}} withoutPaddings>
+    <Screen style={styles.background}>
+      <FullHeightView style={styles.background} withoutPaddings>
         <HeaderWithBackButton title={i18n.t(auth.createAccount.title)} />
         <View style={styles.center}>
           <StepCounter stage={state.stage + 1} maxStages={3} />

@@ -1,6 +1,6 @@
 import React, {useMemo, useRef, useState} from 'react';
 import {connect, useDispatch, useSelector} from 'react-redux';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, Switch, View} from 'react-native';
 import VersionNumber from 'react-native-version-number';
 import {BSelect, SelectItem} from '../../../core/components/base/BSelect';
 import {
@@ -35,6 +35,7 @@ import {ApplicationState} from '../../../core/store/initialState';
 import {BInput} from '../../../core/components/base/BInput';
 import {LedgerClientFactory} from '@signumjs/core';
 import {LoadingIndicator} from '../../../core/components/base/LoadingIndicator';
+import {SwitchItem} from '../../../core/components/base/SwitchItem';
 
 type SettingsScreenNavProp = StackNavigationProp<
   RootStackParamList,
@@ -117,6 +118,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  customNodeSwitch: {
+    paddingVertical: Sizes.MEDIUM,
   },
 });
 
@@ -225,11 +229,14 @@ const Settings = ({}: Props) => {
               disabled={isAutomatic}
             />
             <View style={styles.customNodeContainer}>
-              <BCheckbox
-                onCheck={setNodeEditorEnabled}
-                label={i18n.t(settings.screens.settings.setCustomNode)}
-                value={nodeEditorEnabled}
-              />
+              <View style={styles.customNodeSwitch}>
+                <SwitchItem
+                  onChange={setNodeEditorEnabled}
+                  text={i18n.t(settings.screens.settings.setCustomNode)}
+                  value={nodeEditorEnabled}
+                  labelColor={Colors.WHITE}
+                />
+              </View>
               {nodeEditorEnabled && (
                 <View>
                   <BInput value={customNode} onChange={handleSetCustomNode} />

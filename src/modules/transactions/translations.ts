@@ -13,6 +13,7 @@ export const transactions = {
       sent: 'transactions.screens.send.sent',
       from: 'transactions.screens.send.from',
       to: 'transactions.screens.send.to',
+      toHint: 'transactions.screens.send.toHint',
       total: 'transactions.screens.send.total',
       button: {
         enabled: 'transactions.screens.send.button.enabled',

@@ -42,7 +42,11 @@ import {
   getBalancesFromAccount,
   ZeroAcountBalances,
 } from '../../../../core/utils/balance/getBalancesFromAccount';
-import {Button, ButtonThemes} from '../../../../core/components/base/Button';
+import {
+  Button,
+  ButtonSizes,
+  ButtonThemes,
+} from '../../../../core/components/base/Button';
 import {
   stableAmountFormat,
   stableParseSignaAmount,
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
   },
   headerSection: {},
   formSection: {
-    minHeight: '50%',
+    minHeight: '45%',
   },
   bottomSection: {},
   form: {
@@ -114,10 +118,17 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: Colors.TRANSPARENT,
   },
-  total: {
+  totalSection: {
+    marginTop: 10,
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  total: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'row',
   },
   chevron: {
     width: 25,
@@ -241,8 +252,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
       encrypt: (deeplinkProps && deeplinkProps.encrypt) || false,
       immutable: (deeplinkProps && deeplinkProps.immutable) || false,
       recipient: new Recipient(
-        (deeplinkProps && deeplinkProps.address) ||
-          this.props.addressPrefix + '-',
+        (deeplinkProps && deeplinkProps.address) || '',
         (deeplinkProps && deeplinkProps.address) || '',
       ),
       addMessage: (deeplinkProps && !!deeplinkProps.message) || false,
@@ -280,10 +290,10 @@ export class SendForm extends React.Component<Props, SendFormState> {
     return Address.fromReedSolomonAddress(unwrappedAddress).getNumericId();
   }
 
-  UNSAFE_componentWillReceiveProps = ({deepLinkProps}: Props) => {
-    if (deepLinkProps) {
+  UNSAFE_componentWillReceiveProps = (nextProps: Props) => {
+    if (nextProps.deepLinkProps !== this.props.deepLinkProps) {
       this.setState(
-        this.getInitialState(deepLinkProps),
+        this.getInitialState(nextProps.deepLinkProps),
         () =>
           this.state.recipient &&
           this.applyRecipientType(this.state.recipient.addressRaw),
@@ -674,7 +684,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
               onEndEditing={this.handleAddressBlur}
               editable={!this.state.immutable}
               title={i18n.t(transactions.screens.send.to)}
-              placeholder={i18n.t(transactions.screens.send.to)}
+              placeholder={i18n.t(transactions.screens.send.toHint)}
               rightIcons={RecipientRightIcons}
             />
             <BInput
@@ -705,6 +715,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
 
             <BCheckbox
               disabled={this.state.immutable}
+              labelFontSize={FontSizes.SMALL}
               label={i18n.t(transactions.screens.send.addMessage)}
               value={addMessage || false}
               onCheck={checked => this.setAddMessage(checked)}
@@ -721,6 +732,7 @@ export class SendForm extends React.Component<Props, SendFormState> {
 
                 <BCheckbox
                   disabled={this.state.immutable}
+                  labelFontSize={FontSizes.SMALL}
                   label={i18n.t(transactions.screens.send.encrypt)}
                   value={encrypt || false}
                   onCheck={checked => this.setEncryptMessage(checked)}
@@ -730,11 +742,22 @@ export class SendForm extends React.Component<Props, SendFormState> {
           </View>
         </ScrollView>
         <View style={styles.bottomSection}>
-          <View style={styles.total}>
-            <BText bebasFont color={Colors.WHITE}>
-              {i18n.t(transactions.screens.send.total)}
-            </BText>
-            <AmountText amount={total} />
+          <View style={styles.totalSection}>
+            <View style={styles.total}>
+              <BText bebasFont color={Colors.WHITE}>
+                {i18n.t(transactions.screens.send.total)}
+              </BText>
+              <AmountText amount={total} />
+            </View>
+            <View>
+              <Button
+                theme={ButtonThemes.ACCENT}
+                size={ButtonSizes.SMALL}
+                disabled={!isResetEnabled}
+                onPress={this.handleReset}>
+                {i18n.t(transactions.screens.send.reset)}
+              </Button>
+            </View>
           </View>
           {!this.hasSufficientBalance() && (
             <DangerBox>
@@ -774,31 +797,23 @@ export class SendForm extends React.Component<Props, SendFormState> {
           )}
 
           {isSubmitSwipeVisible && (
-            <>
-              <SwipeButton
-                disabledRailBackgroundColor={Colors.PINK}
-                disabledThumbIconBackgroundColor={Colors.GREY}
-                disabledThumbIconBorderColor={Colors.BLUE_DARKER}
-                disabledThumb={Colors.BLUE_DARKER}
-                thumbIconBackgroundColor={Colors.WHITE}
-                thumbIconImageSource={actionIcons.send}
-                onSwipeSuccess={this.handleSubmit}
-                shouldResetAfterSuccess={true}
-                title={swipeButtonTitle}
-                railBackgroundColor={Colors.GREEN_LIGHT}
-                railBorderColor={Colors.BLUE_DARKER}
-                railFillBackgroundColor={Colors.BLUE_DARKER}
-                railFillBorderColor={Colors.BLUE_DARKER}
-                titleColor={Colors.BLACK}
-                disabled={!isSubmitEnabled}
-              />
-              <Button
-                theme={ButtonThemes.ACCENT}
-                disabled={!isResetEnabled}
-                onPress={this.handleReset}>
-                {i18n.t(transactions.screens.send.reset)}
-              </Button>
-            </>
+            <SwipeButton
+              disabledRailBackgroundColor={Colors.PINK}
+              disabledThumbIconBackgroundColor={Colors.GREY}
+              disabledThumbIconBorderColor={Colors.BLUE_DARKER}
+              disabledThumb={Colors.BLUE_DARKER}
+              thumbIconBackgroundColor={Colors.WHITE}
+              thumbIconImageSource={actionIcons.send}
+              onSwipeSuccess={this.handleSubmit}
+              shouldResetAfterSuccess={true}
+              title={swipeButtonTitle}
+              railBackgroundColor={Colors.GREEN_LIGHT}
+              railBorderColor={Colors.BLUE_DARKER}
+              railFillBackgroundColor={Colors.BLUE_DARKER}
+              railFillBorderColor={Colors.BLUE_DARKER}
+              titleColor={Colors.BLACK}
+              disabled={!isSubmitEnabled}
+            />
           )}
         </View>
       </View>

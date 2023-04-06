@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
   buttons: {
     paddingHorizontal: 8,
   },
+  background: {
+    backgroundColor: Colors.WHITE,
+  },
 });
 
 export const AddAccountScreen = () => {
@@ -45,8 +48,8 @@ export const AddAccountScreen = () => {
   const canAddMoreAccounts = accounts.length < 10;
 
   return (
-    <Screen>
-      <FullHeightView withoutPaddings style={{backgroundColor: Colors.WHITE}}>
+    <Screen style={styles.background}>
+      <FullHeightView withoutPaddings style={styles.background}>
         <HeaderWithBackButton title={i18n.t(auth.addAccount.title)} />
         <View style={styles.center}>
           {canAddMoreAccounts ? (

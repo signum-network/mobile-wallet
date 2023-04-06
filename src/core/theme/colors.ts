@@ -1,6 +1,8 @@
 export enum Colors {
   TRANSPARENT = 'transparent',
   WHITE = '#EAF0F6',
+  WHITE_T = 'rgba(234,240,246,0.7)',
+  WHITE_TT = 'rgba(234,240,246,0.4)',
   BLACK = 'rgba(25, 25, 25, 1)',
   GREY_LIGHT = 'rgba(255, 255, 255, 0.7)',
   GREY = 'rgba(255, 255, 255, 0.5)',
@@ -14,6 +16,7 @@ export enum Colors {
   GREEN = '#00FF88',
   GREEN_DARKEST = '#004221',
   GREEN_LIGHT = '#7efcbf',
+  GREEN_LIGHT_T = 'rgba(126,252,191,0.7)',
   ORANGE = '#EAA924',
   YELLOW = '#FFFE33',
   ACQUA = '#E8F3FF',

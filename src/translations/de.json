@@ -188,7 +188,7 @@
         "title": "Empfangen",
         "recipient": "Empfänger",
         "generate": "QR Code Generieren",
-        "immutable": "Unveränderlich",
+        "immutable": "Absender soll Daten nicht ändern können",
         "message": "Nachricht",
         "reset": "Formular Zurücksetzen"
       },
@@ -226,7 +226,8 @@
           "cheap": "billig",
           "priority": "priorität",
           "standard": "standard"
-        }
+        },
+        "toHint": "Adresse, ID oder Alias"
       },
       "scan": {
         "title": "Scanne Zahlungs-QR-Code"

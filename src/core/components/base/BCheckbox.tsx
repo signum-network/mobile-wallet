@@ -25,12 +25,15 @@ export const BCheckbox: React.FunctionComponent<Props> = props => {
   } = props;
 
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={{flexDirection: 'row', alignItems: 'center', margin: 2}}>
       <CheckBox
         disabled={disabled}
         value={value}
         onValueChange={onCheck}
         tintColors={{true: color, false: color}}
+        style={{width: 20, height: 20}}
+        onCheckColor={color}
+        onTintColor={color}
       />
       <View style={{marginTop: 2, marginLeft: 8}}>
         <TouchableOpacity onPress={() => onCheck(value)}>

@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
   centeredText: {
     marginTop: '50%',
   },
+  background: {
+    backgroundColor: Colors.WHITE,
+  },
 });
 
 export const ImportAccountScreen = () => {
@@ -73,8 +76,8 @@ export const ImportAccountScreen = () => {
     importAccount(addr, 'offline');
 
   return (
-    <Screen>
-      <FullHeightView withoutPaddings style={{backgroundColor: Colors.WHITE}}>
+    <Screen style={styles.background}>
+      <FullHeightView withoutPaddings style={styles.background}>
         <HeaderWithBackButton title={i18n.t(auth.addAccount.title)} />
         <View style={styles.switchView}>
           <View>

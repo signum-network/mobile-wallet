@@ -188,7 +188,7 @@
         "title": "Receber",
         "recipient": "Destinatário",
         "generate": "Gerar código QR",
-        "immutable": "Imutável",
+        "immutable": "O remetente não pode alterar os dados",
         "message": "Mensagem",
         "reset": "Zerar formulário"
       },
@@ -218,7 +218,7 @@
         "success": "SIGNA de {{amount}} enviado com sucesso para {{address}}.",
         "failure": "Falha ao enviar Signa. Por favor, verifique suas entradas e tente novamente.",
         "encrypt": "Criptografar mensagem?",
-        "addMessage": "Adiciona uma mensagem?",
+        "addMessage": "Adicionar uma mensagem?",
         "message": "Mensagem",
         "confirmRisk": "O endereço '{{address}}' é desconhecido! Enviar para este endereço pode causar perda irreversível! - Você assume o risco?",
         "reset": "Zerar formulário",
@@ -226,7 +226,8 @@
           "cheap": "barato",
           "priority": "prioridade",
           "standard": "padrão"
-        }
+        },
+        "toHint": "Endereço, Id ou Alias"
       },
       "scan": {
         "title": "Escanea o código QR do pagamento"

@@ -21,26 +21,6 @@ export interface SelectItem<T> {
   label: string;
 }
 
-const defaultStyles: any = {
-  fontSize: FontSizes.LARGER,
-  fontFamily: fonts.roboto,
-  letterSpacing: -1,
-  fontWeight: '500',
-  color: Colors.WHITE,
-  borderColor: Colors.BLUE,
-  borderWidth: 1,
-  backgroundColor: Colors.BLACK,
-  padding: Sizes.MEDIUM,
-  shadowColor: Colors.BLACK,
-  shadowOffset: {
-    width: 0,
-    height: 1,
-  },
-  shadowOpacity: 0.22,
-  shadowRadius: 2.22,
-  elevation: 3,
-};
-
 const styles: any = {
   picker: {
     fontFamily: fonts.roboto,
@@ -68,11 +48,13 @@ export const BSelect: React.FC<Props> = props => {
         enabled={!disabled}
         prompt={placeholder}
         dropdownIconColor={Colors.WHITE}
-        dropdownIconRippleColor={Colors.WHITE}>
+        dropdownIconRippleColor={Colors.WHITE}
+        selectionColor={Colors.WHITE_TT}>
         {items.map(i => (
           <Picker.Item
             key={i.value}
             fontFamily={fonts.roboto}
+            color={Colors.WHITE}
             style={styles.pickerItem}
             label={i.label}
             value={i.value}
