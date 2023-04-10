@@ -9,8 +9,8 @@
 - [x] Add Account Protection aka "activation"
 
 Estimated Deployment:
-Android: 1st week April, 2023
-iOS: 2nd week April, 2023
+Android: 1st week April, 2023 ✅
+iOS: 2nd week April, 2023 ⌛
 
 > This is the first step before major layout changes, and token support is coming. ETA: End of Q2/Beginning Q3
 
