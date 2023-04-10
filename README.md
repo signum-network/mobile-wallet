@@ -5,8 +5,8 @@
 - [x] Fix reported bugs (see Phoenix repository)
 - [x] Minor UX improvements (translations, input fields, layout etc)
 - [x] Add QR Code Scanner for Account Imports (support will come to Phoenix Desktop/Web very soon)
-- [ ] Add Spanish
-- [ ] Add Account Protection aka "activation"
+- [x] Add Spanish
+- [x] Add Account Protection aka "activation"
 
 Estimated Deployment:
 Android: 1st week April, 2023
