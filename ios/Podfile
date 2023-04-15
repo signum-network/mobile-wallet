@@ -21,7 +21,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'Phoenix' do
+target 'SignumWallet' do
   config = use_native_modules!
   # Flags change depending on the env values.
   flags = get_default_flags()
@@ -42,7 +42,7 @@ target 'Phoenix' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'PhoenixTests' do
+  target 'SignumWalletTests' do
     inherit! :complete
     # Pods for testing
   end
