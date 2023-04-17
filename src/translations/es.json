@@ -159,7 +159,7 @@
       "home": {
         "accountsList": "Lista de cuentas",
         "allAccounts": "Tus cuentas",
-        "deleteHint": "Deslice la cuenta a la izquierda para eliminarlo",
+        "deleteHint": "Deslice una cuenta a la izquierda para eliminarlo",
         "recentTransactions": "Transacciones Recientes",
         "title": "Tus cuentas"
       },
