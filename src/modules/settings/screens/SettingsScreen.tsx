@@ -1,4 +1,4 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {connect, useDispatch, useSelector} from 'react-redux';
 import {Image, ScrollView, StyleSheet, View} from 'react-native';
 import VersionNumber from 'react-native-version-number';
@@ -57,13 +57,14 @@ const styles = StyleSheet.create({
     borderColor: Colors.WHITE,
     borderStyle: 'solid',
     borderWidth: 1,
+    flexGrow: 1,
   },
   fillZone: {
     flex: 2,
   },
   hintView: {
     paddingTop: Sizes.SMALL,
-    flexGrow: 1,
+    flex: 1,
   },
   bodyText: {
     padding: 10,
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   },
   dangerZone: {
     position: 'relative',
-    // flex: 1,
+    flex: 1,
     padding: Sizes.MEDIUM,
     borderRadius: 4,
     borderColor: Colors.WHITE,

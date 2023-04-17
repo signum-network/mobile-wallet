@@ -204,7 +204,6 @@ function isUnstoppableDomain(recipient: string): boolean {
 }
 
 class _SendForm extends React.Component<Props, SendFormState> {
-  private scrollViewRef = createRef<ScrollView>();
   constructor(props: any) {
     super(props);
     this.state = this.getInitialState(props.deepLinkProps);
@@ -525,9 +524,9 @@ class _SendForm extends React.Component<Props, SendFormState> {
       return;
     }
 
-    const maxAmount = balances.availableBalance.subtract(
-      Amount.fromSigna(fee || 0),
-    );
+    const maxAmount = balances.availableBalance
+      .clone()
+      .subtract(Amount.fromSigna(fee || 0));
     this.handleAmountChange(
       maxAmount.less(Amount.Zero()) ? '0' : maxAmount.getSigna(),
     );
