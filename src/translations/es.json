@@ -2,10 +2,10 @@
   "accounts": {
     "errors": {
       "accountExist": "Cuenta ya importada",
-      "incorrectAddress": "Direccion incorrecta",
+      "incorrectAddress": "Dirección incorrecta",
       "incorrectPasscode": "Contraseña incorrecta",
       "incorrectPassphrase": "Frase de contraseña incorrecta",
-      "insecurePin": "PIN no seguro, mínimo de {{length}} caracteres recomendados"
+      "insecurePin": "PIN no seguro, Se recomienda un mínimo de {{length}} caracteres"
     },
     "modals": {
       "enterPasscode": {
@@ -19,7 +19,7 @@
       }
     },
     "passcode": {
-      "passcode": "contraseña"
+      "passcode": "Contraseña"
     },
     "screens": {
       "accountDetails": {
@@ -36,7 +36,7 @@
           "hint": "Agregue una cuenta para comenzar.",
           "title": "Bienvenido a Signum"
         },
-        "title": "cuentas"
+        "title": "Cuentas"
       },
       "addAccount": {
         "createAccount": "Crear una cuenta",
@@ -51,15 +51,15 @@
         "enterPin": "Introduce un PIN",
         "enterPinHint": "Introduzca un PIN para proteger esta cuenta. El PIN se utiliza para verificar las acciones realizadas con su cuenta.",
         "generateSeed": "Generar semilla",
-        "generatedPercent": "Generado: {{percent}}%",
+        "generatedPercent": "{{percent}}% generado",
         "howToGenerate": "Mueva su dedo por el área para crear una semilla aleatoria.",
         "notePassphrase": "Tu Frase de Recuperación",
         "notePassphraseHint": "Anote su frase de recuperación y/o haga una captura de pantalla. La frase de recuperación es la clave maestra de su cuenta. ¡Por lo tanto, manténgalo siempre seguro y privado!",
         "notePassphraseHint2": "Las frases de recuperación no se almacenarán en su dispositivo. Sin la frase de recuperación, ya no podrá recuperar su cuenta ni realizar transacciones, y sus fondos se perderán. ¡Apúntalo!",
-        "pinPlaceholder": "ALFILER",
+        "pinPlaceholder": "PIN",
         "step": "Paso {{step}}/{{maxStep}}",
         "title": "Crear una cuenta",
-        "notedIt": "¡Lo noté!",
+        "notedIt": "¡Lo anoté!",
         "finalize": "Finalizar",
         "verifyPhrase": "Verificar frase de recuperación",
         "enterWord": "Ingrese la palabra No."
@@ -67,15 +67,15 @@
       "importAccount": {
         "accountPreviewLabel": "Vista previa de la dirección",
         "activeAccount": "Usar frase de recuperación",
-        "activeAccountHint": "Utilice la frase de recuperación si tiene la intención de realizar una transacción con la cuenta importada. La frase de recuperación solo se usa una vez localmente para derivar su clave privada; no se almacena en ningún lado. El PIN se utiliza para proteger la clave privada.",
+        "activeAccountHint": "Utilice la frase de recuperación si tiene la intención de realizar una transacción con la cuenta a importar. La frase de recuperación solo se usa una vez localmente para derivar su clave privada; no se almacena en ningún lado. El PIN se utiliza para proteger la clave privada.",
         "import": "Importar",
-        "passiveAccountHint": "Si desea ver solo una cuenta, no necesita usar la frase de recuperación. Use la frase de recuperación solo si tiene la intención de ejecutar transacciones.",
+        "passiveAccountHint": "Si desea observar solo una cuenta, no necesita usar la frase de recuperación. Use la frase de recuperación solo si tiene la intención de ejecutar transacciones.",
         "showPassphrase": "Mostrar frase de recuperación",
         "title": "Importar cuenta"
       },
       "scanAccount": {
         "scanAddress": "Escanear dirección de cuenta",
-        "scanRecoveryPhrase": "Frase de recuperación de escaneo"
+        "scanRecoveryPhrase": "Escano de Frase de recuperación"
       },
       "transactionDetails": {
         "copiedSuccessfully": "Valor copiado correctamente: {{value}}",
@@ -90,11 +90,11 @@
       "back": "Atrás",
       "cancel": "Cancelar",
       "create": "Crear",
-      "next": "Próximo",
+      "next": "Siguiente",
       "ok": "DE ACUERDO",
-      "save": "Ahorrar",
+      "save": "Guardar",
       "submit": "Entregar",
-      "retry": "Rever"
+      "retry": "Rehacer"
     },
     "balances": {
       "available": "Disponible",
@@ -105,7 +105,7 @@
     "components": {
       "qrCodeScanner": {
         "errorNoDevice": "No se encontró ninguna cámara",
-        "errorNoPermission": "Sin permiso concedido"
+        "errorNoPermission": "No se ha concedido permiso"
       },
       "accountActivationView": {
         "activationHint": "Esta cuenta no tiene clave pública asignada. Este es un riesgo de seguridad ya que sus fondos no están seguros. ¡Proteja su cuenta ahora!",
@@ -139,7 +139,7 @@
           "JUL": "Jul",
           "JUN": "Jun",
           "MAR": "Mar",
-          "MAY": "Puede",
+          "MAY": "May",
           "NOV": "Nov",
           "OCT": "Oct",
           "SEP": "Sep"
@@ -159,7 +159,7 @@
       "home": {
         "accountsList": "Lista de cuentas",
         "allAccounts": "Tus cuentas",
-        "deleteHint": "Deslice el elemento a la izquierda para eliminarlo",
+        "deleteHint": "Deslice una cuenta a la izquierda para eliminarlo",
         "recentTransactions": "Transacciones Recientes",
         "title": "Tus cuentas"
       },
@@ -170,10 +170,10 @@
   },
   "models": {
     "account": {
-      "address": "DIRECCIÓN",
-      "id": "IDENTIFICACIÓN",
-      "passphrase": "Frase de contraseña",
-      "pin": "ALFILER",
+      "address": "Dirección",
+      "id": "ID",
+      "passphrase": "Frase de recuperación",
+      "pin": "PIN",
       "title": "Cuenta"
     }
   },
@@ -184,7 +184,7 @@
         "changeLanguage": "Seleccione el idioma",
         "confirmErase": "Confirmar - Borrar y Restablecer",
         "confirmReset": "¿Está seguro? No puede deshacer esta acción.",
-        "copyright": "Derechos de autor © Red Signum",
+        "copyright": "Derechos de autor © Signum Network",
         "credits": "Créditos a Blankey1337, Titanishu y Timewalker.",
         "customNodeFound": "Nodo personalizado encontrado",
         "erase": "Borrar todas las cuentas y restablecer el PIN",
