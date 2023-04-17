@@ -1,7 +1,7 @@
 import {Account} from '@signumjs/core';
 import {PassPhraseGenerator} from '@signumjs/crypto';
 import React, {useState} from 'react';
-import {Alert, View, StyleSheet} from 'react-native';
+import {Alert, View, StyleSheet, ScrollView} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {i18n} from '../../../core/i18n';
 import {FullHeightView} from '../../../core/layout/FullHeightView';
@@ -127,10 +127,12 @@ export const CreateAccountScreen = () => {
     <Screen style={styles.background}>
       <FullHeightView style={styles.background} withoutPaddings>
         <HeaderWithBackButton title={i18n.t(auth.createAccount.title)} />
-        <View style={styles.center}>
-          <StepCounter stage={state.stage + 1} maxStages={3} />
-          {renderStage()}
-        </View>
+        <ScrollView>
+          <View style={styles.center}>
+            <StepCounter stage={state.stage + 1} maxStages={3} />
+            {renderStage()}
+          </View>
+        </ScrollView>
       </FullHeightView>
     </Screen>
   );

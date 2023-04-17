@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import {Alert, ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {SwitchItem} from '../../../core/components/base/SwitchItem';
 import {i18n} from '../../../core/i18n';
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     margin: Sizes.LARGE,
-    paddingTop: '30%',
+    paddingTop: '25%',
   },
   centeredText: {
     marginTop: '50%',
@@ -79,28 +79,30 @@ export const ImportAccountScreen = () => {
     <Screen style={styles.background}>
       <FullHeightView withoutPaddings style={styles.background}>
         <HeaderWithBackButton title={i18n.t(auth.addAccount.title)} />
-        <View style={styles.switchView}>
-          <View>
-            <SwitchItem
-              onChange={setIsActive}
-              text={i18n.t(auth.importAccount.activeAccount)}
-              value={isActive}
-            />
-          </View>
-          <View>
-            {isActive ? (
-              <ImportActiveAccount
-                onFinish={handleImportActiveAccount}
-                seed={seed}
+        <ScrollView>
+          <View style={styles.switchView}>
+            <View>
+              <SwitchItem
+                onChange={setIsActive}
+                text={i18n.t(auth.importAccount.activeAccount)}
+                value={isActive}
               />
-            ) : (
-              <ImportOfflineAccount
-                onFinish={handleImportOfflineAccount}
-                address={address}
-              />
-            )}
+            </View>
+            <View>
+              {isActive ? (
+                <ImportActiveAccount
+                  onFinish={handleImportActiveAccount}
+                  seed={seed}
+                />
+              ) : (
+                <ImportOfflineAccount
+                  onFinish={handleImportOfflineAccount}
+                  address={address}
+                />
+              )}
+            </View>
           </View>
-        </View>
+        </ScrollView>
       </FullHeightView>
     </Screen>
   );

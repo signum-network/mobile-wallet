@@ -1,11 +1,10 @@
 import React from 'react';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {HeaderTitle} from '../../../core/components/header/HeaderTitle';
 import {i18n} from '../../../core/i18n';
 import {FullHeightView} from '../../../core/layout/FullHeightView';
 import {Screen} from '../../../core/layout/Screen';
-import {routes} from '../../../core/navigation/routes';
 import {ReceiveAmountForm} from '../components/receive/ReceiveAmountForm';
 import {ReceiveAmountPayload} from '../store/actions';
 import {transactions} from '../translations';
@@ -34,7 +33,7 @@ export const ReceiveScreen = () => {
     <Screen>
       <FullHeightView>
         <HeaderTitle>{i18n.t(transactions.screens.receive.title)}</HeaderTitle>
-        <View>
+        <ScrollView>
           {accounts.length > 0 ? (
             <ReceiveAmountForm
               accounts={accounts}
@@ -44,7 +43,7 @@ export const ReceiveScreen = () => {
           ) : (
             <NoAccount />
           )}
-        </View>
+        </ScrollView>
       </FullHeightView>
     </Screen>
   );

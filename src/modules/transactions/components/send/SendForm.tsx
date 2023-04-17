@@ -96,15 +96,12 @@ const styles = StyleSheet.create({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    height: '95%',
+    height: '100%',
   },
   feeSection: {
     marginBottom: 10,
   },
   headerSection: {},
-  formSection: {
-    minHeight: '45%',
-  },
   bottomSection: {},
   form: {
     display: 'flex',
@@ -129,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   total: {
-    flexGrow: 1,
+    // flexGrow: 1,
     display: 'flex',
     flexDirection: 'row',
   },
@@ -509,12 +506,7 @@ class _SendForm extends React.Component<Props, SendFormState> {
   }
 
   setAddMessage(addMessage: boolean): void {
-    this.setState({addMessage}, () => {
-      setTimeout(() => {
-        // @ts-ignore
-        this.scrollViewRef.current.scrollToEnd();
-      }, 100);
-    });
+    this.setState({addMessage});
     this.markAsDirty();
   }
 
@@ -678,72 +670,71 @@ class _SendForm extends React.Component<Props, SendFormState> {
           />
           <Balances balances={balances} />
         </View>
-        <ScrollView style={styles.formSection} ref={this.scrollViewRef}>
-          <View style={styles.form}>
-            <BInput
-              // autoCapitalize='characters'
-              value={recipient.addressRaw}
-              onChange={this.handleChangeAddress}
-              onEndEditing={this.handleAddressBlur}
-              editable={!this.state.immutable}
-              title={i18n.t(transactions.screens.send.to)}
-              placeholder={i18n.t(transactions.screens.send.toHint)}
-              rightIcons={RecipientRightIcons}
-            />
-            <BInput
-              value={amount || '0'}
-              onChange={this.handleAmountChange}
-              keyboard={KeyboardTypes.NUMERIC}
-              editable={!this.state.immutable}
-              title={i18n.t(transactions.screens.send.amountNQT)}
-              placeholder={'0'}
-              rightIcons={AmountRightIcons}
-            />
-            <BInput
-              value={fee || '0'}
-              onChange={this.handleFeeChange}
-              keyboard={KeyboardTypes.NUMERIC}
-              editable={!this.state.immutable}
-              title={i18n.t(transactions.screens.send.feeNQT)}
-              placeholder={'0'}
-            />
-            {suggestedFees && (
-              <View style={styles.feeSection}>
-                <FeeSelector
-                  payloadLength={message?.length || 0}
-                  onFeeSelected={this.handleFeeSelectorChange}
-                />
-              </View>
-            )}
+        <View style={styles.form}>
+          <BInput
+            // autoCapitalize='characters'
+            value={recipient.addressRaw}
+            onChange={this.handleChangeAddress}
+            onEndEditing={this.handleAddressBlur}
+            editable={!this.state.immutable}
+            title={i18n.t(transactions.screens.send.to)}
+            placeholder={i18n.t(transactions.screens.send.toHint)}
+            rightIcons={RecipientRightIcons}
+          />
+          <BInput
+            value={amount || '0'}
+            onChange={this.handleAmountChange}
+            keyboard={KeyboardTypes.NUMERIC}
+            editable={!this.state.immutable}
+            title={i18n.t(transactions.screens.send.amountNQT)}
+            placeholder={'0'}
+            rightIcons={AmountRightIcons}
+          />
+          <BInput
+            value={fee || '0'}
+            onChange={this.handleFeeChange}
+            keyboard={KeyboardTypes.NUMERIC}
+            editable={!this.state.immutable}
+            title={i18n.t(transactions.screens.send.feeNQT)}
+            placeholder={'0'}
+          />
+          {suggestedFees && (
+            <View style={styles.feeSection}>
+              <FeeSelector
+                payloadLength={message?.length || 0}
+                onFeeSelected={this.handleFeeSelectorChange}
+              />
+            </View>
+          )}
 
-            <BCheckbox
-              disabled={this.state.immutable}
-              labelFontSize={FontSizes.SMALL}
-              label={i18n.t(transactions.screens.send.addMessage)}
-              value={addMessage || false}
-              onCheck={checked => this.setAddMessage(checked)}
-            />
+          <BCheckbox
+            disabled={this.state.immutable}
+            labelFontSize={FontSizes.SMALL}
+            label={i18n.t(transactions.screens.send.addMessage)}
+            value={addMessage || false}
+            onCheck={checked => this.setAddMessage(checked)}
+          />
 
-            {addMessage && (
-              <>
-                <BInput
-                  editable={!this.state.immutable}
-                  value={message || ''}
-                  onChange={this.handleMessageChange}
-                  title={i18n.t(transactions.screens.send.message)}
-                />
+          {addMessage && (
+            <>
+              <BInput
+                editable={!this.state.immutable}
+                value={message || ''}
+                onChange={this.handleMessageChange}
+                title={i18n.t(transactions.screens.send.message)}
+                rowCount={3}
+              />
 
-                <BCheckbox
-                  disabled={this.state.immutable}
-                  labelFontSize={FontSizes.SMALL}
-                  label={i18n.t(transactions.screens.send.encrypt)}
-                  value={encrypt || false}
-                  onCheck={checked => this.setEncryptMessage(checked)}
-                />
-              </>
-            )}
-          </View>
-        </ScrollView>
+              <BCheckbox
+                disabled={this.state.immutable}
+                labelFontSize={FontSizes.SMALL}
+                label={i18n.t(transactions.screens.send.encrypt)}
+                value={encrypt || false}
+                onCheck={checked => this.setEncryptMessage(checked)}
+              />
+            </>
+          )}
+        </View>
         <View style={styles.bottomSection}>
           <View style={styles.totalSection}>
             <View style={styles.total}>

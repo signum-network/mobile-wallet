@@ -5,7 +5,7 @@ import {
   CompositeNavigationProp,
 } from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Account, SuggestedFees} from '@signumjs/core';
 import {Text, TextThemes} from '../../../core/components/base/Text';
@@ -148,24 +148,26 @@ export const SendScreen = () => {
       <FullHeightView>
         <View>
           <HeaderTitle>{i18n.t(transactions.screens.send.title)}</HeaderTitle>
-          {hasActiveAccounts ? (
-            <SendForm
-              accounts={accounts}
-              loading={isSubmitting}
-              onReset={handleReset}
-              onSubmit={handleSubmit}
-              onGetAccount={handleGetAccount}
-              onGetAlias={handleGetAlias}
-              onGetUnstoppableAddress={handleGetUnstoppableAddress}
-              onCameraIconPress={handleCameraIconPress}
-              deepLinkProps={deeplinkData}
-              suggestedFees={suggestedFees}
-              addressPrefix={addressPrefix}
-            />
-          ) : (
-            <NoActiveAccount />
-          )}
-          {error && <Text theme={TextThemes.DANGER}>{error}</Text>}
+          <ScrollView>
+            {hasActiveAccounts ? (
+              <SendForm
+                accounts={accounts}
+                loading={isSubmitting}
+                onReset={handleReset}
+                onSubmit={handleSubmit}
+                onGetAccount={handleGetAccount}
+                onGetAlias={handleGetAlias}
+                onGetUnstoppableAddress={handleGetUnstoppableAddress}
+                onCameraIconPress={handleCameraIconPress}
+                deepLinkProps={deeplinkData}
+                suggestedFees={suggestedFees}
+                addressPrefix={addressPrefix}
+              />
+            ) : (
+              <NoActiveAccount />
+            )}
+            {error && <Text theme={TextThemes.DANGER}>{error}</Text>}
+          </ScrollView>
         </View>
       </FullHeightView>
     </Screen>

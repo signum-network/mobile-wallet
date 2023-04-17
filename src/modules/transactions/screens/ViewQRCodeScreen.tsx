@@ -18,6 +18,8 @@ import {isIOS} from '../../../core/utils/platform';
 import {HeaderWithBackButton} from '../../../core/layout/HeaderWithBackButton';
 import {auth} from '../../accounts/translations';
 import Clipboard from '@react-native-clipboard/clipboard';
+import {useSelector} from 'react-redux';
+import {selectChainInfo} from '../../network/store/selectors';
 
 type ScanRouteProps = RouteProp<RootStackParamList, 'Scan'>;
 
@@ -79,6 +81,8 @@ function buildPhoenixDeepLinkURL(requestPayload: ReceiveAmountPayload): string {
 
 export const ViewQRCodeScreen: React.FC = () => {
   const route = useRoute<ScanRouteProps>();
+  const chainInfo = useSelector(selectChainInfo);
+  const symbol = chainInfo ? chainInfo.symbol : 'SIGNA';
 
   const data = useMemo(
     () => ({
@@ -167,12 +171,12 @@ Pay using the Phoenix Wallet from https://phoenix-wallet.rocks
             <View style={styles.row}>
               <LabeledTextField
                 label={i18n.t(transactions.screens.send.amountNQT)}
-                text={data.amount.toString()}
+                text={`${data.amount.getSigna()} ${symbol}`}
                 color={Colors.WHITE}
               />
               <LabeledTextField
                 label={i18n.t(transactions.screens.send.feeNQT)}
-                text={data.fee.toString()}
+                text={`${data.fee.getSigna()} ${symbol}`}
                 color={Colors.WHITE}
               />
             </View>

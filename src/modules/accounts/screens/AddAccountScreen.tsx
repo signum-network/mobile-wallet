@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, ButtonThemes} from '../../../core/components/base/Button';
 import {Text, TextAlign, TextThemes} from '../../../core/components/base/Text';
 import {i18n} from '../../../core/i18n';

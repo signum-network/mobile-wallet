@@ -1,6 +1,6 @@
 import React, {useMemo, useRef, useState} from 'react';
 import {connect, useDispatch, useSelector} from 'react-redux';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, View} from 'react-native';
 import VersionNumber from 'react-native-version-number';
 import {BSelect, SelectItem} from '../../../core/components/base/BSelect';
 import {
@@ -46,12 +46,11 @@ type Props = {
 
 const styles = StyleSheet.create({
   container: {
-    height: '90%',
     display: 'flex',
     justifyContent: 'center',
   },
   settingsZone: {
-    marginVertical: Sizes.MEDIUM,
+    marginVertical: Sizes.LARGE,
     position: 'relative',
     padding: Sizes.MEDIUM,
     borderRadius: 4,
@@ -216,92 +215,97 @@ const Settings = ({}: Props) => {
     <Screen>
       <FullHeightView>
         <HeaderTitle>{i18n.t(settings.screens.settings.title)}</HeaderTitle>
-        <View style={styles.container}>
-          <View style={styles.settingsZone}>
-            <BSelect
-              value={currentNode}
-              items={getListItems()}
-              onChange={handleNodeSelect}
-              title={i18n.t(settings.screens.settings.selectNode)}
-              placeholder={i18n.t(settings.screens.settings.selectNode)}
-            />
-            <View style={styles.customNodeContainer}>
-              <View style={styles.customNodeSwitch}>
-                <SwitchItem
-                  onChange={setNodeEditorEnabled}
-                  text={i18n.t(settings.screens.settings.setCustomNode)}
-                  value={nodeEditorEnabled}
-                  labelColor={Colors.WHITE}
-                />
-              </View>
-              {nodeEditorEnabled && (
-                <>
-                  <View>
-                    <BInput value={customNode} onChange={handleSetCustomNode} />
-                  </View>
-                  <LoadingIndicator show={loading} showDelay={0} />
-                  {nodeInfo && !loading && (
-                    <View style={styles.versionInfo}>
-                      <Text size={FontSizes.SMALLER} color={Colors.WHITE}>
-                        {nodeInfo.networkName} {nodeInfo.version}
-                      </Text>
-                      <Button
-                        theme={ButtonThemes.ACCENT}
-                        onPress={handleAcceptNode}
-                        size={ButtonSizes.SMALL}>
-                        <View style={styles.acceptButton}>
-                          <Image
-                            source={settingsIcons.check}
-                            style={styles.checkIcon}
-                          />
-                          <Text size={FontSizes.SMALL} color={Colors.WHITE}>
-                            {i18n.t(settings.screens.settings.apply)}
-                          </Text>
-                        </View>
-                      </Button>
+        <ScrollView>
+          <View style={styles.container}>
+            <View style={styles.settingsZone}>
+              <BSelect
+                value={currentNode}
+                items={getListItems()}
+                onChange={handleNodeSelect}
+                title={i18n.t(settings.screens.settings.selectNode)}
+                placeholder={i18n.t(settings.screens.settings.selectNode)}
+              />
+              <View style={styles.customNodeContainer}>
+                <View style={styles.customNodeSwitch}>
+                  <SwitchItem
+                    onChange={setNodeEditorEnabled}
+                    text={i18n.t(settings.screens.settings.setCustomNode)}
+                    value={nodeEditorEnabled}
+                    labelColor={Colors.WHITE}
+                  />
+                </View>
+                {nodeEditorEnabled && (
+                  <>
+                    <View>
+                      <BInput
+                        value={customNode}
+                        onChange={handleSetCustomNode}
+                      />
                     </View>
-                  )}
-                </>
-              )}
+                    <LoadingIndicator show={loading} showDelay={0} />
+                    {nodeInfo && !loading && (
+                      <View style={styles.versionInfo}>
+                        <Text size={FontSizes.SMALLER} color={Colors.WHITE}>
+                          {nodeInfo.networkName} {nodeInfo.version}
+                        </Text>
+                        <Button
+                          theme={ButtonThemes.ACCENT}
+                          onPress={handleAcceptNode}
+                          size={ButtonSizes.SMALL}>
+                          <View style={styles.acceptButton}>
+                            <Image
+                              source={settingsIcons.check}
+                              style={styles.checkIcon}
+                            />
+                            <Text size={FontSizes.SMALL} color={Colors.WHITE}>
+                              {i18n.t(settings.screens.settings.apply)}
+                            </Text>
+                          </View>
+                        </Button>
+                      </View>
+                    )}
+                  </>
+                )}
+              </View>
             </View>
-          </View>
-          <View style={styles.fillZone} />
-          <View style={styles.dangerZone}>
-            <View style={styles.dangerZoneLabel}>
-              <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
-                Danger Zone
-              </Text>
+            <View style={styles.fillZone} />
+            <View style={styles.dangerZone}>
+              <View style={styles.dangerZoneLabel}>
+                <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
+                  Danger Zone
+                </Text>
+              </View>
+              <Button
+                theme={ButtonThemes.DANGER}
+                onPress={toggleConfirmDeletePrompt}>
+                {i18n.t(settings.screens.settings.erase)}
+              </Button>
             </View>
-            <Button
-              theme={ButtonThemes.DANGER}
-              onPress={toggleConfirmDeletePrompt}>
-              {i18n.t(settings.screens.settings.erase)}
-            </Button>
-          </View>
 
-          <View style={[styles.flexBottom, styles.bodyText]}>
-            <View>
-              <Image source={logos.signumjs} style={styles.signumjs} />
+            <View style={[styles.flexBottom, styles.bodyText]}>
+              <View>
+                <Image source={logos.signumjs} style={styles.signumjs} />
+              </View>
+              <View>
+                <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
+                  Signum Mobile Wallet {VersionNumber.appVersion} (
+                  {VersionNumber.buildVersion})
+                </Text>
+                <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
+                  {i18n.t(settings.screens.settings.copyright)}
+                </Text>
+                <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
+                  {i18n.t(settings.screens.settings.credits)}
+                </Text>
+              </View>
             </View>
-            <View>
-              <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
-                Signum Mobile Wallet {VersionNumber.appVersion} (
-                {VersionNumber.buildVersion})
-              </Text>
-              <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
-                {i18n.t(settings.screens.settings.copyright)}
-              </Text>
-              <Text color={Colors.WHITE} size={FontSizes.SMALLER}>
-                {i18n.t(settings.screens.settings.credits)}
-              </Text>
-            </View>
+            <ResetModal
+              visible={erasePromptVisible}
+              onConfirm={confirmErase}
+              onCancel={toggleConfirmDeletePrompt}
+            />
           </View>
-          <ResetModal
-            visible={erasePromptVisible}
-            onConfirm={confirmErase}
-            onCancel={toggleConfirmDeletePrompt}
-          />
-        </View>
+        </ScrollView>
       </FullHeightView>
     </Screen>
   );

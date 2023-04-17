@@ -36,11 +36,12 @@ const styles = StyleSheet.create({
   accountCol: {
     display: 'flex',
     flex: 1,
-    maxWidth: '60%',
+    flexGrow: 2,
   },
   amountCol: {
     display: 'flex',
     flex: 1,
+    flexGrow: 1,
   },
   alignRight: {
     display: 'flex',

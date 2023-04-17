@@ -121,7 +121,8 @@ const AccountDetails = (props: Props) => {
               style={{width: 30, height: 30}}
             />
           </TouchableOpacity>
-          <View style={{flex: 1, alignItems: 'center', margin: 10}}>
+          <View
+            style={{flex: 1, alignItems: 'center', margin: 10, marginLeft: 20}}>
             <HeaderTitle>{title}</HeaderTitle>
           </View>
           <TouchableOpacity onPress={handleCopy}>

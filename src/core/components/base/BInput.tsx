@@ -24,6 +24,7 @@ interface Props {
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
   theme?: 'light' | 'normal';
   secret?: boolean;
+  rowCount?: number;
 }
 
 export enum KeyboardTypes {
@@ -46,6 +47,7 @@ export const BInput = (props: Props) => {
     autoCapitalize,
     theme = 'normal',
     secret = false,
+    rowCount = 1,
   } = props;
   const styles: any = {
     wrapper: {
@@ -107,6 +109,8 @@ export const BInput = (props: Props) => {
             theme === 'normal' ? Colors.GREY : Colors.GREY_DARK
           }
           secureTextEntry={secret}
+          multiline={rowCount > 1}
+          numberOfLines={rowCount}
         />
         <View style={styles.end}>{rightIcons}</View>
       </View>

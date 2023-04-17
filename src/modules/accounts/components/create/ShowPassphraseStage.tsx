@@ -22,13 +22,10 @@ interface Props {
   onFinish: () => void;
 }
 
-interface State {
-  offset: number;
-}
-
 const styles = StyleSheet.create({
   words: {
     paddingHorizontal: 20,
+    paddingVertical: 4,
   },
   qrCode: {
     display: 'flex',
@@ -77,10 +74,10 @@ export const ShowPassphraseStage = ({phrase, onFinish}: Props) => {
         </Text>
       </View>
       <View>
-        <Text theme={TextThemes.HINT} textAlign={TextAlign.CENTER}>
+        <Text theme={TextThemes.HINT} textAlign={TextAlign.JUSTIFY}>
           {i18n.t(auth.createAccount.notePassphraseHint)}
         </Text>
-        <Text theme={TextThemes.DANGER}>
+        <Text theme={TextThemes.DANGER} textAlign={TextAlign.JUSTIFY}>
           {i18n.t(auth.createAccount.notePassphraseHint2)}
         </Text>
         <Button onPress={onFinish}>{i18n.t(auth.createAccount.notedIt)}</Button>
