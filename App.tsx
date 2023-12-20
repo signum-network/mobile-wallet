@@ -1,8 +1,7 @@
 // @ts-ignore
 import React, {useEffect, useState} from 'react';
-import {Image, Linking, Alert} from 'react-native';
+import {Image, Linking, Alert, AppState} from 'react-native';
 import 'react-native-gesture-handler';
-import {addEventListener, removeEventListener} from 'react-native-localize';
 
 import {
   NavigationContainer,
@@ -67,13 +66,17 @@ export const App = () => {
       setLinkUrl(event.url);
     };
 
-    addEventListener('change', handleLanguagesChange);
+    //TODO: Changed event listener, maybe needs more testing...
+    const languageListener = AppState.addEventListener(
+      'change',
+      () => handleLanguagesChange,
+    );
     const urlListener = Linking.addEventListener('url', handleOpenURL);
     Linking.getInitialURL().then(url => {
       setLinkUrl(url);
     });
     return () => {
-      removeEventListener('change', handleLanguagesChange);
+      languageListener.remove();
       urlListener.remove();
     };
   }, []);
