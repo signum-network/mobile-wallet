@@ -60,12 +60,14 @@ export const ShowPassphraseStage = ({phrase, onFinish}: Props) => {
         </Text>
       </View>
       <View style={styles.qrCode}>
-        <QRCode
-          size={200}
-          value={qrCodeValue}
-          bgColor={Colors.WHITE}
-          fgColor={Colors.BLUE_DARKER}
-        />
+        <View style={{backgroundColor: Colors.WHITE, padding: 6}}>
+          <QRCode
+            size={200}
+            value={qrCodeValue}
+            bgColor={Colors.WHITE}
+            fgColor={Colors.BLUE_DARKER}
+          />
+        </View>
       </View>
       <View style={styles.words}>
         <Text theme={TextThemes.ACCENT} textAlign={TextAlign.CENTER}>

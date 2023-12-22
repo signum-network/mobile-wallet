@@ -145,12 +145,14 @@ Pay using the Phoenix Wallet from https://phoenix-wallet.rocks
         <View style={styles.details}>
           <View style={[styles.row, styles.imageWrapper]}>
             <View style={[styles.col, styles.alignCenter]}>
-              <QRCode
-                size={200}
-                value={deeplinkUrl}
-                bgColor={Colors.WHITE}
-                fgColor={Colors.BLUE_DARKER}
-              />
+              <View style={{backgroundColor: Colors.WHITE, padding: 6}}>
+                <QRCode
+                  size={200}
+                  value={deeplinkUrl}
+                  bgColor={Colors.WHITE}
+                  fgColor={Colors.BLUE_DARKER}
+                />
+              </View>
             </View>
           </View>
           <View style={[styles.row, styles.buttonRow]}>

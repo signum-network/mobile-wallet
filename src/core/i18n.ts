@@ -1,5 +1,5 @@
 import {I18n} from 'i18n-js';
-import {findBestAvailableLanguage} from 'react-native-localize';
+import {findBestLanguageTag} from 'react-native-localize';
 import en from '../translations/en.json';
 import ru from '../translations/ru.json';
 import de from '../translations/de.json';
@@ -10,16 +10,8 @@ import zh from '../translations/zh.json';
 
 const fallback = {languageTag: 'en', isRTL: false};
 const {languageTag} =
-  findBestAvailableLanguage([
-    'en-US',
-    'en',
-    'ru',
-    'de',
-    'pt',
-    'es',
-    'zh',
-    'uk',
-  ]) || fallback;
+  findBestLanguageTag(['en-US', 'en', 'ru', 'de', 'pt', 'es', 'zh', 'uk']) ||
+  fallback;
 
 export const i18n = new I18n();
 

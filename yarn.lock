@@ -3103,11 +3103,6 @@ cjs-module-lexer@^1.0.0:
   resolved "https://registry.npmjs.org/cjs-module-lexer/-/cjs-module-lexer-1.2.3.tgz"
   integrity sha512-0TNiGstbQmCFwt4akjjBg5pLRTSyj/PkWQ1ZoO2zntmg9yLqSRxwEa4iCfQLGjqhiqBfOJa7W/E8wfGrTDmlZQ==
 
-clamp@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/clamp/-/clamp-1.0.1.tgz"
-  integrity sha512-kgMuFyE78OC6Dyu3Dy7vcx4uy97EIbVxJB/B0eJ3bUNAkwdNcxYzgKltnyADiYwsR7SEqkkUPsEUT//OVS6XMA==
-
 cli-cursor@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/cli-cursor/-/cli-cursor-3.1.0.tgz"
@@ -3259,13 +3254,6 @@ compression@^1.7.1:
     on-headers "~1.0.2"
     safe-buffer "5.1.2"
     vary "~1.1.2"
-
-concat-color-matrices@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/concat-color-matrices/-/concat-color-matrices-1.0.0.tgz"
-  integrity sha512-K0IMtl4m9LcHg4vVFb40Txmie/GwCJBkquGSn6wtA9yIcszzFZgGc6co4sSnjFdqeJAv+q2LrCHMUSb2GHAChA==
-  dependencies:
-    invariant "^2.2.4"
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -6494,15 +6482,6 @@ react-native-cli@^2.0.1:
     prompt "^0.2.14"
     semver "^5.0.3"
 
-react-native-color-matrix-image-filters@^6.0.3:
-  version "6.0.3"
-  resolved "https://registry.npmjs.org/react-native-color-matrix-image-filters/-/react-native-color-matrix-image-filters-6.0.3.tgz"
-  integrity sha512-yYwPbfhZzcRWLhsmkbtKBytlr/6CsLeMkMU+ds+xUGlHQI//raED4BzjMmOHKJlkciBtG39NyIx8D5lXnSIW+w==
-  dependencies:
-    concat-color-matrices "^1.0.0"
-    rn-color-matrices "^4.1.0"
-    ts-tiny-invariant "^2.0.4"
-
 react-native-dotenv@^3.4.9:
   version "3.4.9"
   resolved "https://registry.npmjs.org/react-native-dotenv/-/react-native-dotenv-3.4.9.tgz"
@@ -6620,7 +6599,7 @@ react-native-version-number@^0.3.6:
   resolved "https://registry.npmjs.org/react-native-version-number/-/react-native-version-number-0.3.6.tgz"
   integrity sha512-TdyXiK90NiwmSbmAUlUBOV6WI1QGoqtvZZzI5zQY4fKl67B3ZrZn/h+Wy/OYIKKFMfePSiyfeIs8LtHGOZ/NgA==
 
-react-native-vision-camera@^3.6.17, react-native-vision-camera@>=2.9.4:
+react-native-vision-camera@^3.6.17:
   version "3.6.17"
   resolved "https://registry.npmjs.org/react-native-vision-camera/-/react-native-vision-camera-3.6.17.tgz"
   integrity sha512-dzkO6l6lqw48i2jQre4AXzuFZqEEzqEEVc8bfOqF4MZ/6PzdHtfjosWea0zuEdsiW13DhaFHf7XLh/+aKytx2w==
@@ -6940,13 +6919,6 @@ rimraf@2.x.x:
   integrity sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==
   dependencies:
     glob "^7.1.3"
-
-rn-color-matrices@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/rn-color-matrices/-/rn-color-matrices-4.1.0.tgz"
-  integrity sha512-a8++z3Zi4GhA0oWwKS3etdrVuVQ2q/ByTMh6lMxo+vaSv3SRSSg5SzpZk65GS0NCAqMhFT8WSvgSgNhO/F+xag==
-  dependencies:
-    clamp "^1.0.1"
 
 rn-swipe-button@^1.3.8:
   version "1.3.8"
@@ -7565,11 +7537,6 @@ ts-api-utils@^1.0.1:
   resolved "https://registry.npmjs.org/ts-api-utils/-/ts-api-utils-1.0.3.tgz"
   integrity sha512-wNMeqtMz5NtwpT/UZGY5alT+VoKdSsOOP/kqHFcUW1P/VRhH2wJ48+DN2WwUliNbQ976ETwDL0Ifd2VVvgonvg==
 
-ts-tiny-invariant@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/ts-tiny-invariant/-/ts-tiny-invariant-2.0.4.tgz"
-  integrity sha512-6AIQGf3rbMyci4fZU5aq5AUJN2O3sMPPY+R8waCguQOPRJDh0n/vmxVISCp72TJr4k5kikaU1yqX8bTwfTFjcQ==
-
 tslib@^1.8.1:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
@@ -7761,11 +7728,6 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
-
-vision-camera-code-scanner@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/vision-camera-code-scanner/-/vision-camera-code-scanner-0.2.0.tgz"
-  integrity sha512-H5hVkXfbIcGdg9YlhuS8Y/xDX5e32Vo6eK5FyDQsE9AGVjlqEHMmSLHZg7BX8UUm4ADmiAZc8wzc4n8TUqGr0g==
 
 vlq@^1.0.0:
   version "1.0.1"
