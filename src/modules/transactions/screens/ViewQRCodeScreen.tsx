@@ -12,7 +12,7 @@ import {RouteProp, useRoute} from '@react-navigation/native';
 import {RootStackParamList} from '../../accounts/navigation/mainStack';
 import {Amount, createDeeplink, EncoderFormat} from '@signumjs/util';
 import {AddressPrefix, Address} from '@signumjs/core';
-import QRCode from 'react-native-qrcode-svg';
+import QRCode from 'react-qr-code';
 import {LabeledTextField} from '../../../core/components/base/LabeledTextField';
 import {isIOS} from '../../../core/utils/platform';
 import {HeaderWithBackButton} from '../../../core/layout/HeaderWithBackButton';
@@ -145,13 +145,14 @@ Pay using the Phoenix Wallet from https://phoenix-wallet.rocks
         <View style={styles.details}>
           <View style={[styles.row, styles.imageWrapper]}>
             <View style={[styles.col, styles.alignCenter]}>
-              <QRCode
-                size={200}
-                value={deeplinkUrl}
-                backgroundColor={Colors.WHITE}
-                color={Colors.BLUE_DARKER}
-                quietZone={8}
-              />
+              <View style={{backgroundColor: Colors.WHITE, padding: 6}}>
+                <QRCode
+                  size={200}
+                  value={deeplinkUrl}
+                  bgColor={Colors.WHITE}
+                  fgColor={Colors.BLUE_DARKER}
+                />
+              </View>
             </View>
           </View>
           <View style={[styles.row, styles.buttonRow]}>

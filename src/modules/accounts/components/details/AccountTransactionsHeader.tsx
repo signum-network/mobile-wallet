@@ -16,7 +16,7 @@ import {amountToString} from '../../../../core/utils/numbers';
 import {PriceInfoReduxState} from '../../../price-api/store/reducer';
 import {AmountText} from '../../../../core/components/base/Amount';
 import {getBalancesFromAccount} from '../../../../core/utils/balance/getBalancesFromAccount';
-import QRCode from 'react-native-qrcode-svg';
+import QRCode from 'react-qr-code';
 import {AccountActivationView} from '../../../../core/components/base/AccountActivationView';
 import {useAddressPrefix} from '../../../../core/hooks/useAddressPrefix';
 import {LoadingIndicator} from '../../../../core/components/base/LoadingIndicator';
@@ -113,13 +113,14 @@ export const AccountTransactionsHeader: React.FC<Props> = props => {
           />
         </View>
         <View style={styles.qrCode}>
-          <QRCode
-            size={100}
-            value={qrcodeValue}
-            backgroundColor={Colors.WHITE}
-            color={Colors.BLUE_DARKER}
-            quietZone={8}
-          />
+          <View style={{backgroundColor: Colors.WHITE, padding: 6}}>
+            <QRCode
+              size={100}
+              value={qrcodeValue}
+              bgColor={Colors.WHITE}
+              fgColor={Colors.BLUE_DARKER}
+            />
+          </View>
           <Text
             size={FontSizes.SMALLEST}
             textAlign={TextAlign.CENTER}

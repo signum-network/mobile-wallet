@@ -33,6 +33,7 @@ export const logos = {
   white: require('./icons/logo_white.png'),
   icon: require('./icons/logomark_white.png'),
   iconnode: require('./icons/signum-node.png'),
+  iconnodeinverted: require('./icons/signum-node-inverted.png'),
   signumjs: require('./icons/signumjs-badge.png'),
 };
 export const settingsIcons = {

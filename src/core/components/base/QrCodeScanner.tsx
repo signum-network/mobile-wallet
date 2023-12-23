@@ -1,6 +1,9 @@
-import {BarcodeFormat, useScanBarcodes} from 'vision-camera-code-scanner';
 import React, {useEffect, useMemo, useState} from 'react';
-import {Camera, useCameraDevices} from 'react-native-vision-camera';
+import {
+  Camera,
+  useCameraDevice,
+  useCodeScanner,
+} from 'react-native-vision-camera';
 import {StyleSheet, View} from 'react-native';
 import {Text, TextAlign} from './Text';
 import {FontSizes} from '../../theme/sizes';
@@ -24,24 +27,22 @@ interface Props {
 
 export const QrCodeScanner = ({onScanned = () => {}, style = {}}: Props) => {
   const [hasPermission, setHasPermission] = useState(false);
-  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
-    checkInverted: true,
+  const codeScanner = useCodeScanner({
+    codeTypes: ['qr'],
+    onCodeScanned: codes => {
+      if (codes[0].value) {
+        onScanned(codes[0].value);
+      }
+    },
   });
-  const devices = useCameraDevices();
-  const device = devices.back;
+  const device = useCameraDevice('back');
 
   useEffect(() => {
     (async () => {
       const status = await Camera.requestCameraPermission();
-      setHasPermission(status === 'authorized');
+      setHasPermission(status === 'granted');
     })();
   }, []);
-
-  useEffect(() => {
-    if (barcodes && barcodes.length && barcodes[0].displayValue) {
-      onScanned(barcodes[0].displayValue);
-    }
-  }, [barcodes, onScanned]);
 
   const errorMessage = useMemo(() => {
     if (!device) {
@@ -71,8 +72,7 @@ export const QrCodeScanner = ({onScanned = () => {}, style = {}}: Props) => {
       style={[DefaultStyle.root, style]}
       device={device!}
       isActive={true}
-      frameProcessor={frameProcessor}
-      frameProcessorFps={5}
+      codeScanner={codeScanner}
     />
   );
 };

@@ -1,7 +1,6 @@
 import {Image, StyleSheet, View} from 'react-native';
 import {logos} from '../../../assets/icons';
 import React from 'react';
-import {Invert} from 'react-native-color-matrix-image-filters';
 
 const styles = StyleSheet.create({
   root: {
@@ -29,9 +28,7 @@ interface Props {
 export const LogoWatermark = ({invert = false}: Props) => (
   <View style={styles.root}>
     {invert ? (
-      <Invert>
-        <Image source={logos.iconnode} style={styles.image} />
-      </Invert>
+      <Image source={logos.iconnodeinverted} style={styles.image} />
     ) : (
       <Image source={logos.iconnode} style={styles.image} />
     )}
